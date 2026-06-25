@@ -14,11 +14,33 @@
 html,body{height:100%;overscroll-behavior:none}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F0F3F8;min-height:100vh}
 
+/* ── LOGIN ── */
+#loginScreen{position:fixed;inset:0;background:#0F2744;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;padding:32px 24px}
+#loginScreen.hidden{display:none}
+.login-logo{width:72px;height:72px;background:#E8720C;border-radius:18px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:28px;color:white;margin-bottom:20px}
+.login-title{font-size:22px;font-weight:800;color:white;margin-bottom:4px}
+.login-sub{font-size:14px;color:rgba(255,255,255,0.45);margin-bottom:40px}
+.login-box{background:rgba(255,255,255,0.07);border-radius:20px;padding:24px;width:100%;max-width:340px}
+.login-label{font-size:11px;font-weight:700;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;display:block}
+.login-input{width:100%;padding:14px 16px;border:1.5px solid rgba(255,255,255,0.15);border-radius:13px;font-size:18px;outline:none;background:rgba(255,255,255,0.08);color:white;font-family:inherit;letter-spacing:3px;transition:border .15s}
+.login-input::placeholder{letter-spacing:0;color:rgba(255,255,255,0.25);font-size:15px}
+.login-input:focus{border-color:#00B4D8}
+.login-btn{width:100%;margin-top:16px;padding:15px;border:none;border-radius:14px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;background:#E8720C;color:white;transition:opacity .15s}
+.login-btn:active{opacity:.82}
+.login-err{text-align:center;color:#FF6B6B;font-size:13px;margin-top:12px;min-height:20px}
+
+/* ── APP ── */
+#app{display:none}
+#app.visible{display:block}
+
 .header{background:linear-gradient(135deg,#0F2744 0%,#164E8A 100%);color:white;padding:20px 16px 24px;padding-top:calc(env(safe-area-inset-top,0px) + 20px)}
-.header-brand{display:flex;align-items:center;gap:10px;margin-bottom:16px}
-.logo-mark{width:36px;height:36px;background:#E8720C;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:white;letter-spacing:-0.5px;flex-shrink:0}
-.brand-name{font-size:13px;font-weight:600;opacity:0.9;letter-spacing:0.3px}
-.brand-sub{font-size:11px;opacity:0.5;margin-top:1px}
+.header-brand{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.brand-left{display:flex;align-items:center;gap:10px}
+.logo-mark{width:36px;height:36px;background:#E8720C;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:white;flex-shrink:0}
+.brand-name{font-size:13px;font-weight:600;opacity:0.9}
+.brand-sub{font-size:11px;opacity:0.45;margin-top:1px}
+.logout-btn{background:rgba(255,255,255,0.1);border:none;color:rgba(255,255,255,0.55);font-size:12px;padding:6px 12px;border-radius:20px;cursor:pointer;font-family:inherit}
+
 .header-label{font-size:11px;opacity:0.5;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px}
 .header-total{font-size:38px;font-weight:800;letter-spacing:-1.5px}
 .header-sub{font-size:13px;opacity:0.5;margin-top:2px}
@@ -76,7 +98,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 label{display:block;font-size:11px;font-weight:700;color:#AAA;text-transform:uppercase;letter-spacing:0.9px;margin:16px 0 6px}
 label:first-of-type{margin-top:8px}
-input,select,textarea{width:100%;padding:13px 14px;border:1.5px solid #EBEBEB;border-radius:13px;font-size:16px;outline:none;background:#FAFAFA;font-family:inherit;transition:border .15s;-webkit-appearance:none;color:#0F2744}
+input[type=text],input[type=number],input[type=date],select,textarea{width:100%;padding:13px 14px;border:1.5px solid #EBEBEB;border-radius:13px;font-size:16px;outline:none;background:#FAFAFA;font-family:inherit;transition:border .15s;-webkit-appearance:none;color:#0F2744}
 input:focus,select:focus,textarea:focus{border-color:#00B4D8;background:white}
 textarea{resize:none;height:72px;font-size:15px}
 
@@ -96,13 +118,32 @@ textarea{resize:none;height:72px;font-size:15px}
 </head>
 <body>
 
+<!-- ══ ЭКРАН ВХОДА ══ -->
+<div id="loginScreen">
+  <div class="login-logo">СК</div>
+  <div class="login-title">СтройКонтроль</div>
+  <div class="login-sub">Учёт дебиторской задолженности</div>
+  <div class="login-box">
+    <span class="login-label">Пароль</span>
+    <input class="login-input" type="password" id="pwdInput" placeholder="Введи пароль" onkeydown="if(event.key==='Enter')tryLogin()">
+    <button class="login-btn" onclick="tryLogin()">Войти</button>
+    <div class="login-err" id="loginErr"></div>
+  </div>
+</div>
+
+<!-- ══ ПРИЛОЖЕНИЕ ══ -->
+<div id="app">
+
 <div class="header">
   <div class="header-brand">
-    <div class="logo-mark">СК</div>
-    <div>
-      <div class="brand-name">СтройКонтроль</div>
-      <div class="brand-sub">Учёт дебиторской задолженности</div>
+    <div class="brand-left">
+      <div class="logo-mark">СК</div>
+      <div>
+        <div class="brand-name">СтройКонтроль</div>
+        <div class="brand-sub">Дебиторская задолженность</div>
+      </div>
     </div>
+    <button class="logout-btn" onclick="logout()">Выйти</button>
   </div>
   <div class="header-label">Итого к получению</div>
   <div class="header-total" id="hTotal">₽0</div>
@@ -189,16 +230,58 @@ textarea{resize:none;height:72px;font-size:15px}
   </div>
 </div>
 
+</div><!-- end #app -->
+
 <script>
-const KEY='sk_debts_v2';
+// ══ ПАРОЛЬ — меняй здесь ══
+const PASSWORD = 'sk2024';
+// ══════════════════════════
+
+const AUTH_KEY = 'sk_auth_v1';
+const DATA_KEY = 'sk_debts_v2';
+
+function tryLogin(){
+  const val = document.getElementById('pwdInput').value;
+  if(val === PASSWORD){
+    localStorage.setItem(AUTH_KEY,'1');
+    showApp();
+  } else {
+    const err = document.getElementById('loginErr');
+    err.textContent = 'Неверный пароль';
+    document.getElementById('pwdInput').value='';
+    setTimeout(()=>err.textContent='', 2500);
+  }
+}
+
+function logout(){
+  if(!confirm('Выйти из аккаунта?'))return;
+  localStorage.removeItem(AUTH_KEY);
+  document.getElementById('app').style.display='none';
+  document.getElementById('loginScreen').classList.remove('hidden');
+  document.getElementById('pwdInput').value='';
+}
+
+function showApp(){
+  document.getElementById('loginScreen').classList.add('hidden');
+  document.getElementById('app').style.display='block';
+  load();
+}
+
+// Проверяем при загрузке
+if(localStorage.getItem(AUTH_KEY)==='1'){
+  showApp();
+}
+
+// ══ ЛОГИКА ДОЛГОВ ══
 let debts=[],filter='all',activeId=null;
 const ST={
   waiting:{label:'⏳ Ожидание',color:'#B45309',bg:'#FEF9C3'},
   overdue:{label:'🔴 Просрочка',color:'#DC2626',bg:'#FEE2E2'},
   paid:{label:'✅ Оплачено',color:'#059669',bg:'#D1FAE5'}
 };
-function load(){try{debts=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){debts=[]}render()}
-function save(){localStorage.setItem(KEY,JSON.stringify(debts))}
+
+function load(){try{debts=JSON.parse(localStorage.getItem(DATA_KEY)||'[]')}catch(e){debts=[]}render()}
+function save(){localStorage.setItem(DATA_KEY,JSON.stringify(debts))}
 function fmt(n){return'₽'+Math.round(Math.max(0,n)).toLocaleString('ru-RU')}
 function fmtDate(s){if(!s)return'';const d=new Date(s+'T00:00:00');return d.toLocaleDateString('ru-RU',{day:'numeric',month:'short'})}
 function isLate(dl){return dl&&new Date(dl+'T23:59:59')<new Date()}
@@ -297,8 +380,6 @@ function doDelete(){
 }
 function openStatus(id){activeId=id;openSheet('status')}
 function setStatus(s){debts=debts.map(d=>d.id===activeId?{...d,status:s}:d);save();render();closeSheet('statusSheet')}
-
-load();
 </script>
 </body>
 </html>
