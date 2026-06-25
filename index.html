@@ -14,7 +14,6 @@
 html,body{height:100%;overscroll-behavior:none}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F0F3F8;min-height:100vh}
 
-/* ── LOGIN ── */
 #loginScreen{position:fixed;inset:0;background:#0F2744;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;padding:32px 24px}
 #loginScreen.hidden{display:none}
 .login-logo{width:72px;height:72px;background:#E8720C;border-radius:18px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:28px;color:white;margin-bottom:20px}
@@ -25,25 +24,25 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .login-input{width:100%;padding:14px 16px;border:1.5px solid rgba(255,255,255,0.15);border-radius:13px;font-size:18px;outline:none;background:rgba(255,255,255,0.08);color:white;font-family:inherit;letter-spacing:3px;transition:border .15s}
 .login-input::placeholder{letter-spacing:0;color:rgba(255,255,255,0.25);font-size:15px}
 .login-input:focus{border-color:#00B4D8}
-.login-btn{width:100%;margin-top:16px;padding:15px;border:none;border-radius:14px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;background:#E8720C;color:white;transition:opacity .15s}
-.login-btn:active{opacity:.82}
+.login-btn{width:100%;margin-top:16px;padding:15px;border:none;border-radius:14px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;background:#E8720C;color:white}
 .login-err{text-align:center;color:#FF6B6B;font-size:13px;margin-top:12px;min-height:20px}
 
-/* ── APP ── */
 #app{display:none}
-#app.visible{display:block}
 
 .header{background:linear-gradient(135deg,#0F2744 0%,#164E8A 100%);color:white;padding:20px 16px 24px;padding-top:calc(env(safe-area-inset-top,0px) + 20px)}
 .header-brand{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .brand-left{display:flex;align-items:center;gap:10px}
 .logo-mark{width:36px;height:36px;background:#E8720C;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:white;flex-shrink:0}
-.brand-name{font-size:13px;font-weight:600;opacity:0.9}
-.brand-sub{font-size:11px;opacity:0.45;margin-top:1px}
+.brand-name{font-size:13px;font-weight:600;opacity:.9}
+.brand-sub{font-size:11px;opacity:.45;margin-top:1px}
+.sync-badge{font-size:11px;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.7)}
+.sync-badge.ok{background:rgba(16,185,129,0.25);color:#6EE7B7}
+.sync-badge.err{background:rgba(239,68,68,0.25);color:#FCA5A5}
 .logout-btn{background:rgba(255,255,255,0.1);border:none;color:rgba(255,255,255,0.55);font-size:12px;padding:6px 12px;border-radius:20px;cursor:pointer;font-family:inherit}
 
-.header-label{font-size:11px;opacity:0.5;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px}
+.header-label{font-size:11px;opacity:.5;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px}
 .header-total{font-size:38px;font-weight:800;letter-spacing:-1.5px}
-.header-sub{font-size:13px;opacity:0.5;margin-top:2px}
+.header-sub{font-size:13px;opacity:.5;margin-top:2px}
 .header-stats{display:flex;gap:8px;margin-top:14px}
 .pill{background:rgba(255,255,255,0.12);border-radius:20px;padding:5px 11px;font-size:12px;display:flex;align-items:center;gap:5px}
 
@@ -66,7 +65,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .card-nums{padding:2px 16px 8px;display:flex}
 .nb{flex:1;padding:8px 0}
 .nb+.nb{border-left:1px solid #F0F0F0;padding-left:14px}
-.nl{font-size:10px;color:#CCC;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:3px}
+.nl{font-size:10px;color:#CCC;text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px}
 .nv{font-size:19px;font-weight:800;color:#0F2744}
 .nv.rem{color:#00B4D8}
 .nv.done{color:#10B981}
@@ -85,6 +84,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .empty-icon{font-size:52px;margin-bottom:14px}
 .empty-text{font-size:15px;line-height:1.6}
 
+.loading{text-align:center;padding:60px 20px;color:#AAA;font-size:15px}
+.spinner{width:36px;height:36px;border:3px solid #E0E0E0;border-top-color:#00B4D8;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
 .fab{position:fixed;bottom:calc(env(safe-area-inset-bottom,0px) + 24px);right:20px;width:58px;height:58px;background:#E8720C;color:white;border:none;border-radius:50%;font-size:30px;cursor:pointer;box-shadow:0 4px 24px rgba(232,114,12,0.45);display:flex;align-items:center;justify-content:center;z-index:100;transition:transform .1s;font-family:inherit}
 .fab:active{transform:scale(0.92)}
 
@@ -96,7 +99,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .sh-title{font-size:20px;font-weight:800;color:#0F2744;margin-bottom:4px}
 .sh-sub{font-size:13px;color:#999;margin-bottom:16px}
 
-label{display:block;font-size:11px;font-weight:700;color:#AAA;text-transform:uppercase;letter-spacing:0.9px;margin:16px 0 6px}
+label{display:block;font-size:11px;font-weight:700;color:#AAA;text-transform:uppercase;letter-spacing:.9px;margin:16px 0 6px}
 label:first-of-type{margin-top:8px}
 input[type=text],input[type=number],input[type=date],select,textarea{width:100%;padding:13px 14px;border:1.5px solid #EBEBEB;border-radius:13px;font-size:16px;outline:none;background:#FAFAFA;font-family:inherit;transition:border .15s;-webkit-appearance:none;color:#0F2744}
 input:focus,select:focus,textarea:focus{border-color:#00B4D8;background:white}
@@ -118,7 +121,6 @@ textarea{resize:none;height:72px;font-size:15px}
 </head>
 <body>
 
-<!-- ══ ЭКРАН ВХОДА ══ -->
 <div id="loginScreen">
   <div class="login-logo">СК</div>
   <div class="login-title">СтройКонтроль</div>
@@ -131,38 +133,42 @@ textarea{resize:none;height:72px;font-size:15px}
   </div>
 </div>
 
-<!-- ══ ПРИЛОЖЕНИЕ ══ -->
 <div id="app">
-
-<div class="header">
-  <div class="header-brand">
-    <div class="brand-left">
-      <div class="logo-mark">СК</div>
-      <div>
-        <div class="brand-name">СтройКонтроль</div>
-        <div class="brand-sub">Дебиторская задолженность</div>
+  <div class="header">
+    <div class="header-brand">
+      <div class="brand-left">
+        <div class="logo-mark">СК</div>
+        <div>
+          <div class="brand-name">СтройКонтроль</div>
+          <div class="brand-sub">Дебиторская задолженность</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span class="sync-badge" id="syncBadge">🔄 синхронизация</span>
+        <button class="logout-btn" onclick="logout()">Выйти</button>
       </div>
     </div>
-    <button class="logout-btn" onclick="logout()">Выйти</button>
+    <div class="header-label">Итого к получению</div>
+    <div class="header-total" id="hTotal">₽0</div>
+    <div class="header-sub" id="hSub">загрузка...</div>
+    <div class="header-stats">
+      <div class="pill">⏳ <span id="sW">0</span> ожидание</div>
+      <div class="pill">🔴 <span id="sO">0</span> просрочка</div>
+      <div class="pill">✅ <span id="sP">0</span> закрыто</div>
+    </div>
   </div>
-  <div class="header-label">Итого к получению</div>
-  <div class="header-total" id="hTotal">₽0</div>
-  <div class="header-sub" id="hSub">нет активных долгов</div>
-  <div class="header-stats">
-    <div class="pill">⏳ <span id="sW">0</span> ожидание</div>
-    <div class="pill">🔴 <span id="sO">0</span> просрочка</div>
-    <div class="pill">✅ <span id="sP">0</span> закрыто</div>
+
+  <div class="nav">
+    <button class="nav-btn active" onclick="setFilter('all')" id="nAll">Все</button>
+    <button class="nav-btn" onclick="setFilter('active')" id="nActive">Активные</button>
+    <button class="nav-btn" onclick="setFilter('paid')" id="nPaid">Закрытые</button>
   </div>
-</div>
 
-<div class="nav">
-  <button class="nav-btn active" onclick="setFilter('all')" id="nAll">Все</button>
-  <button class="nav-btn" onclick="setFilter('active')" id="nActive">Активные</button>
-  <button class="nav-btn" onclick="setFilter('paid')" id="nPaid">Закрытые</button>
+  <div class="cards" id="list">
+    <div class="loading"><div class="spinner"></div>Загружаю данные...</div>
+  </div>
+  <button class="fab" onclick="openSheet('add')">+</button>
 </div>
-
-<div class="cards" id="list"></div>
-<button class="fab" onclick="openSheet('add')">+</button>
 
 <!-- ADD -->
 <div class="overlay" id="addSheet">
@@ -230,15 +236,31 @@ textarea{resize:none;height:72px;font-size:15px}
   </div>
 </div>
 
-</div><!-- end #app -->
-
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <script>
-// ══ ПАРОЛЬ — меняй здесь ══
 const PASSWORD = 'sk2024';
-// ══════════════════════════
-
 const AUTH_KEY = 'sk_auth_v1';
-const DATA_KEY = 'sk_debts_v2';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAnx4JQF-CJBLUSS8UJItNTMhN_y4y3mJI",
+  authDomain: "stroykontrol-dolgi.firebaseapp.com",
+  projectId: "stroykontrol-dolgi",
+  storageBucket: "stroykontrol-dolgi.firebasestorage.app",
+  messagingSenderId: "64287601186",
+  appId: "1:64287601186:web:01b619d40c5ab71afb107b"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+let debts = [], filter = 'all', activeId = null, unsubscribe = null;
+
+const ST = {
+  waiting: {label:'⏳ Ожидание', color:'#B45309', bg:'#FEF9C3'},
+  overdue:  {label:'🔴 Просрочка', color:'#DC2626', bg:'#FEE2E2'},
+  paid:     {label:'✅ Оплачено',  color:'#059669', bg:'#D1FAE5'}
+};
 
 function tryLogin(){
   const val = document.getElementById('pwdInput').value;
@@ -248,69 +270,78 @@ function tryLogin(){
   } else {
     const err = document.getElementById('loginErr');
     err.textContent = 'Неверный пароль';
-    document.getElementById('pwdInput').value='';
+    document.getElementById('pwdInput').value = '';
     setTimeout(()=>err.textContent='', 2500);
   }
 }
 
 function logout(){
-  if(!confirm('Выйти из аккаунта?'))return;
+  if(!confirm('Выйти?')) return;
+  if(unsubscribe) unsubscribe();
   localStorage.removeItem(AUTH_KEY);
-  document.getElementById('app').style.display='none';
+  document.getElementById('app').style.display = 'none';
   document.getElementById('loginScreen').classList.remove('hidden');
-  document.getElementById('pwdInput').value='';
+  document.getElementById('pwdInput').value = '';
 }
 
 function showApp(){
   document.getElementById('loginScreen').classList.add('hidden');
-  document.getElementById('app').style.display='block';
-  load();
+  document.getElementById('app').style.display = 'block';
+  startSync();
 }
 
-// Проверяем при загрузке
-if(localStorage.getItem(AUTH_KEY)==='1'){
-  showApp();
+function startSync(){
+  setSyncBadge('loading');
+  unsubscribe = db.collection('debts')
+    .orderBy('createdAt','desc')
+    .onSnapshot(snap => {
+      debts = snap.docs.map(d => ({id: d.id, ...d.data()}));
+      setSyncBadge('ok');
+      render();
+    }, err => {
+      console.error(err);
+      setSyncBadge('err');
+    });
 }
 
-// ══ ЛОГИКА ДОЛГОВ ══
-let debts=[],filter='all',activeId=null;
-const ST={
-  waiting:{label:'⏳ Ожидание',color:'#B45309',bg:'#FEF9C3'},
-  overdue:{label:'🔴 Просрочка',color:'#DC2626',bg:'#FEE2E2'},
-  paid:{label:'✅ Оплачено',color:'#059669',bg:'#D1FAE5'}
-};
+function setSyncBadge(state){
+  const b = document.getElementById('syncBadge');
+  b.className = 'sync-badge';
+  if(state === 'ok'){ b.className += ' ok'; b.textContent = '✓ синхронизировано'; }
+  else if(state === 'err'){ b.className += ' err'; b.textContent = '✗ нет связи'; }
+  else { b.textContent = '🔄 синхронизация'; }
+}
 
-function load(){try{debts=JSON.parse(localStorage.getItem(DATA_KEY)||'[]')}catch(e){debts=[]}render()}
-function save(){localStorage.setItem(DATA_KEY,JSON.stringify(debts))}
-function fmt(n){return'₽'+Math.round(Math.max(0,n)).toLocaleString('ru-RU')}
-function fmtDate(s){if(!s)return'';const d=new Date(s+'T00:00:00');return d.toLocaleDateString('ru-RU',{day:'numeric',month:'short'})}
-function isLate(dl){return dl&&new Date(dl+'T23:59:59')<new Date()}
+function fmt(n){ return '₽'+Math.round(Math.max(0,n)).toLocaleString('ru-RU') }
+function fmtDate(s){ if(!s)return''; const d=new Date(s+'T00:00:00'); return d.toLocaleDateString('ru-RU',{day:'numeric',month:'short'}) }
+function isLate(dl){ return dl && new Date(dl+'T23:59:59') < new Date() }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') }
 
 function render(){
-  const active=debts.filter(d=>d.status!=='paid');
-  const total=active.reduce((s,d)=>s+Math.max(0,d.total-d.paid),0);
-  document.getElementById('hTotal').textContent=fmt(total);
-  document.getElementById('hSub').textContent=active.length?active.length+' активных долгов':'нет активных долгов';
-  document.getElementById('sW').textContent=debts.filter(d=>d.status==='waiting').length;
-  document.getElementById('sO').textContent=debts.filter(d=>d.status==='overdue').length;
-  document.getElementById('sP').textContent=debts.filter(d=>d.status==='paid').length;
+  const active = debts.filter(d=>d.status!=='paid');
+  const total = active.reduce((s,d)=>s+Math.max(0,(d.total||0)-(d.paid||0)),0);
+  document.getElementById('hTotal').textContent = fmt(total);
+  document.getElementById('hSub').textContent = active.length ? active.length+' активных долгов' : 'нет активных долгов';
+  document.getElementById('sW').textContent = debts.filter(d=>d.status==='waiting').length;
+  document.getElementById('sO').textContent = debts.filter(d=>d.status==='overdue').length;
+  document.getElementById('sP').textContent = debts.filter(d=>d.status==='paid').length;
 
-  let list=debts;
-  if(filter==='active')list=debts.filter(d=>d.status!=='paid');
-  if(filter==='paid')list=debts.filter(d=>d.status==='paid');
+  let list = debts;
+  if(filter==='active') list = debts.filter(d=>d.status!=='paid');
+  if(filter==='paid')   list = debts.filter(d=>d.status==='paid');
 
-  const el=document.getElementById('list');
+  const el = document.getElementById('list');
   if(!list.length){
-    el.innerHTML=`<div class="empty"><div class="empty-icon">💸</div><div class="empty-text">Долгов нет — либо все заплатили,<br>либо ты ещё не добавила 😉</div></div>`;
+    el.innerHTML = `<div class="empty"><div class="empty-icon">💸</div><div class="empty-text">Долгов нет — либо все заплатили,<br>либо ты ещё не добавила 😉</div></div>`;
     return;
   }
-  el.innerHTML=list.map(d=>{
-    const rem=Math.max(0,d.total-d.paid);
-    const pct=d.total>0?Math.min(100,(d.paid/d.total)*100):0;
-    const st=ST[d.status]||ST.waiting;
-    const late=d.status!=='paid'&&isLate(d.deadline);
-    const rc=d.status==='paid'||rem===0?'done':'rem';
-    return`<div class="card">
+  el.innerHTML = list.map(d=>{
+    const rem = Math.max(0,(d.total||0)-(d.paid||0));
+    const pct = d.total>0 ? Math.min(100,((d.paid||0)/d.total)*100) : 0;
+    const st = ST[d.status]||ST.waiting;
+    const late = d.status!=='paid' && isLate(d.deadline);
+    const rc = (d.status==='paid'||rem===0) ? 'done' : 'rem';
+    return `<div class="card">
       <div class="card-top">
         <div><div class="card-client">${esc(d.client)}</div>${d.project?`<div class="card-project">${esc(d.project)}</div>`:''}</div>
         <span class="badge" style="color:${st.color};background:${st.bg}">${st.label}</span>
@@ -318,8 +349,8 @@ function render(){
       <div class="prog"><div class="prog-fill" style="width:${pct}%"></div></div>
       <div class="card-nums">
         <div class="nb"><div class="nl">Остаток</div><div class="nv ${rc}">${fmt(rem)}</div></div>
-        <div class="nb"><div class="nl">Всего</div><div class="nv sm">${fmt(d.total)}</div></div>
-        <div class="nb"><div class="nl">Оплачено</div><div class="nv sm">${fmt(d.paid)}</div></div>
+        <div class="nb"><div class="nl">Всего</div><div class="nv sm">${fmt(d.total||0)}</div></div>
+        <div class="nb"><div class="nl">Оплачено</div><div class="nv sm">${fmt(d.paid||0)}</div></div>
       </div>
       ${d.notes?`<div class="card-note">${esc(d.notes)}</div>`:''}
       <div class="card-foot">
@@ -329,57 +360,76 @@ function render(){
           <button class="btn pay" onclick="openPay('${d.id}')">+ Оплата</button>
         </div>
       </div>
-    </div>`}).join('');
+    </div>`;
+  }).join('');
 }
 
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-
 function setFilter(f){
-  filter=f;
+  filter = f;
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('n'+f.charAt(0).toUpperCase()+f.slice(1)).classList.add('active');
   render();
 }
 
-function openSheet(id){document.getElementById(id+'Sheet').classList.add('open')}
-function closeSheet(id){document.getElementById(id).classList.remove('open')}
+function openSheet(id){ document.getElementById(id+'Sheet').classList.add('open') }
+function closeSheet(id){ document.getElementById(id).classList.remove('open') }
 document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')}));
 
 function addDebt(){
-  const client=document.getElementById('fC').value.trim();
+  const client = document.getElementById('fC').value.trim();
   if(!client){alert('Введи имя клиента');return}
-  const total=parseFloat(document.getElementById('fT').value)||0;
+  const total = parseFloat(document.getElementById('fT').value)||0;
   if(!total){alert('Введи сумму долга');return}
-  const paid=parseFloat(document.getElementById('fPd').value)||0;
-  let status=document.getElementById('fSt').value;
-  if(paid>=total)status='paid';
-  debts.unshift({id:Date.now().toString(),client,project:document.getElementById('fPr').value.trim(),total,paid,status,deadline:document.getElementById('fDl').value,notes:document.getElementById('fN').value.trim(),createdAt:new Date().toISOString()});
-  save();render();closeSheet('addSheet');
+  const paid = parseFloat(document.getElementById('fPd').value)||0;
+  let status = document.getElementById('fSt').value;
+  if(paid>=total) status='paid';
+  db.collection('debts').add({
+    client, project: document.getElementById('fPr').value.trim(),
+    total, paid, status,
+    deadline: document.getElementById('fDl').value,
+    notes: document.getElementById('fN').value.trim(),
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  });
+  closeSheet('addSheet');
   ['fC','fPr','fT','fPd','fDl','fN'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('fSt').value='waiting';
 }
 
 function openPay(id){
-  activeId=id;
-  const d=debts.find(x=>x.id===id);
-  document.getElementById('payTitle').textContent='+ Оплата — '+d.client;
-  document.getElementById('payInfo').textContent='Остаток: '+fmt(d.total-d.paid)+' из '+fmt(d.total);
-  document.getElementById('fPay').value='';
+  activeId = id;
+  const d = debts.find(x=>x.id===id);
+  document.getElementById('payTitle').textContent = '+ Оплата — '+d.client;
+  document.getElementById('payInfo').textContent = 'Остаток: '+fmt((d.total||0)-(d.paid||0))+' из '+fmt(d.total||0);
+  document.getElementById('fPay').value = '';
   openSheet('pay');
 }
+
 function submitPay(){
-  const a=parseFloat(document.getElementById('fPay').value)||0;
+  const a = parseFloat(document.getElementById('fPay').value)||0;
   if(a<=0){alert('Введи сумму');return}
-  debts=debts.map(d=>{if(d.id!==activeId)return d;const np=d.paid+a;return{...d,paid:np,status:np>=d.total?'paid':d.status}});
-  save();render();closeSheet('paySheet');
+  const d = debts.find(x=>x.id===activeId);
+  const newPaid = (d.paid||0)+a;
+  db.collection('debts').doc(activeId).update({
+    paid: newPaid,
+    status: newPaid>=(d.total||0) ? 'paid' : d.status
+  });
+  closeSheet('paySheet');
 }
+
 function doDelete(){
-  if(!confirm('Удалить этот долг?'))return;
-  debts=debts.filter(d=>d.id!==activeId);
-  save();render();closeSheet('paySheet');
+  if(!confirm('Удалить этот долг?')) return;
+  db.collection('debts').doc(activeId).delete();
+  closeSheet('paySheet');
 }
-function openStatus(id){activeId=id;openSheet('status')}
-function setStatus(s){debts=debts.map(d=>d.id===activeId?{...d,status:s}:d);save();render();closeSheet('statusSheet')}
+
+function openStatus(id){ activeId=id; openSheet('status') }
+
+function setStatus(s){
+  db.collection('debts').doc(activeId).update({status:s});
+  closeSheet('statusSheet');
+}
+
+if(localStorage.getItem(AUTH_KEY)==='1') showApp();
 </script>
 </body>
 </html>
