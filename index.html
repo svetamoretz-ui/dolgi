@@ -12,11 +12,11 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overscroll-behavior:none}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F0F3F8;min-height:100vh}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F0F3F8}
 
 /* LOGIN */
-#loginScreen{position:fixed;inset:0;background:#0F2744;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;padding:32px 24px}
-#loginScreen.hidden{display:none}
+#login{position:fixed;inset:0;background:#0F2744;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;padding:32px 24px}
+#login.hidden{display:none}
 .l-logo{width:72px;height:72px;background:#E8720C;border-radius:18px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:28px;color:white;margin-bottom:20px}
 .l-title{font-size:22px;font-weight:800;color:white;margin-bottom:4px}
 .l-sub{font-size:14px;color:rgba(255,255,255,.45);margin-bottom:40px}
@@ -33,46 +33,56 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 /* HEADER */
 .hdr{background:linear-gradient(135deg,#0F2744,#164E8A);color:white;flex-shrink:0}
-.hdr-row1{display:flex;align-items:center;gap:8px;padding:16px 16px 0;padding-top:calc(env(safe-area-inset-top,0px) + 14px)}
+.hr1{display:flex;align-items:center;gap:8px;padding:16px 16px 0;padding-top:calc(env(safe-area-inset-top,0px)+14px)}
 .back{background:rgba(255,255,255,.12);border:none;color:white;width:34px;height:34px;border-radius:50%;font-size:18px;cursor:pointer;display:none;align-items:center;justify-content:center;flex-shrink:0;font-family:inherit}
 .back.show{display:flex}
 .crumb{font-size:12px;opacity:.55;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.hdr-btns{display:flex;gap:6px;align-items:center}
-.sync{width:8px;height:8px;border-radius:50%;background:#FCD34D;flex-shrink:0;transition:background .3s}
-.sync.ok{background:#6EE7B7}
-.sync.err{background:#FCA5A5}
-.hdr-btn{background:rgba(255,255,255,.1);border:none;color:white;width:34px;height:34px;border-radius:50%;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:inherit}
-.hdr-summary{padding:14px 16px 18px}
-.hdr-lbl{font-size:11px;opacity:.5;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px}
-.hdr-amt{font-size:34px;font-weight:800;letter-spacing:-1.5px}
-.hdr-info{font-size:12px;opacity:.5;margin-top:2px}
-.search-wrap{background:#0F2744;padding:0 16px 12px}
+.hr-btns{display:flex;gap:6px;align-items:center}
+.sync{width:8px;height:8px;border-radius:50%;background:#FCD34D;flex-shrink:0;transition:background .3s;margin-right:2px}
+.sync.ok{background:#6EE7B7}.sync.err{background:#FCA5A5}
+.hb{background:rgba(255,255,255,.1);border:none;color:white;width:34px;height:34px;border-radius:50%;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:inherit}
+.edit-org{background:none;border:none;color:rgba(255,255,255,.7);font-size:13px;cursor:pointer;font-family:inherit;padding:4px 8px;display:none}
+.edit-org.show{display:block}
+.hsum{padding:14px 16px 18px}
+.hl{font-size:11px;opacity:.5;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px}
+.ha{font-size:34px;font-weight:800;letter-spacing:-1.5px}
+.hi{font-size:12px;opacity:.5;margin-top:2px}
+.sw{padding:0 16px 12px}
 .search{width:100%;padding:10px 14px 10px 38px;border:none;border-radius:12px;font-size:14px;background:rgba(255,255,255,.1);color:white;font-family:inherit;outline:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,.4)' stroke-width='2.5'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:12px center}
 .search::placeholder{color:rgba(255,255,255,.35)}
 
 /* CONTENT */
-.content{flex:1;overflow-y:auto;padding:12px 16px 90px}
+.content{flex:1;overflow-y:auto;padding:12px 16px 100px;-webkit-overflow-scrolling:touch}
 
 /* CARDS */
-.card{background:white;border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,.06);margin-bottom:10px;overflow:hidden;cursor:pointer;transition:opacity .1s}
-.card:active{opacity:.88}
+.card{background:white;border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,.06);margin-bottom:10px;overflow:hidden}
+.card-tap{cursor:pointer;transition:opacity .1s}
+.card-tap:active{opacity:.88}
 .ct{padding:14px 16px 0;display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.cti{flex:1;min-width:0}
 .cn{font-size:16px;font-weight:700;color:#0F2744}
 .cs{font-size:12px;color:#999;margin-top:2px}
 .badge{font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0}
 .cb{padding:8px 16px 14px}
 .cr{display:flex;justify-content:space-between;align-items:center;margin-top:6px}
-.cl{font-size:11px;color:#CCC;text-transform:uppercase;letter-spacing:.7px}
+.cl{font-size:11px;color:#BBB;text-transform:uppercase;letter-spacing:.7px}
 .cv{font-size:15px;font-weight:800;color:#0F2744}
-.cv.blue{color:#00B4D8}
-.cv.purple{color:#7C3AED}
-.cv.gray{font-size:13px;font-weight:600;color:#AAA}
+.cv.blue{color:#00B4D8}.cv.purple{color:#7C3AED}.cv.gray{font-size:13px;font-weight:600;color:#AAA}
 .prog{height:3px;background:#F0F0F0;margin:4px 16px 0;border-radius:10px;overflow:hidden}
 .pf{height:100%;background:linear-gradient(90deg,#00B4D8,#0F2744);border-radius:10px}
-.previews{padding:6px 16px 12px;display:flex;flex-direction:column;gap:3px}
-.prev{display:flex;justify-content:space-between;align-items:center;padding:5px 8px;background:#F8F9FC;border-radius:8px}
-.pn{font-size:12px;color:#555;font-weight:500}
-.pa{font-size:12px;color:#0F2744;font-weight:700}
+.previews{padding:4px 16px 12px;display:flex;flex-direction:column;gap:3px}
+.prev{display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:#F8F9FC;border-radius:8px;gap:8px}
+.pn{font-size:12px;color:#555;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pa{font-size:12px;font-weight:700;flex-shrink:0}
+.pmore{font-size:11px;color:#AAA;padding:2px 10px}
+
+/* CARD ACTIONS (edit row) */
+.cacts{display:flex;border-top:1px solid #F2F2F2}
+.cact{flex:1;padding:11px;text-align:center;font-size:13px;font-weight:600;cursor:pointer;background:none;border:none;font-family:inherit;color:#888}
+.cact:active{background:#F8F9FC}
+.cact+.cact{border-left:1px solid #F2F2F2}
+.cact.pay{color:#00B4D8}
+.cact.edit{color:#888}
 
 /* EMPTY / LOADING */
 .empty{text-align:center;padding:60px 20px;color:#CCC}
@@ -81,18 +91,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .spin-box{text-align:center;padding:50px 20px;color:#AAA;font-size:14px}
 .spinner{width:30px;height:30px;border:3px solid #EEE;border-top-color:#00B4D8;border-radius:50%;animation:sp .8s linear infinite;margin:0 auto 12px}
 @keyframes sp{to{transform:rotate(360deg)}}
+.arch-btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;margin-bottom:8px;cursor:pointer;color:#999;font-size:13px;border:1.5px dashed #DDD;border-radius:12px;background:white;font-family:inherit}
 
-/* ARCHIVE */
-.arch-btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;margin-bottom:8px;cursor:pointer;color:#999;font-size:13px;border:1.5px dashed #DDD;border-radius:12px;background:white}
-
-/* FAB */
-.fab{position:fixed;bottom:calc(env(safe-area-inset-bottom,0px)+20px);right:20px;width:56px;height:56px;background:#E8720C;color:white;border:none;border-radius:50%;font-size:28px;cursor:pointer;box-shadow:0 4px 20px rgba(232,114,12,.4);display:flex;align-items:center;justify-content:center;z-index:50;font-family:inherit;transition:transform .1s}
+/* FAB GROUP */
+.fab-group{position:fixed;bottom:calc(env(safe-area-inset-bottom,0px)+22px);right:20px;display:flex;flex-direction:column;gap:12px;z-index:50}
+.fab{width:56px;height:56px;border:none;border-radius:50%;font-size:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:inherit;transition:transform .1s;color:white;font-weight:300}
 .fab:active{transform:scale(.92)}
+.fab.add{background:#E8720C;box-shadow:0 4px 20px rgba(232,114,12,.45)}
+.fab.pay{background:#00B4D8;box-shadow:0 4px 20px rgba(0,180,216,.45);font-size:30px;font-weight:400}
+.fab-lbl{position:absolute;right:64px;top:50%;transform:translateY(-50%);background:rgba(15,39,68,.92);color:white;font-size:12px;padding:5px 10px;border-radius:8px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s}
 
 /* OVERLAY / SHEET */
 .ov{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:flex;align-items:flex-end;opacity:0;pointer-events:none;transition:opacity .2s}
 .ov.on{opacity:1;pointer-events:all}
-.sh{background:white;border-radius:24px 24px 0 0;padding:20px 20px calc(env(safe-area-inset-bottom,0px)+32px);width:100%;max-height:90vh;overflow-y:auto;transform:translateY(100%);transition:transform .25s cubic-bezier(.4,0,.2,1)}
+.sh{background:white;border-radius:24px 24px 0 0;padding:20px 20px calc(env(safe-area-inset-bottom,0px)+28px);width:100%;max-height:90vh;overflow-y:auto;transform:translateY(100%);transition:transform .25s cubic-bezier(.4,0,.2,1)}
 .ov.on .sh{transform:translateY(0)}
 .handle{width:40px;height:4px;background:#E0E0E0;border-radius:2px;margin:0 auto 18px}
 .sht{font-size:20px;font-weight:800;color:#0F2744;margin-bottom:4px}
@@ -103,6 +115,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .fl:first-of-type{margin-top:8px}
 .fi{width:100%;padding:13px 14px;border:1.5px solid #EBEBEB;border-radius:13px;font-size:16px;outline:none;background:#FAFAFA;font-family:inherit;-webkit-appearance:none;color:#0F2744;transition:border .15s}
 .fi:focus{border-color:#00B4D8;background:white}
+select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%230F2744' stroke-width='3'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
 textarea.fi{resize:none;height:80px;font-size:15px}
 
 /* BTNS */
@@ -114,35 +127,35 @@ textarea.fi{resize:none;height:80px;font-size:15px}
 .sb.red{background:#FEE2E2;color:#DC2626}
 .sb.gray{background:#F0F3F8;color:#555;margin-top:10px}
 
-/* PAYMENT LIST */
+/* PAYMENT ITEM */
 .pi{display:flex;align-items:flex-start;gap:10px;padding:12px 0;border-bottom:1px solid #F5F5F5}
 .pi:last-child{border-bottom:none}
-.pi-left{flex:1}
+.pi-l{flex:1}
 .pi-amt{font-size:16px;font-weight:800;color:#059669}
 .pi-date{font-size:12px;color:#999;margin-top:1px}
-.pi-note{font-size:12px;color:#BBB;margin-top:2px;font-style:italic}
+.pi-note{font-style:italic;color:#BBB}
 .pi-del{background:none;border:none;color:#DDD;font-size:16px;cursor:pointer;padding:4px;flex-shrink:0}
 
-/* STATUS ROWS */
-.str{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid #F5F5F5;cursor:pointer}
-.str:last-child{border-bottom:none}
-.str-ico{font-size:24px;width:32px;text-align:center}
-.str-name{font-size:15px;font-weight:700;color:#0F2744}
-.str-desc{font-size:12px;color:#AAA;margin-top:1px}
+/* PICK LIST (for pay flow) */
+.pick{padding:14px;background:#F8F9FC;border-radius:13px;margin-bottom:8px;cursor:pointer;border:1.5px solid transparent}
+.pick:active{border-color:#00B4D8}
+.pick-n{font-size:15px;font-weight:700;color:#0F2744}
+.pick-s{font-size:12px;color:#999;margin-top:2px}
+.pick-path{font-size:11px;color:#BBB;margin-bottom:3px}
 
 /* INFO BOX */
 .info-box{background:#F8F9FC;border-radius:14px;padding:12px 14px}
-.ir{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:1px solid #F0F0F0}
-.ir:last-child{border-bottom:none}
-.irl{font-size:12px;color:#AAA}
-.irv{font-size:14px;font-weight:600;color:#0F2744;text-align:right;max-width:65%}
-.notes-box{margin-top:10px;padding-top:10px;border-top:1px solid #EEE;font-size:13px;color:#666;line-height:1.6}
+.iir{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:1px solid #F0F0F0}
+.iir:last-child{border-bottom:none}
+.iirl{font-size:12px;color:#AAA}
+.iirv{font-size:14px;font-weight:600;color:#0F2744;text-align:right;max-width:62%}
+.notes-box{margin-top:10px;padding-top:10px;border-top:1px solid #EEE;font-size:13px;color:#666;line-height:1.6;white-space:pre-wrap}
 </style>
 </head>
 <body>
 
 <!-- LOGIN -->
-<div id="loginScreen">
+<div id="login">
   <div class="l-logo">СК</div>
   <div class="l-title">СтройКонтроль</div>
   <div class="l-sub">Менеджер проектов и оплат</div>
@@ -157,42 +170,47 @@ textarea.fi{resize:none;height:80px;font-size:15px}
 <!-- APP -->
 <div id="app">
   <div class="hdr">
-    <div class="hdr-row1">
+    <div class="hr1">
       <button class="back" id="backBtn" onclick="goBack()">←</button>
       <div class="crumb" id="crumb">СтройКонтроль</div>
-      <div class="hdr-btns">
+      <div class="hr-btns">
         <div class="sync" id="sync"></div>
-        <button class="hdr-btn" onclick="openOv('exportOv')" title="Экспорт">📊</button>
-        <button class="hdr-btn" onclick="logout()" title="Выйти">↪</button>
+        <button class="edit-org" id="editOrgBtn" onclick="editCurrentOrg()">✏️ Организация</button>
+        <button class="hb" onclick="openOv('exportOv')" title="Экспорт">📊</button>
+        <button class="hb" onclick="logout()" title="Выйти">↪</button>
       </div>
     </div>
-    <div class="hdr-summary">
-      <div class="hdr-lbl" id="hdrLbl">Итого к получению</div>
-      <div class="hdr-amt" id="hdrAmt">₽0</div>
-      <div class="hdr-info" id="hdrInfo">загрузка...</div>
+    <div class="hsum">
+      <div class="hl" id="hl">Итого к получению</div>
+      <div class="ha" id="ha">₽0</div>
+      <div class="hi" id="hi">загрузка...</div>
     </div>
-    <div class="search-wrap" id="searchWrap">
-      <input class="search" type="search" id="searchInp" placeholder="Поиск организации или объекта..." oninput="doSearch()">
+    <div class="sw" id="sw">
+      <input class="search" type="search" id="searchInp" placeholder="Поиск организации..." oninput="doSearch()">
     </div>
   </div>
   <div class="content" id="content"><div class="spin-box"><div class="spinner"></div>Загрузка...</div></div>
-  <button class="fab" onclick="onFab()">+</button>
+  <div class="fab-group">
+    <button class="fab pay" onclick="onPay()" title="Внести оплату">−</button>
+    <button class="fab add" onclick="onAdd()" title="Добавить">+</button>
+  </div>
 </div>
 
 <!-- ORG SHEET -->
 <div class="ov" id="orgOv"><div class="sh">
   <div class="handle"></div>
-  <div class="sht" id="orgOvTitle">Новая организация</div>
+  <div class="sht" id="orgT">Новая организация</div>
   <span class="fl">Название *</span>
   <input class="fi" type="text" id="orgName" placeholder="ООО Ромашка">
   <button class="sb navy" onclick="saveOrg()">Сохранить</button>
+  <button class="sb red" id="orgDel" onclick="deleteOrg()" style="display:none">Удалить организацию</button>
   <button class="sb gray" onclick="closeOv('orgOv')">Отмена</button>
 </div></div>
 
 <!-- OBJ SHEET -->
 <div class="ov" id="objOv"><div class="sh">
   <div class="handle"></div>
-  <div class="sht" id="objOvTitle">Новый объект</div>
+  <div class="sht" id="objT">Новый объект</div>
   <span class="fl">Название *</span>
   <input class="fi" type="text" id="objName" placeholder="Трасса А-108, км 45–67">
   <span class="fl">Статус</span>
@@ -202,17 +220,17 @@ textarea.fi{resize:none;height:80px;font-size:15px}
     <option value="archive">📦 Архив</option>
   </select>
   <button class="sb navy" onclick="saveObj()">Сохранить</button>
-  <button class="sb red" id="objDelBtn" onclick="deleteObj()" style="display:none">Удалить объект</button>
+  <button class="sb red" id="objDel" onclick="deleteObj()" style="display:none">Удалить объект</button>
   <button class="sb gray" onclick="closeOv('objOv')">Отмена</button>
 </div></div>
 
 <!-- WORK SHEET -->
 <div class="ov" id="workOv"><div class="sh">
   <div class="handle"></div>
-  <div class="sht" id="workOvTitle">Новая работа</div>
+  <div class="sht" id="workT">Новая работа</div>
   <span class="fl">Название *</span>
   <input class="fi" type="text" id="wName" placeholder="Исполнительная документация">
-  <span class="fl">Сумма ₽ (пусто = Уточняется)</span>
+  <span class="fl">Сумма ₽ — пусто = «Уточняется»</span>
   <input class="fi" type="number" id="wAmt" placeholder="50000 или оставь пустым" inputmode="numeric">
   <span class="fl">Статус</span>
   <select class="fi" id="wStatus">
@@ -228,23 +246,23 @@ textarea.fi{resize:none;height:80px;font-size:15px}
   <span class="fl">Заметки — подробно что сделано</span>
   <textarea class="fi" id="wNotes" placeholder="Разработана ИД на устройство примыкания..."></textarea>
   <button class="sb navy" onclick="saveWork()">Сохранить</button>
-  <button class="sb red" id="workDelBtn" onclick="deleteWork()" style="display:none">Удалить работу</button>
+  <button class="sb red" id="workDel" onclick="deleteWork()" style="display:none">Удалить работу</button>
   <button class="sb gray" onclick="closeOv('workOv')">Отмена</button>
 </div></div>
 
-<!-- WORK DETAIL SHEET -->
+<!-- WORK DETAIL -->
 <div class="ov" id="wdOv"><div class="sh">
   <div class="handle"></div>
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-    <div class="sht" id="wdTitle" style="margin:0;flex:1;padding-right:8px"></div>
-    <button onclick="editCurWork()" style="background:#F0F3F8;border:none;border-radius:10px;padding:7px 12px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0">✏️ Изменить</button>
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;gap:8px">
+    <div class="sht" id="wdT" style="margin:0;flex:1"></div>
+    <button onclick="editCurWork()" style="background:#F0F3F8;border:none;border-radius:10px;padding:7px 12px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0">✏️</button>
   </div>
-  <div id="wdBadge" style="margin-bottom:16px"></div>
+  <div id="wdBadge" style="margin-bottom:14px"></div>
   <div id="wdInfo"></div>
   <div style="margin-top:20px">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
       <div style="font-size:15px;font-weight:700;color:#0F2744">История оплат</div>
-      <button onclick="openAddPay()" style="background:#E8720C;color:white;border:none;border-radius:10px;padding:7px 14px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">+ Оплата</button>
+      <button onclick="openAddPayFor(curWork.id)" style="background:#00B4D8;color:white;border:none;border-radius:10px;padding:7px 14px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">+ Оплата</button>
     </div>
     <div id="wdPays"></div>
   </div>
@@ -266,14 +284,23 @@ textarea.fi{resize:none;height:80px;font-size:15px}
   <button class="sb gray" onclick="closeOv('payOv')">Отмена</button>
 </div></div>
 
-<!-- EXPORT SHEET -->
+<!-- PICK WORK (for pay flow) -->
+<div class="ov" id="pickOv"><div class="sh">
+  <div class="handle"></div>
+  <div class="sht">Выбери работу</div>
+  <div class="shs">Куда внести оплату</div>
+  <div id="pickList"></div>
+  <button class="sb gray" onclick="closeOv('pickOv')">Отмена</button>
+</div></div>
+
+<!-- EXPORT -->
 <div class="ov" id="exportOv"><div class="sh">
   <div class="handle"></div>
   <div class="sht">Экспорт в Excel</div>
   <div class="shs">Скачай все данные или по одной организации</div>
   <button class="sb navy" onclick="exportAll()">📊 Экспортировать всё</button>
   <span class="fl" style="margin-top:20px">По организации</span>
-  <select class="fi" id="expOrgSel"></select>
+  <select class="fi" id="expSel"></select>
   <button class="sb teal" onclick="exportOrg()" style="margin-top:10px">📊 Экспорт выбранной</button>
   <button class="sb gray" onclick="closeOv('exportOv')">Отмена</button>
 </div></div>
@@ -283,8 +310,8 @@ textarea.fi{resize:none;height:80px;font-size:15px}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
 // ══ CONFIG ══
-const PWD = 'sk2024';
-const AUTH = 'sk_auth_v3';
+const PWD='sk2024';
+const AUTH='sk_auth_v4';
 firebase.initializeApp({
   apiKey:"AIzaSyAnx4JQF-CJBLUSS8UJItNTMhN_y4y3mJI",
   authDomain:"stroykontrol-dolgi.firebaseapp.com",
@@ -293,16 +320,17 @@ firebase.initializeApp({
   messagingSenderId:"64287601186",
   appId:"1:64287601186:web:01b619d40c5ab71afb107b"
 });
-const db = firebase.firestore();
+const db=firebase.firestore();
 
 // ══ STATE ══
-let sc='orgs', curOrg=null, curObj=null, curWork=null;
-let orgs=[], objects=[], works=[], payments={};
-let showArch=false, search='';
-let editOrgId=null, editObjId=null, editWorkId=null;
-let unsubs=[];
+let sc='orgs',curOrg=null,curObj=null,curWork=null;
+let orgs=[],objects=[],works=[],payments={};
+let showArch=false,search='';
+let editOrgId=null,editObjId=null,editWorkId=null;
+// global caches for previews/totals across all data
+let ALL={objs:[],works:[],pays:{}};
+let unsubObjects=null,unsubWorks=[],unsubGlobal=[];
 
-// ══ STATUS CONFIGS ══
 const WST={
   clarifying:{l:'🔍 Уточняется',c:'#7C3AED',b:'#EDE9FE'},
   waiting:{l:'⏳ Ожидание',c:'#B45309',b:'#FEF9C3'},
@@ -318,270 +346,299 @@ const OST={
 // ══ AUTH ══
 function tryLogin(){
   const v=document.getElementById('pwd').value;
-  if(v===PWD){localStorage.setItem(AUTH,'1');document.getElementById('loginScreen').classList.add('hidden');document.getElementById('app').classList.add('on');startApp();}
+  if(v===PWD){localStorage.setItem(AUTH,'1');document.getElementById('login').classList.add('hidden');document.getElementById('app').classList.add('on');startApp();}
   else{const e=document.getElementById('lerr');e.textContent='Неверный пароль';document.getElementById('pwd').value='';setTimeout(()=>e.textContent='',2500);}
 }
 function logout(){
   if(!confirm('Выйти?'))return;
-  unsubs.forEach(u=>u&&u());unsubs=[];
+  cleanupAll();
   localStorage.removeItem(AUTH);
   document.getElementById('app').classList.remove('on');
-  document.getElementById('loginScreen').classList.remove('hidden');
+  document.getElementById('login').classList.remove('hidden');
   document.getElementById('pwd').value='';
 }
+function cleanupAll(){
+  if(unsubObjects)unsubObjects();unsubObjects=null;
+  unsubWorks.forEach(u=>u&&u());unsubWorks=[];
+  unsubGlobal.forEach(u=>u&&u());unsubGlobal=[];
+}
 
-// ══ SYNC INDICATOR ══
 function setSc(s){const d=document.getElementById('sync');d.className='sync'+(s==='ok'?' ok':s==='err'?' err':'');}
 
-// ══ START ══
+// ══ START: subscribe to EVERYTHING globally for live totals ══
 function startApp(){
   setSc('');
-  const u=db.collection('orgs').orderBy('createdAt').onSnapshot(snap=>{
-    orgs=snap.docs.map(d=>({id:d.id,...d.data()}));
-    setSc('ok');
-    if(sc==='orgs')renderOrgs();
+  const u1=db.collection('orgs').orderBy('createdAt').onSnapshot(s=>{
+    orgs=s.docs.map(d=>({id:d.id,...d.data()}));setSc('ok');refresh();
   },()=>setSc('err'));
-  unsubs=[u];
-  renderOrgs();
+  const u2=db.collection('objects').onSnapshot(s=>{ALL.objs=s.docs.map(d=>({id:d.id,...d.data()}));refresh();});
+  const u3=db.collection('works').onSnapshot(s=>{ALL.works=s.docs.map(d=>({id:d.id,...d.data()}));refresh();});
+  const u4=db.collection('payments').onSnapshot(s=>{
+    const m={};s.docs.forEach(d=>{const p=d.data();(m[p.workId]=m[p.workId]||[]).push({id:d.id,...p});});ALL.pays=m;refresh();
+  });
+  unsubGlobal=[u1,u2,u3,u4];
+}
+
+// ══ HELPERS for totals ══
+function workRemaining(w){if(w.amount==null)return 0;const pp=(ALL.pays[w.id]||[]).reduce((s,p)=>s+(p.amount||0),0);return Math.max(0,w.amount-pp);}
+function workPaid(wid){return(ALL.pays[wid]||[]).reduce((s,p)=>s+(p.amount||0),0);}
+function objDebt(objId){return ALL.works.filter(w=>w.objId===objId).reduce((s,w)=>s+workRemaining(w),0);}
+function objWorks(objId){return ALL.works.filter(w=>w.objId===objId);}
+function orgDebt(orgId){return ALL.objs.filter(o=>o.orgId===orgId&&o.status!=='archive').reduce((s,o)=>s+objDebt(o.id),0);}
+function orgObjs(orgId,inclArch){return ALL.objs.filter(o=>o.orgId===orgId&&(inclArch||o.status!=='archive'));}
+
+// ══ REFRESH current screen ══
+function refresh(){
+  if(sc==='orgs')renderOrgs();
+  else if(sc==='objects')renderObjects();
+  else if(sc==='works')renderWorks();
+  if(document.getElementById('wdOv').classList.contains('on')&&curWork){curWork=ALL.works.find(w=>w.id===curWork.id)||curWork;renderWD();}
 }
 
 // ══ NAV ══
 function goBack(){
   closeAllOv();
-  if(sc==='works'){sc='objects';curObj=null;unsubs.slice(2).forEach(u=>u&&u());unsubs=unsubs.slice(0,2);renderObjects();}
-  else if(sc==='objects'){sc='orgs';curOrg=null;unsubs.slice(1).forEach(u=>u&&u());unsubs=unsubs.slice(0,1);renderOrgs();}
+  if(sc==='works'){sc='objects';curObj=null;renderObjects();updHdr();}
+  else if(sc==='objects'){sc='orgs';curOrg=null;showArch=false;renderOrgs();updHdr();}
 }
+function openOrg(id){curOrg=orgs.find(o=>o.id===id);sc='objects';showArch=false;renderObjects();updHdr();document.getElementById('content').scrollTop=0;}
+function openObj(id){curObj=ALL.objs.find(o=>o.id===id);sc='works';renderWorks();updHdr();document.getElementById('content').scrollTop=0;}
 
-function openOrg(org){
-  curOrg=org;sc='objects';showArch=false;
-  unsubs.slice(1).forEach(u=>u&&u());unsubs=unsubs.slice(0,1);
-  setSc('');
-  const u=db.collection('objects').where('orgId','==',org.id).orderBy('createdAt').onSnapshot(snap=>{
-    objects=snap.docs.map(d=>({id:d.id,...d.data()}));setSc('ok');renderObjects();
-  },()=>setSc('err'));
-  unsubs.push(u);renderObjects();
-}
-
-function openObj(obj){
-  curObj=obj;sc='works';payments={};
-  unsubs.slice(2).forEach(u=>u&&u());unsubs=unsubs.slice(0,2);
-  setSc('');
-  const u=db.collection('works').where('objId','==',obj.id).orderBy('createdAt').onSnapshot(snap=>{
-    works=snap.docs.map(d=>({id:d.id,...d.data()}));setSc('ok');
-    works.forEach(w=>loadPays(w.id));
-    renderWorks();
-  },()=>setSc('err'));
-  unsubs.push(u);renderWorks();
-}
-
-function loadPays(wid){
-  const u=db.collection('payments').where('workId','==',wid).orderBy('date','desc').onSnapshot(snap=>{
-    payments[wid]=snap.docs.map(d=>({id:d.id,...d.data()}));
-    renderWorks();
-    if(curWork&&curWork.id===wid)renderWD();
-  });
-  unsubs.push(u);
-}
-
-// ══ UPDATE HEADER ══
-function updateHdr(){
-  const back=document.getElementById('backBtn');
-  const sw=document.getElementById('searchWrap');
-  let crumb='СтройКонтроль', lbl='Итого к получению', amt=0, info='';
-
+// ══ HEADER ══
+function updHdr(){
+  const back=document.getElementById('backBtn'),sw=document.getElementById('sw'),eob=document.getElementById('editOrgBtn');
+  let crumb='СтройКонтроль',lbl='Итого к получению',amt=0,info='';
+  eob.classList.remove('show');
   if(sc==='orgs'){
-    back.classList.remove('show');sw.style.display='block';crumb='СтройКонтроль';
-    // Rough total from cached org data (updated by recalc)
-    amt=orgs.reduce((s,o)=>s+(o._debt||0),0);
-    info=orgs.length+' организаций';
-  } else if(sc==='objects'){
-    back.classList.add('show');sw.style.display='none';crumb=curOrg.name;lbl='Долг по организации';
-    amt=objects.filter(o=>o.status!=='archive').reduce((s,o)=>s+(o._debt||0),0);
-    info=objects.filter(o=>o.status!=='archive').length+' активных объектов';
-  } else if(sc==='works'){
+    back.classList.remove('show');sw.style.display='block';
+    amt=orgs.reduce((s,o)=>s+orgDebt(o.id),0);info=orgs.length+' организаций';
+  }else if(sc==='objects'){
+    back.classList.add('show');sw.style.display='none';eob.classList.add('show');
+    crumb=curOrg.name;lbl='Долг по организации';
+    amt=orgDebt(curOrg.id);info=orgObjs(curOrg.id).length+' активных объектов';
+  }else if(sc==='works'){
     back.classList.add('show');sw.style.display='none';
-    crumb=(curOrg?curOrg.name+' › ':'')+curObj.name;lbl='Долг по объекту';
-    works.forEach(w=>{if(!w.amount)return;const p=paid(w.id);amt+=Math.max(0,w.amount-p);});
-    info=works.length+' работ';
+    crumb=curOrg.name+' › '+curObj.name;lbl='Долг по объекту';
+    amt=objDebt(curObj.id);info=objWorks(curObj.id).length+' работ';
   }
-
   document.getElementById('crumb').textContent=crumb;
-  document.getElementById('hdrLbl').textContent=lbl;
-  document.getElementById('hdrAmt').textContent=fmt(amt);
-  document.getElementById('hdrInfo').textContent=info;
+  document.getElementById('hl').textContent=lbl;
+  document.getElementById('ha').textContent=fmt(amt);
+  document.getElementById('hi').textContent=info;
 }
-
-function paid(wid){return(payments[wid]||[]).reduce((s,p)=>s+(p.amount||0),0);}
 
 // ══ RENDER ORGS ══
 function renderOrgs(){
-  updateHdr();
-  const q=search.toLowerCase();
+  updHdr();
+  const q=search.toLowerCase().trim();
   let list=orgs;
-  if(q)list=list.filter(o=>o.name.toLowerCase().includes(q));
+  if(q)list=list.filter(o=>o.name.toLowerCase().includes(q)||orgObjs(o.id,true).some(ob=>ob.name.toLowerCase().includes(q)));
   const el=document.getElementById('content');
   if(!list.length){el.innerHTML=`<div class="empty"><div class="ei">🏗️</div><div class="et">${q?'Ничего не найдено':'Добавь первую организацию<br>кнопкой + снизу'}</div></div>`;return;}
   el.innerHTML=list.map(org=>{
-    const prev=(org._previews||[]);
-    return`<div class="card" onclick='openOrg(${JSON.stringify({id:org.id,name:org.name})})'>
-      <div class="ct"><div><div class="cn">${esc(org.name)}</div><div class="cs">${org._objCount||0} объектов</div></div>
-      <div class="cv blue">${org._debt?fmt(org._debt):'—'}</div></div>
-      ${prev.length?`<div class="previews">${prev.slice(0,3).map(p=>`<div class="prev"><span class="pn">${esc(p.n)}</span><span class="pa">${p.d?fmt(p.d):'уточняется'}</span></div>`).join('')}${prev.length>3?`<div style="font-size:11px;color:#999;padding:3px 8px">ещё ${prev.length-3}...</div>`:''}</div>`:''}
+    const objs=orgObjs(org.id);
+    const debt=orgDebt(org.id);
+    const prev=objs.map(o=>({n:o.name,d:objDebt(o.id),hasUnclear:objWorks(o.id).some(w=>w.amount==null)}));
+    return`<div class="card">
+      <div class="card-tap" onclick="openOrg('${org.id}')">
+        <div class="ct"><div class="cti"><div class="cn">${esc(org.name)}</div><div class="cs">${objs.length} ${plural(objs.length,'объект','объекта','объектов')}</div></div>
+        <div class="cv blue">${debt?fmt(debt):'—'}</div></div>
+        ${prev.length?`<div class="previews">${prev.slice(0,3).map(p=>`<div class="prev"><span class="pn">${esc(p.n)}</span><span class="pa" style="color:${p.d?'#0F2744':'#7C3AED'}">${p.d?fmt(p.d):(p.hasUnclear?'уточн.':'—')}</span></div>`).join('')}${prev.length>3?`<div class="pmore">ещё ${prev.length-3}...</div>`:''}</div>`:'<div style="height:12px"></div>'}
+      </div>
+      <div class="cacts"><button class="cact edit" onclick="openEditOrg('${org.id}')">✏️ Изменить</button></div>
     </div>`;
   }).join('');
-  recalcOrgs();
-}
-
-async function recalcOrgs(){
-  try{
-    const [os,ws,ps]=await Promise.all([db.collection('objects').get(),db.collection('works').get(),db.collection('payments').get()]);
-    const allObjs=os.docs.map(d=>({id:d.id,...d.data()}));
-    const allWorks=ws.docs.map(d=>({id:d.id,...d.data()}));
-    const payMap={};ps.docs.forEach(d=>{const p=d.data();if(!payMap[p.workId])payMap[p.workId]=[];payMap[p.workId].push(p);});
-    orgs=orgs.map(org=>{
-      const oo=allObjs.filter(o=>o.orgId===org.id&&o.status!=='archive');
-      let debt=0;
-      const prev=oo.map(obj=>{
-        const ww=allWorks.filter(w=>w.objId===obj.id);
-        let d=0;ww.forEach(w=>{if(!w.amount)return;const pp=(payMap[w.id]||[]).reduce((s,p)=>s+(p.amount||0),0);d+=Math.max(0,w.amount-pp);});
-        debt+=d;return{n:obj.name,d};
-      });
-      return{...org,_debt:debt,_objCount:oo.length,_previews:prev};
-    });
-    // Also update obj totals for current org
-    if(sc==='objects'&&curOrg){
-      objects=objects.map(obj=>{
-        const ww=allWorks.filter(w=>w.objId===obj.id);
-        let d=0;ww.forEach(w=>{if(!w.amount)return;const pp=(payMap[w.id]||[]).reduce((s,p)=>s+(p.amount||0),0);d+=Math.max(0,w.amount-pp);});
-        return{...obj,_debt:d,_wCount:ww.length};
-      });
-    }
-    if(sc==='orgs')renderOrgs();else if(sc==='objects')renderObjects();
-  }catch(e){console.error(e);}
 }
 
 // ══ RENDER OBJECTS ══
 function renderObjects(){
-  updateHdr();
-  let list=objects.filter(o=>showArch?o.status==='archive':o.status!=='archive');
+  updHdr();
+  const all=orgObjs(curOrg.id,true);
+  let list=all.filter(o=>showArch?o.status==='archive':o.status!=='archive');
   const el=document.getElementById('content');
   let html='';
-  if(!list.length)html=`<div class="empty"><div class="ei">📋</div><div class="et">Добавь первый объект<br>кнопкой + снизу</div></div>`;
+  if(!list.length&&!showArch)html=`<div class="empty"><div class="ei">📋</div><div class="et">Добавь первый объект<br>кнопкой + снизу</div></div>`;
   else html=list.map(obj=>{
     const st=OST[obj.status]||OST.active;
-    return`<div class="card" onclick='openObj(${JSON.stringify({id:obj.id,name:obj.name,status:obj.status})})'>
-      <div class="ct"><div><div class="cn">${esc(obj.name)}</div><div class="cs">${obj._wCount||0} работ</div></div>
-      <span class="badge" style="color:${st.c};background:${st.b}">${st.l}</span></div>
-      <div class="cb"><div class="cr"><span class="cl">Долг</span><span class="cv blue">${obj._debt?fmt(obj._debt):'—'}</span></div></div>
+    const debt=objDebt(obj.id);
+    const ws=objWorks(obj.id);
+    const prev=ws.map(w=>({n:w.name,r:w.amount!=null?workRemaining(w):null,st:w.status}));
+    return`<div class="card">
+      <div class="card-tap" onclick="openObj('${obj.id}')">
+        <div class="ct"><div class="cti"><div class="cn">${esc(obj.name)}</div><div class="cs">${ws.length} ${plural(ws.length,'работа','работы','работ')}</div></div>
+        <span class="badge" style="color:${st.c};background:${st.b}">${st.l}</span></div>
+        <div class="cb"><div class="cr"><span class="cl">Долг по объекту</span><span class="cv blue">${debt?fmt(debt):'—'}</span></div></div>
+        ${prev.length?`<div class="previews">${prev.slice(0,3).map(p=>`<div class="prev"><span class="pn">${esc(p.n)}</span><span class="pa" style="color:${p.r!=null?(p.r>0?'#0F2744':'#059669'):'#7C3AED'}">${p.r!=null?(p.r>0?fmt(p.r):'оплачено'):'уточн.'}</span></div>`).join('')}${prev.length>3?`<div class="pmore">ещё ${prev.length-3}...</div>`:''}</div>`:'<div style="height:4px"></div>'}
+      </div>
+      <div class="cacts"><button class="cact edit" onclick="openEditObj('${obj.id}')">✏️ Изменить / статус</button></div>
     </div>`;
   }).join('');
-  const hasArch=objects.some(o=>o.status==='archive');
-  if(hasArch)html+=`<div class="arch-btn" onclick="showArch=!showArch;renderObjects()">${showArch?'↑ Скрыть архив':'📦 Показать архив ('+objects.filter(o=>o.status==='archive').length+')'}</div>`;
+  const archCount=all.filter(o=>o.status==='archive').length;
+  if(archCount)html+=`<div class="arch-btn" onclick="showArch=!showArch;renderObjects()">${showArch?'↑ Скрыть архив':'📦 Показать архив ('+archCount+')'}</div>`;
   el.innerHTML=html;
 }
 
 // ══ RENDER WORKS ══
 function renderWorks(){
-  updateHdr();
+  updHdr();
+  const ws=objWorks(curObj.id);
   const el=document.getElementById('content');
-  if(!works.length){el.innerHTML=`<div class="empty"><div class="ei">📝</div><div class="et">Добавь первую работу<br>кнопкой + снизу</div></div>`;return;}
-  el.innerHTML=works.map(w=>{
+  if(!ws.length){el.innerHTML=`<div class="empty"><div class="ei">📝</div><div class="et">Добавь первую работу<br>кнопкой + снизу</div></div>`;return;}
+  el.innerHTML=ws.map(w=>{
     const st=WST[w.status]||WST.waiting;
-    const pp=paid(w.id);
+    const pp=workPaid(w.id);
     const rem=w.amount!=null?Math.max(0,w.amount-pp):null;
     const pct=w.amount&&pp?Math.min(100,(pp/w.amount)*100):0;
     const late=w.status!=='paid'&&w.deadline&&new Date(w.deadline+'T23:59:59')<new Date();
-    return`<div class="card" onclick="openWD('${w.id}')">
-      <div class="ct"><div style="flex:1"><div class="cn">${esc(w.name)}</div>${w.completionDate?`<div class="cs">Выполнено ${fmtD(w.completionDate)}</div>`:''}</div>
-      <span class="badge" style="color:${st.c};background:${st.b}">${st.l}</span></div>
-      ${w.amount?`<div class="prog"><div class="pf" style="width:${pct}%"></div></div>`:''}
-      <div class="cb">
-        <div class="cr"><span class="cl">Остаток</span><span class="cv ${rem!==null?'blue':'purple'}">${rem!==null?fmt(rem):'уточняется'}</span></div>
-        ${w.amount?`<div class="cr"><span class="cl">Сумма</span><span class="cv gray">${fmt(w.amount)}</span></div>`:''}
-        ${pp?`<div class="cr"><span class="cl">Оплачено</span><span class="cv gray">${fmt(pp)}</span></div>`:''}
-        ${w.deadline?`<div class="cr"><span class="cl" style="${late?'color:#EF4444':''}">${late?'❗ Просрочен':'📅 Дедлайн'}</span><span class="cv gray" style="${late?'color:#EF4444':''}">${fmtD(w.deadline)}</span></div>`:''}
+    return`<div class="card">
+      <div class="card-tap" onclick="openWD('${w.id}')">
+        <div class="ct"><div class="cti"><div class="cn">${esc(w.name)}</div>${w.completionDate?`<div class="cs">✓ Выполнено ${fmtD(w.completionDate)}</div>`:''}</div>
+        <span class="badge" style="color:${st.c};background:${st.b}">${st.l}</span></div>
+        ${w.amount?`<div class="prog"><div class="pf" style="width:${pct}%"></div></div>`:''}
+        <div class="cb">
+          <div class="cr"><span class="cl">Остаток</span><span class="cv ${rem!=null?'blue':'purple'}">${rem!=null?(rem>0?fmt(rem):'оплачено'):'уточняется'}</span></div>
+          ${w.amount?`<div class="cr"><span class="cl">Сумма</span><span class="cv gray">${fmt(w.amount)}</span></div>`:''}
+          ${pp?`<div class="cr"><span class="cl">Оплачено</span><span class="cv gray">${fmt(pp)}</span></div>`:''}
+          ${w.deadline?`<div class="cr"><span class="cl" style="${late?'color:#EF4444':''}">${late?'❗ Просрочен':'📅 Дедлайн'}</span><span class="cv gray" style="${late?'color:#EF4444':''}">${fmtD(w.deadline)}</span></div>`:''}
+        </div>
+      </div>
+      <div class="cacts">
+        <button class="cact edit" onclick="openEditWork('${w.id}')">✏️ Изменить</button>
+        <button class="cact pay" onclick="openAddPayFor('${w.id}')">− Оплата</button>
       </div>
     </div>`;
   }).join('');
 }
 
 // ══ WORK DETAIL ══
-function openWD(id){curWork=works.find(w=>w.id===id);if(!curWork)return;renderWD();openOv('wdOv');}
-function editCurWork(){closeOv('wdOv');setTimeout(()=>openEditWork(curWork.id),150);}
-
+function openWD(id){curWork=ALL.works.find(w=>w.id===id);if(!curWork)return;renderWD();openOv('wdOv');}
+function editCurWork(){const id=curWork.id;closeOv('wdOv');setTimeout(()=>openEditWork(id),180);}
 function renderWD(){
   if(!curWork)return;
   const w=curWork,st=WST[w.status]||WST.waiting;
-  const pp=paid(w.id),pays=payments[w.id]||[];
+  const pp=workPaid(w.id),pays=ALL.pays[w.id]||[];
   const rem=w.amount!=null?Math.max(0,w.amount-pp):null;
-  document.getElementById('wdTitle').textContent=w.name;
+  document.getElementById('wdT').textContent=w.name;
   document.getElementById('wdBadge').innerHTML=`<span class="badge" style="color:${st.c};background:${st.b}">${st.l}</span>`;
-  let info=`<div class="info-box">`;
-  if(w.amount)info+=ir('Сумма',fmt(w.amount));
-  if(rem!==null)info+=ir('Остаток',`<b style="color:#00B4D8">${fmt(rem)}</b>`);
-  if(pp)info+=ir('Оплачено',fmt(pp));
-  if(w.completionDate)info+=ir('Дата выполнения',fmtD(w.completionDate));
-  if(w.deadline)info+=ir('Дедлайн оплаты',fmtD(w.deadline));
-  if(w.notes)info+=`<div class="notes-box">${esc(w.notes)}</div>`;
+  let info='<div class="info-box">';
+  if(w.amount)info+=iir('Сумма',fmt(w.amount));
+  if(rem!=null)info+=iir('Остаток',`<b style="color:${rem>0?'#00B4D8':'#059669'}">${rem>0?fmt(rem):'оплачено'}</b>`);
+  if(pp)info+=iir('Оплачено',fmt(pp));
+  if(w.amount==null)info+=iir('Сумма','<b style="color:#7C3AED">уточняется</b>');
+  if(w.completionDate)info+=iir('Дата выполнения',fmtD(w.completionDate));
+  if(w.deadline)info+=iir('Дедлайн оплаты',fmtD(w.deadline));
   info+='</div>';
+  if(w.notes)info+=`<div class="notes-box">${esc(w.notes)}</div>`;
   document.getElementById('wdInfo').innerHTML=info;
   const pe=document.getElementById('wdPays');
-  if(!pays.length){pe.innerHTML=`<div style="text-align:center;padding:20px;color:#CCC;font-size:13px">Оплат пока нет</div>`;}
-  else pe.innerHTML=pays.map(p=>`<div class="pi"><div class="pi-left"><div class="pi-amt">+${fmt(p.amount)}</div><div class="pi-date">${fmtD(p.date)}${p.note?` · <span class="pi-note">${esc(p.note)}</span>`:''}</div></div><button class="pi-del" onclick="delPay('${p.id}')">🗑</button></div>`).join('');
+  if(!pays.length)pe.innerHTML='<div style="text-align:center;padding:18px;color:#CCC;font-size:13px">Оплат пока нет</div>';
+  else pe.innerHTML=[...pays].sort((a,b)=>(b.date||'').localeCompare(a.date||'')).map(p=>`<div class="pi"><div class="pi-l"><div class="pi-amt">+${fmt(p.amount)}</div><div class="pi-date">${fmtD(p.date)}${p.note?` · <span class="pi-note">${esc(p.note)}</span>`:''}</div></div><button class="pi-del" onclick="delPay('${p.id}')">🗑</button></div>`).join('');
 }
-function ir(l,v){return`<div class="ir"><span class="irl">${l}</span><span class="irv">${v}</span></div>`;}
+function iir(l,v){return`<div class="iir"><span class="iirl">${l}</span><span class="iirv">${v}</span></div>`;}
+
+// ══ FAB ACTIONS ══
+function onAdd(){if(sc==='orgs')openAddOrg();else if(sc==='objects')openAddObj();else openAddWork();}
+function onPay(){
+  // build list of works to pay
+  let list=[];
+  if(sc==='works')list=objWorks(curObj.id).map(w=>({w,path:''}));
+  else if(sc==='objects')list=orgObjs(curOrg.id).flatMap(o=>objWorks(o.id).map(w=>({w,path:o.name})));
+  else list=ALL.works.map(w=>({w,path:(w.orgName||'')+(w.objName?' › '+w.objName:'')}));
+  // only unpaid / relevant
+  list=list.filter(x=>x.w.amount==null||workRemaining(x.w)>0);
+  if(!list.length){alert('Нет работ для внесения оплаты');return;}
+  const el=document.getElementById('pickList');
+  el.innerHTML=list.map(x=>{
+    const rem=x.w.amount!=null?workRemaining(x.w):null;
+    return`<div class="pick" onclick="pickWork('${x.w.id}')">${x.path?`<div class="pick-path">${esc(x.path)}</div>`:''}<div class="pick-n">${esc(x.w.name)}</div><div class="pick-s">${rem!=null?'Остаток: '+fmt(rem):'Сумма уточняется'}</div></div>`;
+  }).join('');
+  openOv('pickOv');
+}
+function pickWork(id){closeOv('pickOv');setTimeout(()=>openAddPayFor(id),180);}
 
 // ══ CRUD ORGS ══
-function onFab(){if(sc==='orgs')openAddOrg();else if(sc==='objects')openAddObj();else openAddWork();}
-function openAddOrg(){editOrgId=null;document.getElementById('orgOvTitle').textContent='Новая организация';document.getElementById('orgName').value='';openOv('orgOv');}
-function openEditOrg(id){editOrgId=id;const o=orgs.find(x=>x.id===id);document.getElementById('orgOvTitle').textContent='Редактировать';document.getElementById('orgName').value=o?o.name:'';openOv('orgOv');}
+function openAddOrg(){editOrgId=null;document.getElementById('orgT').textContent='Новая организация';document.getElementById('orgName').value='';document.getElementById('orgDel').style.display='none';openOv('orgOv');}
+function openEditOrg(id){editOrgId=id;const o=orgs.find(x=>x.id===id);document.getElementById('orgT').textContent='Редактировать организацию';document.getElementById('orgName').value=o?o.name:'';document.getElementById('orgDel').style.display='block';openOv('orgOv');}
+function editCurrentOrg(){if(curOrg)openEditOrg(curOrg.id);}
 function saveOrg(){
   const name=document.getElementById('orgName').value.trim();if(!name){alert('Введи название');return;}
-  if(editOrgId)db.collection('orgs').doc(editOrgId).update({name});
-  else db.collection('orgs').add({name,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
+  if(editOrgId){db.collection('orgs').doc(editOrgId).update({name});
+    // propagate name to children
+    db.collection('objects').where('orgId','==',editOrgId).get().then(s=>s.forEach(d=>d.ref.update({orgName:name})));
+    db.collection('works').where('orgId','==',editOrgId).get().then(s=>s.forEach(d=>d.ref.update({orgName:name})));
+    if(curOrg&&curOrg.id===editOrgId)curOrg.name=name;
+  }else db.collection('orgs').add({name,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
   closeOv('orgOv');
+}
+function deleteOrg(){
+  if(!confirm('Удалить организацию со всеми объектами, работами и оплатами? Это необратимо.'))return;
+  const id=editOrgId;
+  db.collection('works').where('orgId','==',id).get().then(s=>s.forEach(d=>{db.collection('payments').where('workId','==',d.id).get().then(ps=>ps.forEach(p=>p.ref.delete()));d.ref.delete();}));
+  db.collection('objects').where('orgId','==',id).get().then(s=>s.forEach(d=>d.ref.delete()));
+  db.collection('orgs').doc(id).delete();
+  closeOv('orgOv');
+  if(sc!=='orgs'){sc='orgs';curOrg=null;renderOrgs();updHdr();}
 }
 
 // ══ CRUD OBJECTS ══
-function openAddObj(){editObjId=null;document.getElementById('objOvTitle').textContent='Новый объект';document.getElementById('objName').value='';document.getElementById('objStatus').value='active';document.getElementById('objDelBtn').style.display='none';openOv('objOv');}
-function openEditObj(id){editObjId=id;const o=objects.find(x=>x.id===id);document.getElementById('objOvTitle').textContent='Редактировать объект';document.getElementById('objName').value=o?o.name:'';document.getElementById('objStatus').value=o?o.status:'active';document.getElementById('objDelBtn').style.display='block';openOv('objOv');}
+function openAddObj(){editObjId=null;document.getElementById('objT').textContent='Новый объект';document.getElementById('objName').value='';document.getElementById('objStatus').value='active';document.getElementById('objDel').style.display='none';openOv('objOv');}
+function openEditObj(id){editObjId=id;const o=ALL.objs.find(x=>x.id===id);document.getElementById('objT').textContent='Редактировать объект';document.getElementById('objName').value=o?o.name:'';document.getElementById('objStatus').value=o?o.status:'active';document.getElementById('objDel').style.display='block';openOv('objOv');}
 function saveObj(){
   const name=document.getElementById('objName').value.trim();const status=document.getElementById('objStatus').value;if(!name){alert('Введи название');return;}
-  if(editObjId)db.collection('objects').doc(editObjId).update({name,status});
-  else db.collection('objects').add({orgId:curOrg.id,orgName:curOrg.name,name,status,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
+  if(editObjId){db.collection('objects').doc(editObjId).update({name,status});
+    db.collection('works').where('objId','==',editObjId).get().then(s=>s.forEach(d=>d.ref.update({objName:name})));
+    if(curObj&&curObj.id===editObjId)curObj.name=name;
+  }else db.collection('objects').add({orgId:curOrg.id,orgName:curOrg.name,name,status,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
   closeOv('objOv');
 }
-function deleteObj(){if(!confirm('Удалить объект и все работы?'))return;db.collection('objects').doc(editObjId).delete();closeOv('objOv');}
+function deleteObj(){
+  if(!confirm('Удалить объект со всеми работами и оплатами?'))return;
+  const id=editObjId;
+  db.collection('works').where('objId','==',id).get().then(s=>s.forEach(d=>{db.collection('payments').where('workId','==',d.id).get().then(ps=>ps.forEach(p=>p.ref.delete()));d.ref.delete();}));
+  db.collection('objects').doc(id).delete();
+  closeOv('objOv');
+  if(sc==='works'){sc='objects';curObj=null;renderObjects();updHdr();}
+}
 
 // ══ CRUD WORKS ══
-function openAddWork(){editWorkId=null;document.getElementById('workOvTitle').textContent='Новая работа';['wName','wAmt','wDone','wDeadline','wNotes'].forEach(id=>document.getElementById(id).value='');document.getElementById('wStatus').value='clarifying';document.getElementById('workDelBtn').style.display='none';openOv('workOv');}
-function openEditWork(id){editWorkId=id;const w=works.find(x=>x.id===id);document.getElementById('workOvTitle').textContent='Редактировать работу';document.getElementById('wName').value=w?w.name:'';document.getElementById('wAmt').value=w&&w.amount?w.amount:'';document.getElementById('wStatus').value=w?w.status:'clarifying';document.getElementById('wDone').value=w&&w.completionDate?w.completionDate:'';document.getElementById('wDeadline').value=w&&w.deadline?w.deadline:'';document.getElementById('wNotes').value=w&&w.notes?w.notes:'';document.getElementById('workDelBtn').style.display='block';openOv('workOv');}
+function openAddWork(){editWorkId=null;document.getElementById('workT').textContent='Новая работа';['wName','wAmt','wDone','wDeadline','wNotes'].forEach(id=>document.getElementById(id).value='');document.getElementById('wStatus').value='clarifying';document.getElementById('workDel').style.display='none';openOv('workOv');}
+function openEditWork(id){editWorkId=id;const w=ALL.works.find(x=>x.id===id);document.getElementById('workT').textContent='Редактировать работу';document.getElementById('wName').value=w?w.name:'';document.getElementById('wAmt').value=w&&w.amount!=null?w.amount:'';document.getElementById('wStatus').value=w?w.status:'clarifying';document.getElementById('wDone').value=w&&w.completionDate?w.completionDate:'';document.getElementById('wDeadline').value=w&&w.deadline?w.deadline:'';document.getElementById('wNotes').value=w&&w.notes?w.notes:'';document.getElementById('workDel').style.display='block';openOv('workOv');}
 function saveWork(){
   const name=document.getElementById('wName').value.trim();if(!name){alert('Введи название');return;}
   const amtRaw=document.getElementById('wAmt').value;
-  const amount=amtRaw?parseFloat(amtRaw):null;
+  const amount=amtRaw!==''?parseFloat(amtRaw):null;
   let status=document.getElementById('wStatus').value;
-  if(!amount&&status!=='paid')status='clarifying';
+  if(amount==null&&status!=='clarifying'&&status!=='paid')status='clarifying';
   const data={objId:curObj.id,objName:curObj.name,orgId:curOrg.id,orgName:curOrg.name,name,amount,status,completionDate:document.getElementById('wDone').value||null,deadline:document.getElementById('wDeadline').value||null,notes:document.getElementById('wNotes').value.trim()||null};
   if(editWorkId)db.collection('works').doc(editWorkId).update(data);
   else db.collection('works').add({...data,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
   closeOv('workOv');
 }
-function deleteWork(){if(!confirm('Удалить работу и все оплаты?'))return;db.collection('works').doc(editWorkId).delete();db.collection('payments').where('workId','==',editWorkId).get().then(s=>s.forEach(d=>d.ref.delete()));closeOv('workOv');}
+function deleteWork(){
+  if(!confirm('Удалить работу и все её оплаты?'))return;
+  const id=editWorkId;
+  db.collection('payments').where('workId','==',id).get().then(s=>s.forEach(d=>d.ref.delete()));
+  db.collection('works').doc(id).delete();
+  closeOv('workOv');
+  if(document.getElementById('wdOv').classList.contains('on'))closeOv('wdOv');
+}
 
 // ══ PAYMENTS ══
-function openAddPay(){
-  const w=curWork;const pp=paid(w.id);const rem=w.amount!=null?Math.max(0,w.amount-pp):null;
-  document.getElementById('paySub').textContent=rem!=null?'Остаток: '+fmt(rem):'Сумма уточняется';
+let payForWork=null;
+function openAddPayFor(id){
+  payForWork=ALL.works.find(w=>w.id===id);if(!payForWork)return;
+  const rem=payForWork.amount!=null?workRemaining(payForWork):null;
+  document.getElementById('paySub').textContent=payForWork.name+(rem!=null?' · остаток '+fmt(rem):' · сумма уточняется');
   document.getElementById('pAmt').value='';document.getElementById('pDate').value=today();document.getElementById('pNote').value='';
   openOv('payOv');
 }
 function savePay(){
   const a=parseFloat(document.getElementById('pAmt').value)||0;if(!a){alert('Введи сумму');return;}
-  const w=curWork;
-  db.collection('payments').add({workId:w.id,amount:a,date:document.getElementById('pDate').value,note:document.getElementById('pNote').value.trim()||null,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
-  const newPaid=paid(w.id)+a;
-  if(w.amount&&newPaid>=w.amount)db.collection('works').doc(w.id).update({status:'paid'});
+  const w=payForWork;
+  db.collection('payments').add({workId:w.id,workName:w.name,objName:w.objName||'',orgName:w.orgName||'',amount:a,date:document.getElementById('pDate').value||today(),note:document.getElementById('pNote').value.trim()||null,createdAt:firebase.firestore.FieldValue.serverTimestamp()});
+  const newPaid=workPaid(w.id)+a;
+  if(w.amount!=null&&newPaid>=w.amount)db.collection('works').doc(w.id).update({status:'paid'});
+  else if(w.status==='clarifying'&&w.amount!=null)db.collection('works').doc(w.id).update({status:'waiting'});
   closeOv('payOv');
 }
 function delPay(id){if(!confirm('Удалить эту оплату?'))return;db.collection('payments').doc(id).delete();}
@@ -589,53 +646,52 @@ function delPay(id){if(!confirm('Удалить эту оплату?'))return;db
 // ══ SEARCH ══
 function doSearch(){search=document.getElementById('searchInp').value;renderOrgs();}
 
-// ══ EXPORT ══
+// ══ OVERLAY ══
 function openOv(id){
-  if(id==='exportOv'){const sel=document.getElementById('expOrgSel');sel.innerHTML=orgs.map(o=>`<option value="${o.id}">${esc(o.name)}</option>`).join('');}
+  if(id==='exportOv'){document.getElementById('expSel').innerHTML=orgs.map(o=>`<option value="${o.id}">${esc(o.name)}</option>`).join('');}
   document.getElementById(id).classList.add('on');
 }
 function closeOv(id){document.getElementById(id).classList.remove('on');}
 function closeAllOv(){document.querySelectorAll('.ov').forEach(o=>o.classList.remove('on'));}
 document.querySelectorAll('.ov').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('on');}));
 
+// ══ EXPORT ══
 async function exportAll(){
   try{
-    const [os,obs,ws,ps]=await Promise.all([db.collection('orgs').get(),db.collection('objects').get(),db.collection('works').get(),db.collection('payments').get()]);
     const wb=XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(os.docs.map(d=>({Организация:d.data().name}))),'Организации');
-    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(obs.docs.map(d=>({Организация:d.data().orgName,Объект:d.data().name,Статус:d.data().status}))),'Объекты');
-    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(ws.docs.map(d=>{const w=d.data();return{Организация:w.orgName,Объект:w.objName,Работа:w.name,Сумма:w.amount||'уточняется',Статус:w.status,Выполнено:w.completionDate||'',Дедлайн:w.deadline||'',Заметки:w.notes||''};})),'Работы');
-    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(ps.docs.map(d=>{const p=d.data();return{Работа:p.workId,Сумма:p.amount,Дата:p.date,Заметка:p.note||''};})),'Оплаты');
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(orgs.map(o=>({Организация:o.name,'Общий долг':orgDebt(o.id)}))),'Организации');
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(ALL.objs.map(o=>({Организация:o.orgName,Объект:o.name,Статус:(OST[o.status]||{}).l||o.status,'Долг':objDebt(o.id)}))),'Объекты');
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(ALL.works.map(w=>({Организация:w.orgName,Объект:w.objName,Работа:w.name,Сумма:w.amount!=null?w.amount:'уточняется',Оплачено:workPaid(w.id),Остаток:w.amount!=null?workRemaining(w):'',Статус:(WST[w.status]||{}).l||w.status,Выполнено:w.completionDate||'',Дедлайн:w.deadline||'',Заметки:w.notes||''}))),'Работы');
+    const prows=[];Object.values(ALL.pays).flat().forEach(p=>prows.push({Организация:p.orgName||'',Объект:p.objName||'',Работа:p.workName||p.workId,Сумма:p.amount,Дата:p.date,Заметка:p.note||''}));
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(prows),'Оплаты');
     XLSX.writeFile(wb,'СтройКонтроль_'+today()+'.xlsx');closeOv('exportOv');
-  }catch(e){alert('Ошибка экспорта');}
+  }catch(e){alert('Ошибка экспорта: '+e.message);}
 }
-
 async function exportOrg(){
-  const orgId=document.getElementById('expOrgSel').value;
-  const org=orgs.find(o=>o.id===orgId);if(!org)return;
+  const id=document.getElementById('expSel').value;const org=orgs.find(o=>o.id===id);if(!org)return;
   try{
-    const [ws,ps]=await Promise.all([db.collection('works').where('orgId','==',orgId).get(),db.collection('payments').get()]);
-    const payMap={};ps.docs.forEach(d=>{const p=d.data();if(!payMap[p.workId])payMap[p.workId]=[];payMap[p.workId].push(p);});
     const rows=[];
-    ws.docs.forEach(d=>{
-      const w=d.data();const pp=(payMap[d.id]||[]).reduce((s,p)=>s+(p.amount||0),0);
-      rows.push({Объект:w.objName,Работа:w.name,Сумма:w.amount||'уточняется',Оплачено:pp,Остаток:w.amount?Math.max(0,w.amount-pp):'',Статус:w.status,Выполнено:w.completionDate||'',Дедлайн:w.deadline||'',Заметки:w.notes||''});
-      (payMap[d.id]||[]).forEach(p=>rows.push({Объект:'',Работа:'  └ '+fmtD(p.date),Сумма:'',Оплачено:p.amount,Остаток:'',Статус:'оплата',Выполнено:'',Дедлайн:'',Заметки:p.note||''}));
+    orgObjs(id,true).forEach(obj=>{
+      objWorks(obj.id).forEach(w=>{
+        rows.push({Объект:obj.name,Работа:w.name,Сумма:w.amount!=null?w.amount:'уточняется',Оплачено:workPaid(w.id),Остаток:w.amount!=null?workRemaining(w):'',Статус:(WST[w.status]||{}).l||w.status,Выполнено:w.completionDate||'',Дедлайн:w.deadline||'',Заметки:w.notes||''});
+        (ALL.pays[w.id]||[]).forEach(p=>rows.push({Объект:'',Работа:'   └ оплата '+fmtD(p.date),Сумма:'',Оплачено:p.amount,Остаток:'',Статус:'',Выполнено:'',Дедлайн:'',Заметки:p.note||''}));
+      });
     });
     const wb=XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(rows),org.name.slice(0,31));
-    XLSX.writeFile(wb,org.name+'_'+today()+'.xlsx');closeOv('exportOv');
-  }catch(e){alert('Ошибка экспорта');}
+    XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(rows.length?rows:[{Объект:'нет данных'}]),org.name.slice(0,31).replace(/[\\\/\?\*\[\]:]/g,''));
+    XLSX.writeFile(wb,org.name.replace(/[\\\/]/g,'_')+'_'+today()+'.xlsx');closeOv('exportOv');
+  }catch(e){alert('Ошибка экспорта: '+e.message);}
 }
 
-// ══ HELPERS ══
+// ══ UTILS ══
 function fmt(n){return n!=null?'₽'+Math.round(Math.max(0,n)).toLocaleString('ru-RU'):'—';}
 function fmtD(s){if(!s)return'';const d=new Date(s+'T00:00:00');return d.toLocaleDateString('ru-RU',{day:'numeric',month:'short',year:'2-digit'});}
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function today(){return new Date().toISOString().split('T')[0];}
+function plural(n,a,b,c){n=Math.abs(n)%100;const n1=n%10;if(n>10&&n<20)return c;if(n1>1&&n1<5)return b;if(n1===1)return a;return c;}
 
-// ══ START ══
-if(localStorage.getItem(AUTH)==='1'){document.getElementById('loginScreen').classList.add('hidden');document.getElementById('app').classList.add('on');startApp();}
+// ══ INIT ══
+if(localStorage.getItem(AUTH)==='1'){document.getElementById('login').classList.add('hidden');document.getElementById('app').classList.add('on');startApp();}
 </script>
 </body>
 </html>
