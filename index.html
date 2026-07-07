@@ -8,6 +8,7 @@
 <meta name="apple-mobile-web-app-title" content="СтройКонтроль">
 <meta name="theme-color" content="#0F2744">
 <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgcng9IjI2IiBmaWxsPSIjMEYyNzQ0Ii8+PHBhdGggZD0iTTI4IDg4IEw1MiAzMiBMNjAgMzIgTDM2IDg4IFoiIGZpbGw9IiNFODcyMEMiLz48dGV4dCB4PSI2OCIgeT0iODAiIGZvbnQtZmFtaWx5PSItYXBwbGUtc3lzdGVtLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNDQiIGZvbnQtd2VpZ2h0PSI4MDAiIGZpbGw9IndoaXRlIj7Qmjwvc3ZnPg==">
+<link rel="manifest" href="manifest.json">
 <title>СтройКонтроль</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -397,6 +398,8 @@ firebase.initializeApp({
   appId:"1:64287601186:web:01b619d40c5ab71afb107b"
 });
 const db=firebase.firestore();
+// Оффлайн-режим: данные кэшируются локально, работают без интернета
+db.enablePersistence({synchronizeTabs:true}).catch(()=>{});
 const TEMPLATES=['Исполнительная документация','Акты КС-2 / КС-3','Геосъёмка','Схемы','Журнал работ','ППР','Смета'];
 
 let sc='orgs',curOrg=null,curObj=null,curWork=null;
@@ -724,6 +727,9 @@ function monthName(){return new Date().toLocaleDateString('ru-RU',{month:'long'}
 function plural(n,a,b,c){n=Math.abs(n)%100;const n1=n%10;if(n>10&&n<20)return c;if(n1>1&&n1<5)return b;if(n1===1)return a;return c;}
 
 if(localStorage.getItem(AUTH)==='1'){document.getElementById('login').classList.add('hidden');document.getElementById('app').classList.add('on');startApp();}
+
+// Регистрируем service worker для работы без интернета
+if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{});});}
 </script>
 </body>
 </html>

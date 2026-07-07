@@ -1,0 +1,20 @@
+{
+  "name": "СтройКонтроль — Менеджер",
+  "short_name": "СтройКонтроль",
+  "description": "Менеджер проектов и оплат",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0F2744",
+  "theme_color": "#0F2744",
+  "lang": "ru",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjExMiIgZmlsbD0iIzBGMjc0NCIvPjxwYXRoIGQ9Ik0xMjAgMzc1IEwyMjIgMTM3IEwyNjQgMTM3IEwxNjIgMzc1IFoiIGZpbGw9IiNFODcyMEMiLz48cGF0aCBkPSJNMjkwIDEzNyBMMzMyIDEzNyBMMzMyIDM3NSBMMjkwIDM3NSBMMjkwIDI2NSBMMjQyIDMzMCBMMjkwIDIzMCBaIiBmaWxsPSIjZmZmIi8+PC9zdmc+",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
