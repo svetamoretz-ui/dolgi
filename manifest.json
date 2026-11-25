@@ -11,9 +11,9 @@
   "lang": "ru",
   "icons": [
     {
-      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjExMiIgZmlsbD0iIzBGMjc0NCIvPjxwYXRoIGQ9Ik0xMjAgMzc1IEwyMjIgMTM3IEwyNjQgMTM3IEwxNjIgMzc1IFoiIGZpbGw9IiNFODcyMEMiLz48cGF0aCBkPSJNMjkwIDEzNyBMMzMyIDEzNyBMMzMyIDM3NSBMMjkwIDM3NSBMMjkwIDI2NSBMMjQyIDMzMCBMMjkwIDIzMCBaIiBmaWxsPSIjZmZmIi8+PC9zdmc+",
+      "src": "icon-sk.png",
       "sizes": "512x512",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ]

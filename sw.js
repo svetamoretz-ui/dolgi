@@ -1,12 +1,14 @@
 // СтройКонтроль — Service Worker для работы без интернета
 // Версия кэша — меняй при обновлении index.html, чтобы телефон подтянул свежее
-const CACHE = 'sk-cache-v6';
+const CACHE = 'sk-cache-v7';
 
 // Что кэшируем: само приложение + внешние библиотеки
 const ASSETS = [
   './',
   './index.html',
   './manifest.json',
+  './logo-sk.png',
+  './icon-sk.png',
   'https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js',
   'https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js',
   'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'

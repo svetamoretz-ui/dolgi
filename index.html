@@ -2,12 +2,13 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="СтройКонтроль">
 <meta name="theme-color" content="#0F2744">
-<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgcng9IjI2IiBmaWxsPSIjMEYyNzQ0Ii8+PHBhdGggZD0iTTI4IDg4IEw1MiAzMiBMNjAgMzIgTDM2IDg4IFoiIGZpbGw9IiNFODcyMEMiLz48dGV4dCB4PSI2OCIgeT0iODAiIGZvbnQtZmFtaWx5PSItYXBwbGUtc3lzdGVtLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iNDQiIGZvbnQtd2VpZ2h0PSI4MDAiIGZpbGw9IndoaXRlIj7Qmjwvc3ZnPg==">
+<link rel="icon" href="icon-sk.png" type="image/png">
+<link rel="apple-touch-icon" href="icon-sk.png">
 <link rel="manifest" href="manifest.json">
 <title>СтройКонтроль</title>
 <style>
@@ -41,7 +42,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .back{background:rgba(255,255,255,.12);border:none;color:white;width:34px;height:34px;border-radius:50%;font-size:18px;cursor:pointer;display:none;align-items:center;justify-content:center;flex-shrink:0;font-family:inherit}
 .back.show{display:flex}
 .brandmini{display:flex;align-items:center;gap:9px;flex:1;min-width:0}
-.brandmini svg{flex-shrink:0}
 .brand-tx{min-width:0}
 .brand-nm{font-size:14px;font-weight:800;letter-spacing:-.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .crumb{font-size:11px;opacity:.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -191,6 +191,53 @@ textarea.fi{resize:none;height:84px;font-size:15px;line-height:1.5}
 .seg-b{flex:1;text-align:center;padding:9px;font-size:13px;font-weight:700;border:none;background:none;border-radius:9px;cursor:pointer;font-family:inherit;color:#8A93A3}
 .seg-b.on{background:white;color:#0F2744;box-shadow:0 1px 3px rgba(0,0,0,.08)}
 .hint{font-size:12px;color:#9AA3B2;margin-top:8px;line-height:1.5}
+.l-mark img{display:block;width:112px;height:auto;padding:10px;background:#fff;border-radius:14px}
+.brandmini img{display:block;width:34px;height:auto;padding:3px;background:#fff;border-radius:5px;flex:none}
+.company-heading{font-size:22px;line-height:1.2;margin-bottom:12px;overflow-wrap:anywhere}
+.company-view .brand-nm{font-size:13px}
+.company-view .hi{opacity:.8}
+.company-overdue{color:#FFC1B9;margin-top:5px;font-size:13px;font-weight:650}
+.company-actions{position:relative;z-index:2;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:0 16px 16px}
+.company-actions[hidden],.fab-group [hidden]{display:none}
+.company-actions button{min-height:44px;padding:7px 4px;border:1px solid #FFFFFF38;border-radius:11px;background:#FFFFFF13;color:white;font:inherit;font-size:14px;font-weight:700;cursor:pointer}
+.company-actions .bill-action{grid-column:1 / -1;background:#FFAD50;border-color:transparent;color:#262014}
+.billing-overlay:not(.on){visibility:hidden}
+.billing-sheet{display:flex;flex-direction:column;max-width:620px;margin:0 auto;max-height:min(92vh,740px);max-height:min(92dvh,740px);overflow:hidden;padding-bottom:env(safe-area-inset-bottom,0px)}
+.billing-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.billing-head .shs{color:#536377;margin:0;overflow-wrap:anywhere}
+.bill-close{min-width:44px;min-height:44px;border:0;border-radius:11px;background:#F1F4F9;color:#0F2744;font-size:22px;line-height:1;cursor:pointer}
+.billing-body{min-height:0;overflow-y:auto;overscroll-behavior:contain;margin:12px -5px 0;padding:0 5px}
+.bill-object{border:0;min-width:0;margin:0 0 12px;padding:0}
+.bill-object legend{font-weight:750;font-size:14px;margin-bottom:5px;overflow-wrap:anywhere}
+.bill-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(86px,106px);align-items:center;gap:7px;padding:3px 8px;border:1px solid #DAE3EF;border-radius:10px;background:#FFF}
+.bill-row+.bill-row{margin-top:5px}
+.bill-row label{display:flex;align-items:center;gap:7px;min-height:44px;cursor:pointer}
+.bill-row :is(strong,small){display:block;overflow-wrap:anywhere}
+.bill-row strong{font-size:14px;line-height:1.3}
+.bill-row small{margin-top:2px;color:#536377;font-size:12px}
+.bill-row small.bill-overdue{color:#A5322E}
+.bill-row input[type=checkbox]{appearance:auto;width:18px;height:18px;flex:none;accent-color:#163F66}
+.bill-row:has(input:checked){border-color:#91ABCB;background:#F3F7FC}
+.bill-money{display:flex;align-items:center;gap:4px;color:#42546B}
+.bill-money input{min-height:44px;text-align:right;font-variant-numeric:tabular-nums;padding:4px 6px;border-radius:8px}
+.bill-money input:disabled{color:#536377;opacity:1;-webkit-text-fill-color:#536377}
+.bill-preview{margin-bottom:10px;color:#42546B;font-size:14px}
+.bill-preview summary{display:list-item;align-content:center;min-height:44px;cursor:pointer}
+.bill-preview textarea{display:block;padding:8px;font-size:16px;resize:vertical;min-height:113px}
+.bill-footer{margin-top:7px;padding:10px 0 12px;border-top:1px solid #DAE3EF}
+.bill-total-line{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:14px}
+.bill-total-line strong{font-size:22px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.bill-footer .bill-submit{margin-top:8px;background:#FFAD50;color:#262014;font-size:15px}
+.bill-submit:disabled{opacity:.55;cursor:default}
+.bill-status{color:#006448;font-size:13px;line-height:1.4}
+.bill-status:not(:empty){margin-top:7px}
+.bill-status[data-error]{color:#A5322E}
+.bill-empty{border-radius:10px;background:#F1F4F9;padding:12px;font-size:14px;color:#42546B}
+.pay-fill{margin-top:7px;padding:8px 10px;min-height:44px;border:0;border-radius:10px;background:#EDF2FB;color:#163F66;font:inherit;font-size:14px;font-weight:650;cursor:pointer}
+.tmpl{min-height:38px;border-radius:10px}
+@media(pointer:coarse){.tmpl{min-height:44px}}
+@media(max-width:375px){.billing-sheet{padding-inline:12px}.company-actions button{font-size:13px}.bill-row{grid-template-columns:minmax(0,1fr) minmax(78px,90px)}}
+@media(prefers-reduced-motion:reduce){.card,.ov,.sh{animation:none;transition:none}}
 </style>
 </head>
 <body>
@@ -198,7 +245,7 @@ textarea.fi{resize:none;height:84px;font-size:15px;line-height:1.5}
 <!-- LOGIN -->
 <div id="login">
   <div class="l-mark">
-    <svg width="76" height="76" viewBox="0 0 120 120"><rect width="120" height="120" rx="26" fill="#E8720C"/><path d="M30 90 L54 30 L64 30 L40 90 Z" fill="#fff"/><path d="M70 30 L80 30 L80 90 L70 90 L70 64 L60 78 L70 56 Z" fill="#fff"/><circle cx="44" cy="44" r="3" fill="#0F2744"/></svg>
+    <img src="logo-sk.png" alt="">
   </div>
   <div class="l-title">СтройКонтроль</div>
   <div class="l-sub">Менеджер проектов и оплат</div>
@@ -216,7 +263,7 @@ textarea.fi{resize:none;height:84px;font-size:15px;line-height:1.5}
     <div class="hr1">
       <button class="back" id="backBtn" onclick="goBack()">←</button>
       <div class="brandmini">
-        <svg width="30" height="30" viewBox="0 0 120 120" id="brandLogo"><rect width="120" height="120" rx="26" fill="#E8720C"/><path d="M30 90 L54 30 L64 30 L40 90 Z" fill="#fff"/><path d="M70 30 L80 30 L80 90 L70 90 L70 64 L60 78 L70 56 Z" fill="#fff"/></svg>
+        <img src="logo-sk.png" alt="">
         <div class="brand-tx">
           <div class="brand-nm" id="brandNm">СтройКонтроль</div>
           <div class="crumb" id="crumb" style="display:none"></div>
@@ -229,9 +276,16 @@ textarea.fi{resize:none;height:84px;font-size:15px;line-height:1.5}
       </div>
     </div>
     <div class="hsum">
+      <h1 class="company-heading" id="companyHeading" hidden></h1>
       <div class="hl" id="hl">Итого к получению</div>
       <div class="ha" id="ha">₽0</div>
       <div class="hi" id="hi">загрузка...</div>
+      <div class="company-overdue" id="companyOverdue" hidden></div>
+    </div>
+    <div class="company-actions" id="companyActions" hidden>
+      <button class="bill-action" type="button" onclick="openBilling()">Список для счёта</button>
+      <button type="button" onclick="onPay()">Внести оплату</button>
+      <button type="button" onclick="openQuick(curOrg.id)">Добавить работу</button>
     </div>
     <div class="chips" id="chips"></div>
     <div class="sw" id="sw"><input class="search" type="search" id="searchInp" placeholder="Поиск организации или объекта..." oninput="doSearch()"></div>
@@ -239,8 +293,8 @@ textarea.fi{resize:none;height:84px;font-size:15px;line-height:1.5}
   </div>
   <div class="content" id="content"><div class="spin-box"><div class="spinner"></div>Загрузка...</div></div>
   <div class="fab-group">
-    <button class="fab pay" onclick="onPay()" title="Внести оплату">−</button>
-    <button class="fab add" onclick="onAdd()" title="Добавить">+</button>
+    <button class="fab pay" id="payFab" onclick="onPay()" aria-label="Внести оплату" title="Внести оплату">−</button>
+    <button class="fab add" id="addFab" onclick="onAdd()" aria-label="Добавить" title="Добавить">+</button>
   </div>
 </div>
 
@@ -259,7 +313,7 @@ textarea.fi{resize:none;height:84px;font-size:15px;line-height:1.5}
   <input class="fi" type="text" id="qWName" placeholder="Исполнительная документация">
   <div class="tmpl-row" id="qTmpl"></div>
   <span class="fl">Сумма ₽ — пусто = «Уточняется»</span>
-  <input class="fi" type="number" id="qWAmt" placeholder="50000 или пусто" inputmode="numeric">
+  <input class="fi" type="number" id="qWAmt" placeholder="50000 или пусто" inputmode="decimal" step="0.01">
   <span class="fl">Дедлайн оплаты</span>
   <input class="fi" type="date" id="qWDeadline">
   <span class="fl">Комментарий</span>
@@ -291,7 +345,7 @@ textarea.fi{resize:none;height:84px;font-size:15px;line-height:1.5}
   <div class="handle"></div><div class="sht" id="workT">Новая работа</div>
   <span class="fl">Название *</span><input class="fi" type="text" id="wName" placeholder="Исполнительная документация">
   <div class="tmpl-row" id="tmplRow"></div>
-  <span class="fl">Сумма ₽ — пусто = «Уточняется»</span><input class="fi" type="number" id="wAmt" placeholder="50000 или пусто" inputmode="numeric">
+  <span class="fl">Сумма ₽ — пусто = «Уточняется»</span><input class="fi" type="number" id="wAmt" placeholder="50000 или пусто" inputmode="decimal" step="0.01">
   <span class="fl">Статус</span>
   <select class="fi" id="wStatus"><option value="clarifying">🔍 Уточняется</option><option value="waiting">⏳ Ожидание оплаты</option><option value="overdue">🔴 Просрочка</option><option value="paid">✅ Оплачено</option></select>
   <span class="fl">Дата выполнения (сдали заказчику)</span><input class="fi" type="date" id="wDone">
@@ -323,7 +377,8 @@ textarea.fi{resize:none;height:84px;font-size:15px;line-height:1.5}
 <!-- PAY -->
 <div class="ov" id="payOv"><div class="sh">
   <div class="handle"></div><div class="sht">Внести оплату</div><div class="shs" id="paySub"></div>
-  <span class="fl">Сумма ₽ *</span><input class="fi" type="number" id="pAmt" placeholder="50000" inputmode="numeric">
+  <label class="fl" for="pAmt">Сумма, ₽ *</label><input class="fi" type="number" id="pAmt" placeholder="50000" inputmode="decimal" step="0.01">
+  <button type="button" class="pay-fill" id="payFill" hidden></button>
   <span class="fl">Когда заплатили *</span><input class="fi" type="date" id="pDate">
   <span class="fl">Заметка</span><input class="fi" type="text" id="pNote" placeholder="Аванс / окончательный расчёт...">
   <button class="sb teal" onclick="savePay()">Записать оплату</button>
@@ -336,6 +391,29 @@ textarea.fi{resize:none;height:84px;font-size:15px;line-height:1.5}
   <div id="pickList"></div>
   <button class="sb gray" onclick="closeOv('pickOv')">Отмена</button>
 </div></div>
+
+<!-- BILLING WORK LIST -->
+<div class="ov billing-overlay" id="billingOv">
+  <section class="sh billing-sheet" role="dialog" aria-modal="true" aria-labelledby="billingTitle">
+    <div class="handle" aria-hidden="true"></div>
+    <div class="billing-head">
+      <div><h2 class="sht" id="billingTitle">Список для счёта</h2><p class="shs" id="billingOrg"></p></div>
+      <button class="bill-close" id="billClose" type="button" aria-label="Закрыть список">×</button>
+    </div>
+    <div class="billing-body" id="billingBody">
+      <div id="billingWorks"></div>
+      <details class="bill-preview" id="billingPreview" hidden>
+        <summary>Текст для «Моего налога»</summary>
+        <textarea class="fi" id="billingText" rows="5" aria-label="Текст для Моего налога" readonly></textarea>
+      </details>
+    </div>
+    <footer class="bill-footer">
+      <div class="bill-total-line" aria-live="polite"><span id="billingCount">Выбрано 0</span><strong id="billingTotal">0 ₽</strong></div>
+      <button class="sb bill-submit" id="billCopy" type="button" disabled>Сформировать и скопировать</button>
+      <p class="bill-status" id="billStatus" role="status"></p>
+    </footer>
+  </section>
+</div>
 
 <!-- EXTRA INCOME ADD -->
 <div class="ov" id="incOv"><div class="sh">
@@ -408,6 +486,9 @@ let showArch=false,search='',filterMode='all',sortMode='created';
 let editOrgId=null,editObjId=null,editWorkId=null,payForWork=null;
 let expandedObj=null;
 let unsubGlobal=[];
+let billingOrgId=null;
+let billingSourceReady={objects:false,works:false,payments:false};
+const billingMoney=new Intl.NumberFormat('ru-RU',{style:'currency',currency:'RUB',minimumFractionDigits:2,trailingZeroDisplay:'stripIfInteger'});
 
 const WST={clarifying:{l:'🔍 Уточняется',c:'#7C3AED',b:'#EDE9FE'},waiting:{l:'⏳ Ожидание',c:'#B45309',b:'#FEF9C3'},overdue:{l:'🔴 Просрочка',c:'#DC2626',b:'#FEE2E2'},paid:{l:'✅ Оплачено',c:'#0E9F6E',b:'#D1FAE5'}};
 const OST={active:{l:'🟢 Активный',c:'#0E9F6E',b:'#D1FAE5'},inactive:{l:'🔵 Неактивный',c:'#2563EB',b:'#DBEAFE'},archive:{l:'📦 Архив',c:'#6B7280',b:'#F3F4F6'}};
@@ -419,10 +500,11 @@ function buzz(){if(navigator.vibrate)navigator.vibrate(8);}
 
 function startApp(){
   setSc('');
+  billingSourceReady={objects:false,works:false,payments:false};
   const u1=db.collection('orgs').orderBy('createdAt').onSnapshot(s=>{orgs=s.docs.map(d=>({id:d.id,...d.data()}));setSc('ok');autoOverdue();refresh();},()=>setSc('err'));
-  const u2=db.collection('objects').onSnapshot(s=>{ALL.objs=s.docs.map(d=>({id:d.id,...d.data()}));refresh();});
-  const u3=db.collection('works').onSnapshot(s=>{ALL.works=s.docs.map(d=>({id:d.id,...d.data()}));autoOverdue();refresh();});
-  const u4=db.collection('payments').onSnapshot(s=>{const m={};s.docs.forEach(d=>{const p=d.data();(m[p.workId]=m[p.workId]||[]).push({id:d.id,...p});});ALL.pays=m;refresh();});
+  const u2=db.collection('objects').onSnapshot(s=>{ALL.objs=s.docs.map(d=>({id:d.id,...d.data()}));billingSourceReady.objects=true;refresh();});
+  const u3=db.collection('works').onSnapshot(s=>{ALL.works=s.docs.map(d=>({id:d.id,...d.data()}));billingSourceReady.works=true;autoOverdue();refresh();});
+  const u4=db.collection('payments').onSnapshot(s=>{const m={};s.docs.forEach(d=>{const p=d.data();(m[p.workId]=m[p.workId]||[]).push({id:d.id,...p});});ALL.pays=m;billingSourceReady.payments=true;refresh();});
   const u5=db.collection('income').orderBy('date','desc').onSnapshot(s=>{income=s.docs.map(d=>({id:d.id,...d.data()}));refresh();});
   unsubGlobal=[u1,u2,u3,u4,u5];
 }
@@ -451,6 +533,17 @@ function openObj(id){curObj=ALL.objs.find(o=>o.id===id);sc='works';renderWorks()
 
 function updHdr(){
   const back=document.getElementById('backBtn'),sw=document.getElementById('sw'),chips=document.getElementById('chips'),tb=document.getElementById('toolbar'),crumb=document.getElementById('crumb'),brandNm=document.getElementById('brandNm');
+  const isCompany=sc==='objects', overdue=document.getElementById('companyOverdue');
+  document.querySelector('.hdr').classList.toggle('company-view',isCompany);
+  const companyHeading=document.getElementById('companyHeading');
+  companyHeading.hidden=!isCompany;
+  document.getElementById('companyActions').hidden=!isCompany;
+  document.getElementById('payFab').hidden=isCompany;
+  const addButton=document.getElementById('addFab');
+  const addLabel=isCompany?'Добавить объект':sc==='works'?'Добавить работу':'Добавить';
+  addButton.setAttribute('aria-label',addLabel);
+  addButton.title=addLabel;
+  overdue.hidden=true;
   let lbl='Итого к получению',amt=0,info='';
   chips.style.display='none';tb.style.display='none';crumb.style.display='none';
   if(sc==='orgs'){
@@ -459,8 +552,12 @@ function updHdr(){
     chips.style.display='flex';
     chips.innerHTML=`<div class="chip warn" onclick="openOverdue()"><div class="chip-v">${fmt(totalOverdue())}</div><div class="chip-l">Просрочено</div><span class="chip-arrow">›</span></div><div class="chip earn" onclick="openMoney()"><div class="chip-v">${fmt(earnedThisMonth())}</div><div class="chip-l">Получено в ${monthName()}</div><button class="chip-plus" onclick="event.stopPropagation();openIncome()">+</button></div>`;
   }else if(sc==='objects'){
-    back.classList.add('show');sw.style.display='none';brandNm.textContent=curOrg.name;crumb.style.display='block';crumb.textContent='Получено всего: '+fmt(orgReceived(curOrg.id));
-    lbl='Долг по организации';amt=orgDebt(curOrg.id);info=orgObjs(curOrg.id).length+' активных объектов';
+    back.classList.add('show');sw.style.display='none';brandNm.textContent='СтройКонтроль';companyHeading.textContent=curOrg.name;
+    const objects=orgObjs(curOrg.id);
+    const late=objects.flatMap(o=>objWorks(o.id)).filter(w=>w.status==='overdue').reduce((sum,w)=>sum+workRemaining(w),0);
+    overdue.hidden=!late;
+    overdue.textContent=late?'Просрочено '+billingMoney.format(late):'';
+    lbl='К получению';amt=orgDebt(curOrg.id);info=objects.length+' '+plural(objects.length,'объект','объекта','объектов')+' · Получено '+billingMoney.format(orgReceived(curOrg.id));
   }else if(sc==='works'){
     back.classList.add('show');sw.style.display='none';brandNm.textContent=curObj.name;crumb.style.display='block';crumb.textContent=curOrg.name;
     lbl='Долг по объекту';amt=objDebt(curObj.id);info=objWorks(curObj.id).length+' '+plural(objWorks(curObj.id).length,'работа','работы','работ');
@@ -598,10 +695,11 @@ function mi(ic,tx,fn,danger){return`<div class="menu-item${danger?' danger':''}"
 
 /* ===== QUICK ADD ===== */
 function onAdd(){if(sc==='orgs')openQuick();else if(sc==='objects')openAddObj();else openAddWork();}
-function openQuick(){
+function openQuick(orgId){
   document.getElementById('qTmpl').innerHTML=TEMPLATES.map(t=>`<button class="tmpl" onclick="document.getElementById('qWName').value='${t.replace(/'/g,"\\'")}'">${t}</button>`).join('');
   const os=document.getElementById('qOrg');
   os.innerHTML=orgs.map(o=>`<option value="${o.id}">${esc(o.name)}</option>`).join('')+`<option value="__new">➕ Новая организация</option>`;
+  if(orgId&&orgs.some(o=>o.id===orgId))os.value=orgId;
   ['qWName','qWAmt','qWDeadline','qWNotes','qOrgNew','qObjNew'].forEach(id=>document.getElementById(id).value='');
   qOrgChange();
   openOv('quickOv');
@@ -642,6 +740,132 @@ function onPay(){
 }
 function pickWork(id){closeOv('pickOv');setTimeout(()=>openAddPayFor(id),200);}
 
+/* ===== BILLING DRAFT (read-only) ===== */
+function billingGroups(){
+  return orgObjs(billingOrgId).map(object=>({object,works:objWorks(object.id).filter(work=>work.amount==null||Math.round(workRemaining(work)*100)>0)})).filter(group=>group.works.length);
+}
+
+function openBilling(){
+  if(!curOrg)return;
+  if(!Object.values(billingSourceReady).every(Boolean)){
+    alert('Дождись загрузки объектов, работ и оплат.');
+    return;
+  }
+  billingOrgId=curOrg.id;
+  document.getElementById('billingOrg').textContent=curOrg.name;
+  const list=document.getElementById('billingWorks');
+  list.replaceChildren();
+  for(const {object,works} of billingGroups()){
+    const fieldset=document.createElement('fieldset');
+    fieldset.className='bill-object';
+    const legend=document.createElement('legend');
+    legend.textContent=object.name;
+    fieldset.append(legend);
+    for(const work of works){
+      const row=document.createElement('div');
+      row.className='bill-row';
+      row.dataset.workId=work.id;
+      row.innerHTML='<label><input type="checkbox"><span><strong></strong><small></small></span></label><div class="bill-money"><input class="fi" type="text" inputmode="decimal" autocomplete="off" disabled><span aria-hidden="true">₽</span></div>';
+      const limit=work.amount==null?null:Math.round(workRemaining(work)*100);
+      row.querySelector('strong').textContent=work.name;
+      const description=row.querySelector('small');
+      description.textContent=limit===null?'Сумма уточняется':`Остаток ${billingMoney.format(limit/100)}`;
+      if(work.status==='overdue'){
+        description.className='bill-overdue';
+        description.textContent+=' · просрочено';
+      }
+      const amount=row.querySelector('.bill-money input');
+      amount.setAttribute('aria-label',`Сумма для счёта, ${object.name} — ${work.name}, ₽`);
+      amount.value=limit===null?'':String(limit/100).replace('.',',');
+      if(limit===null)amount.placeholder='Ввести';
+      fieldset.append(row);
+    }
+    list.append(fieldset);
+  }
+  if(!list.childElementCount)list.innerHTML='<p class="bill-empty">Нет открытых работ по текущим объектам.</p>';
+  document.getElementById('billingPreview').open=false;
+  updateBilling();
+  openOv('billingOv');
+  document.getElementById('app').inert=true;
+  document.getElementById('billingBody').scrollTop=0;
+  document.getElementById('billClose').focus({preventScroll:true});
+}
+
+function billingStatus(text,error=false){
+  const status=document.getElementById('billStatus');
+  status.textContent=text;
+  status.toggleAttribute('data-error',error);
+}
+
+function updateBilling(){
+  const available=new Map();
+  for(const {object,works} of billingGroups())for(const work of works)available.set(work.id,{object,work});
+  const lines=[];
+  let count=0,total=0,invalid=false;
+  let error='';
+  for(const row of document.querySelectorAll('#billingWorks .bill-row')){
+    const checked=row.querySelector('input[type=checkbox]').checked;
+    const input=row.querySelector('.bill-money input');
+    input.disabled=!checked;
+    input.removeAttribute('aria-invalid');
+    if(!checked)continue;
+    count++;
+    const entry=available.get(row.dataset.workId);
+    const raw=input.value.trim().replace(/[\s\u00a0\u202f]/g,'').replace(',','.');
+    const cents=Math.round(Number(raw)*100);
+    const limit=entry?.work.amount==null?Infinity:Math.round(workRemaining(entry.work)*100);
+    if(!entry||!/^(?:\d+(?:\.\d{0,2})?|\.\d{1,2})$/.test(raw)||!Number.isSafeInteger(cents)||cents<=0||cents>limit||!Number.isSafeInteger(total+cents)){
+      invalid=true;
+      input.setAttribute('aria-invalid','true');
+      error=!entry?'Одна из работ больше недоступна. Открой список заново.':cents>limit?`По работе «${entry.work.name}» сейчас доступно ${billingMoney.format(limit/100)}.`:'Укажи положительную сумму с точностью до копеек.';
+      continue;
+    }
+    total+=cents;
+    lines.push(`${entry.object.name} — ${entry.work.name}, ${billingMoney.format(cents/100)}`);
+  }
+  const canCopy=count>0&&!invalid;
+  document.getElementById('billingCount').textContent=`Выбрано ${count}`;
+  document.getElementById('billingTotal').textContent=invalid?'—':billingMoney.format(total/100);
+  document.getElementById('billCopy').disabled=!canCopy;
+  document.getElementById('billingPreview').hidden=!canCopy;
+  const text=document.getElementById('billingText');
+  text.value=canCopy?[...lines,`Итого к оплате — ${billingMoney.format(total/100)}`].join('\n'):'';
+  billingStatus(error,invalid);
+  return text.value;
+}
+
+async function copyBilling(){
+  const text=updateBilling();
+  if(!text)return;
+  const preview=document.getElementById('billingPreview');
+  const field=document.getElementById('billingText');
+  preview.open=true;
+  try{
+    await navigator.clipboard.writeText(text);
+    billingStatus('Скопировано. Можно вставить в «Мой налог».');
+  }catch{
+    if(!document.getElementById('billingOv').classList.contains('on'))return;
+    field.focus();
+    field.select();
+    let copied=false;
+    try{copied=document.execCommand('copy');}catch{}
+    billingStatus(copied?'Скопировано. Можно вставить в «Мой налог».':'Текст выделен. Скопируй его вручную.',!copied);
+  }
+}
+
+function closeBilling(){
+  closeOv('billingOv');
+  document.getElementById('app').inert=false;
+  document.querySelector('#companyActions .bill-action').focus({preventScroll:true});
+}
+
+document.getElementById('billingWorks').addEventListener('input',updateBilling);
+document.getElementById('billCopy').addEventListener('click',copyBilling);
+document.getElementById('billClose').addEventListener('click',closeBilling);
+document.getElementById('billingOv').addEventListener('keydown',event=>{
+  if(event.key==='Escape')closeBilling();
+});
+
 /* ===== CRUD ORG ===== */
 function openAddOrg(){editOrgId=null;document.getElementById('orgT').textContent='Новая организация';document.getElementById('orgName').value='';openOv('orgOv');}
 function openEditOrg(id){editOrgId=id;const o=orgs.find(x=>x.id===id);document.getElementById('orgT').textContent='Редактировать организацию';document.getElementById('orgName').value=o?o.name:'';openOv('orgOv');}
@@ -674,7 +898,14 @@ function dupWorkMenu(id){const w=ALL.works.find(x=>x.id===id);if(!w)return;db.co
 function deleteWorkMenu(id){if(!confirm('Удалить работу и все её оплаты?'))return;db.collection('payments').where('workId','==',id).get().then(s=>s.forEach(d=>d.ref.delete()));db.collection('works').doc(id).delete();closeOv('menuOv');if(document.getElementById('wdOv').classList.contains('on'))closeOv('wdOv');}
 
 /* ===== PAYMENTS ===== */
-function openAddPayFor(id){payForWork=ALL.works.find(w=>w.id===id);if(!payForWork)return;const rem=payForWork.amount!=null?workRemaining(payForWork):null;document.getElementById('paySub').textContent=payForWork.name+(rem!=null?' · остаток '+fmt(rem):' · сумма уточняется');document.getElementById('pAmt').value='';document.getElementById('pDate').value=today();document.getElementById('pNote').value='';openOv('payOv');}
+function openAddPayFor(id){payForWork=ALL.works.find(w=>w.id===id);if(!payForWork)return;const rem=payForWork.amount!=null?workRemaining(payForWork):null;document.getElementById('paySub').textContent=payForWork.name+(rem!=null?' · остаток '+billingMoney.format(rem):' · сумма уточняется');document.getElementById('pAmt').value='';document.getElementById('pDate').value=today();document.getElementById('pNote').value='';const fill=document.getElementById('payFill');fill.hidden=!(rem>0);fill.textContent=rem>0?`Весь остаток · ${billingMoney.format(rem)}`:'';openOv('payOv');}
+document.getElementById('payFill').addEventListener('click',()=>{
+  const work=ALL.works.find(w=>w.id===payForWork?.id);
+  if(work&&work.amount!=null){
+    const remaining=Math.round(workRemaining(work)*100)/100;
+    document.getElementById('pAmt').value=remaining>0?remaining:'';
+  }
+});
 function savePay(){const a=parseFloat(document.getElementById('pAmt').value)||0;if(!a){alert('Введи сумму');return;}const w=payForWork;db.collection('payments').add({workId:w.id,workName:w.name,objName:w.objName||'',orgName:w.orgName||'',amount:a,date:document.getElementById('pDate').value||today(),note:document.getElementById('pNote').value.trim()||null,createdAt:firebase.firestore.FieldValue.serverTimestamp()});const np=workPaid(w.id)+a;if(w.amount!=null&&np>=w.amount)db.collection('works').doc(w.id).update({status:'paid'});else if(w.status==='clarifying'&&w.amount!=null)db.collection('works').doc(w.id).update({status:'waiting'});buzz();closeOv('payOv');}
 function delPay(id){if(!confirm('Удалить эту оплату?'))return;db.collection('payments').doc(id).delete();}
 
@@ -710,8 +941,12 @@ function doSearch(){search=document.getElementById('searchInp').value;renderOrgs
 
 function openOv(id){if(id==='exportOv'){document.getElementById('expSel').innerHTML=orgs.map(o=>`<option value="${o.id}">${esc(o.name)}</option>`).join('');}document.getElementById(id).classList.add('on');}
 function closeOv(id){document.getElementById(id).classList.remove('on');}
-function closeAllOv(){document.querySelectorAll('.ov').forEach(o=>o.classList.remove('on'));}
-document.querySelectorAll('.ov').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('on');}));
+function closeAllOv(){document.querySelectorAll('.ov').forEach(o=>o.classList.remove('on'));document.getElementById('app').inert=false;}
+document.querySelectorAll('.ov').forEach(o=>o.addEventListener('click',e=>{
+  if(e.target!==o)return;
+  if(o.id==='billingOv')closeBilling();
+  else o.classList.remove('on');
+}));
 
 async function exportAll(){try{const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(orgs.map(o=>({Организация:o.name,'Общий долг':orgDebt(o.id),'Получено всего':orgReceived(o.id)}))),'Организации');XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(ALL.objs.map(o=>({Организация:o.orgName,Объект:o.name,Статус:(OST[o.status]||{}).l||o.status,Долг:objDebt(o.id)}))),'Объекты');XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(ALL.works.map(w=>({Организация:w.orgName,Объект:w.objName,Работа:w.name,Сумма:w.amount!=null?w.amount:'уточняется',Оплачено:workPaid(w.id),Остаток:w.amount!=null?workRemaining(w):'',Статус:(WST[w.status]||{}).l||w.status,Выполнено:w.completionDate||'',Дедлайн:w.deadline||'',Комментарий:w.notes||''}))),'Работы');const pr=[];Object.values(ALL.pays).flat().forEach(p=>pr.push({Организация:p.orgName||'',Объект:p.objName||'',Работа:p.workName||'',Сумма:p.amount,Дата:p.date,Заметка:p.note||''}));XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(pr),'Оплаты');XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(income.map(i=>({Сумма:i.amount,Что:i.name,Дата:i.date}))),'Разовые доходы');XLSX.writeFile(wb,'СтройКонтроль_'+today()+'.xlsx');closeOv('exportOv');}catch(e){alert('Ошибка экспорта: '+e.message);}}
 async function exportOrg(){const id=document.getElementById('expSel').value;const org=orgs.find(o=>o.id===id);if(!org)return;try{const rows=[];orgObjs(id,true).forEach(obj=>{objWorks(obj.id).forEach(w=>{rows.push({Объект:obj.name,Работа:w.name,Сумма:w.amount!=null?w.amount:'уточняется',Оплачено:workPaid(w.id),Остаток:w.amount!=null?workRemaining(w):'',Статус:(WST[w.status]||{}).l||w.status,Выполнено:w.completionDate||'',Дедлайн:w.deadline||'',Комментарий:w.notes||''});(ALL.pays[w.id]||[]).forEach(p=>rows.push({Объект:'',Работа:'   └ оплата '+fmtD(p.date),Сумма:'',Оплачено:p.amount,Остаток:'',Статус:'',Выполнено:'',Дедлайн:'',Комментарий:p.note||''}));});});const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(rows.length?rows:[{Объект:'нет данных'}]),org.name.slice(0,31).replace(/[\\\/\?\*\[\]:]/g,''));XLSX.writeFile(wb,org.name.replace(/[\\\/]/g,'_')+'_'+today()+'.xlsx');closeOv('exportOv');}catch(e){alert('Ошибка экспорта: '+e.message);}}
