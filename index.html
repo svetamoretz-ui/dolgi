@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="СтройКонтроль">
-<meta name="theme-color" content="#0F2744">
+<meta name="theme-color" content="#ffffff">
 <link rel="icon" href="icon-sk.png" type="image/png">
 <link rel="apple-touch-icon" href="icon-sk.png">
 <link rel="manifest" href="manifest.json">
@@ -14,72 +14,97 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;width:100%;overflow:hidden}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#EEF1F7;color:#0F2744}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f3f5f8;color:#16243a}
 
 /* ============ LOGIN ============ */
-#login{position:fixed;inset:0;background:linear-gradient(160deg,#0F2744,#16335C);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;padding:32px 24px}
+#login{position:fixed;inset:0;background:#f3f5f8;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;padding:24px}
 #login.hidden{display:none}
-.l-mark{margin-bottom:22px}
-.l-title{font-size:24px;font-weight:800;color:white;margin-bottom:4px;letter-spacing:-.3px}
-.l-sub{font-size:14px;color:rgba(255,255,255,.45);margin-bottom:40px}
-.l-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:24px;width:100%;max-width:340px}
-.l-lbl{font-size:11px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;display:block}
-.l-inp{width:100%;padding:15px 16px;border:1.5px solid rgba(255,255,255,.15);border-radius:14px;font-size:18px;outline:none;background:rgba(255,255,255,.08);color:white;font-family:inherit;letter-spacing:3px;transition:border .15s}
-.l-inp::placeholder{letter-spacing:0;color:rgba(255,255,255,.25);font-size:15px}
-.l-inp:focus{border-color:#00B4D8}
-.l-btn{width:100%;margin-top:16px;padding:15px;border:none;border-radius:14px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;background:#E8720C;color:white;transition:transform .1s}
+.l-mark{margin-bottom:16px}
+.l-title{font-size:29px;font-weight:750;color:#16243a;margin-bottom:4px;letter-spacing:-.04em}
+.l-sub{font-size:14px;color:#52647a;margin-bottom:25px}
+.l-box{background:#fff;border:1px solid #dde4ef;border-radius:16px;padding:18px;width:100%;max-width:340px}
+.l-lbl{font-size:14px;font-weight:650;color:#455a73;margin-bottom:6px;display:block}
+.l-inp{width:100%;padding:12px;border:1px solid #d7e0eb;border-radius:10px;font-size:17px;background:#f8fafc;color:#16243a;font-family:inherit}
+.l-inp::placeholder{color:#596a80;font-size:15px}
+.l-inp:focus{border-color:#567da6}
+.l-btn{width:100%;margin-top:12px;padding:13px;border:none;border-radius:10px;font-size:16px;font-weight:720;cursor:pointer;font-family:inherit;background:#17365b;color:white}
 .l-btn:active{transform:scale(.98)}
-.l-err{text-align:center;color:#FF8585;font-size:13px;margin-top:12px;min-height:20px}
+.l-err{text-align:center;color:#a5322e;font-size:13px}
+.l-err:not(:empty){margin-top:10px}
 
 /* ============ APP SHELL ============ */
 #app{display:none;flex-direction:column;position:fixed;inset:0;overflow:hidden}
 #app.on{display:flex}
 
-/* HEADER */
-.hdr{background:linear-gradient(155deg,#0F2744 0%,#16335C 100%);color:white;flex-shrink:0;position:relative;overflow:hidden}
-.hdr::after{content:"";position:absolute;left:0;right:0;bottom:32px;height:2px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.13) 0 22px,transparent 22px 40px);opacity:.5}
-.hr1{display:flex;align-items:center;gap:10px;padding:16px 16px 0;padding-top:calc(env(safe-area-inset-top, 0px) + 14px);position:relative;z-index:2}
-.back{background:rgba(255,255,255,.12);border:none;color:white;width:34px;height:34px;border-radius:50%;font-size:18px;cursor:pointer;display:none;align-items:center;justify-content:center;flex-shrink:0;font-family:inherit}
+/* APP HEADER */
+.app-header{flex:none;background:#fff;border-bottom:1px solid #e2e7ee;padding-top:env(safe-area-inset-top,0px)}
+.hr1{display:flex;align-items:center;gap:12px;min-height:64px;max-width:1120px;margin:auto;padding:8px 24px}
+.back{border:1px solid #dce3ed;background:white;color:#1b304c;width:44px;height:44px;border-radius:12px;font-family:inherit;font-size:28px;line-height:1;cursor:pointer;display:none;align-items:center;justify-content:center;flex:none}
 .back.show{display:flex}
-.brandmini{display:flex;align-items:center;gap:9px;flex:1;min-width:0}
-.brand-tx{min-width:0}
-.brand-nm{font-size:14px;font-weight:800;letter-spacing:-.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.crumb{font-size:11px;opacity:.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.hr-btns{display:flex;gap:6px;align-items:center;position:relative;z-index:2}
-.sync{width:8px;height:8px;border-radius:50%;background:#FCD34D;flex-shrink:0;transition:background .3s;margin-right:2px}
-.sync.ok{background:#5EEAD4}.sync.err{background:#FCA5A5}
-.hb{background:rgba(255,255,255,.1);border:none;color:white;width:34px;height:34px;border-radius:50%;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:inherit}
-.hsum{padding:16px 16px 14px;position:relative;z-index:2}
-.hl{font-size:11px;opacity:.5;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px}
-.ha{font-size:36px;font-weight:800;letter-spacing:-1.8px;line-height:1}
-.hi{font-size:12px;opacity:.5;margin-top:5px}
-.chips{display:flex;gap:9px;padding:0 16px 16px;position:relative;z-index:2}
-.chip{border-radius:14px;padding:11px 13px;flex:1;min-width:0;cursor:pointer;transition:transform .1s;position:relative}
-.chip:active{transform:scale(.97)}
-.chip.warn{background:rgba(239,68,68,.16);border:1px solid rgba(239,68,68,.25)}
-.chip.earn{background:rgba(94,234,212,.14);border:1px solid rgba(94,234,212,.22)}
-.chip-v{font-size:18px;font-weight:800;white-space:nowrap;letter-spacing:-.5px}
-.chip.warn .chip-v{color:#FCA5A5}
-.chip.earn .chip-v{color:#5EEAD4}
-.chip-l{font-size:10px;opacity:.6;text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
-.chip-plus{position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;background:rgba(94,234,212,.25);color:#5EEAD4;border:none;font-size:15px;font-weight:600;display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:inherit;line-height:1}
-.chip-arrow{position:absolute;top:11px;right:11px;font-size:13px;opacity:.4}
-.sw{padding:0 16px 14px;position:relative;z-index:2}
-.search{width:100%;padding:11px 14px 11px 38px;border:none;border-radius:13px;font-size:14px;background:rgba(255,255,255,.1);color:white;font-family:inherit;outline:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,.4)' stroke-width='2.5'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:12px center}
-.search::placeholder{color:rgba(255,255,255,.35)}
-.toolbar{display:flex;gap:7px;padding:0 16px 14px;overflow-x:auto;position:relative;z-index:2}
-.toolbar::-webkit-scrollbar{display:none}
-.tb{background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.85);font-size:12px;font-weight:600;padding:7px 12px;border-radius:20px;white-space:nowrap;cursor:pointer;font-family:inherit;flex-shrink:0}
-.tb.active{background:white;color:#0F2744}
+.brandmini{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+.brandmini img{display:block;width:42px;height:auto;flex:none}
+.brand-nm{font-size:17px;font-weight:750;letter-spacing:-.025em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hr-btns{display:flex;gap:6px;align-items:center}
+.sync{width:8px;height:8px;border-radius:50%;background:#bd7e1e;flex:none;margin-right:4px}
+.sync.ok{background:#13825e}.sync.err{background:#bb443b}
+.hb{background:#fff;border:1px solid #dce3ed;color:#20344f;min-width:44px;min-height:44px;padding:0 10px;border-radius:11px;font-family:inherit;font-size:16px;font-weight:650;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+.nav-caption{font-size:13px;font-weight:650}
 
-/* CONTENT */
-.content{flex:1;overflow-y:auto;padding:14px 16px 120px;-webkit-overflow-scrolling:touch}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.card{animation:fadeUp .28s ease both}
+/* DASHBOARD */
+.app-page{flex:1;min-height:0;overflow-y:auto;scrollbar-gutter:stable}
+.workspace{max-width:1120px;margin:auto;padding:24px 24px 32px}
+.page-heading{margin-bottom:16px}
+.page-heading h1{font-size:clamp(26px,4vw,38px);line-height:1.12;letter-spacing:-.045em;overflow-wrap:anywhere}
+.page-heading p{font-size:14px;font-weight:650;color:#52617a;margin-bottom:5px;overflow-wrap:anywhere}
+.overview{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1.8fr);gap:12px;margin-bottom:20px}
+.hsum{display:flex;flex-direction:column;justify-content:center;min-width:0;background:#102747;color:#fff;border-radius:16px;padding:18px 20px}
+.hl{font-size:14px;font-weight:550;color:#d1dded;margin-bottom:6px}
+.ha{font-size:clamp(28px,5vw,44px);font-weight:750;letter-spacing:-.055em;line-height:1.12;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.hi{font-size:13px;color:#c9d7e9;margin-top:7px}
+.company-overdue{color:#ffbcb4;margin-top:7px;font-size:13px;font-weight:650}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:12px;min-width:0}
+.chip,.income-tile{border:1px solid #dde4ee;background:#fff;border-radius:16px;min-width:0}
+.chip{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;width:100%;padding:12px 14px;text-align:left;font:inherit;color:inherit;cursor:pointer}
+.chip.warn .chip-v{color:#a43a34}
+.chip.earn .chip-v{color:#117054}
+.chip-l{font-size:13px;color:#51627b;margin-bottom:5px}
+.chip-v{font-size:clamp(17px,3vw,24px);font-weight:730;letter-spacing:-.035em;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.income-tile{display:flex;position:relative}
+.income-tile .chip{border:0;background:transparent;padding-right:42px}
+.chip-plus{position:absolute;top:8px;right:7px;min-width:36px;min-height:36px;border-radius:10px;background:#edf6f2;color:#12654d;border:0;font:inherit;font-size:20px;cursor:pointer}
+.sw{margin-bottom:16px}
+.search{width:100%;min-height:46px;padding:10px 14px;border:1px solid #d7e0eb;border-radius:11px;font:inherit;font-size:16px;background:#fff;color:#16243a}
+.search::placeholder{color:#5d6c81}
+.toolbar{display:flex;gap:6px 12px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.filter-group{display:flex;flex-wrap:wrap;gap:6px}
+.tb{background:#fff;border:1px solid #dbe3ee;color:#465973;font:inherit;font-size:13px;font-weight:650;padding:7px 10px;min-height:37px;border-radius:9px;cursor:pointer}
+.tb.active{background:#eaf0f9;border-color:#adc0db;color:#163963}
+.sort-field{display:flex;align-items:center;gap:7px;font-size:13px;color:#465973}
+.sort-field select{min-height:37px;border:1px solid #dbe3ee;background:#fff;color:#233957;border-radius:9px;padding:3px 8px;font:inherit}
+.list-title{font-size:18px;letter-spacing:-.025em;margin-bottom:10px}
+.content{display:grid;gap:10px}
+[hidden]{display:none!important}
 
 /* ORG / OBJ / WORK CARDS */
-.card{background:white;border-radius:18px;box-shadow:0 1px 3px rgba(15,39,68,.04),0 6px 18px rgba(15,39,68,.06);margin-bottom:12px;overflow:hidden}
-.card.hot{box-shadow:0 1px 3px rgba(239,68,68,.1),0 6px 20px rgba(239,68,68,.16);border:1px solid #FECACA}
+.card{min-width:0;background:#fff;border-radius:15px;border:1px solid #dce4ef;overflow:hidden}
+.card.hot{border-color:#e7c9c7}
+.record-card{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start}
+.record-open{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;width:100%;min-width:0;text-align:left;padding:14px 15px;background:none;border:0;color:inherit;font:inherit;cursor:pointer}
+.record-open:active,.record-menu:active{background:#f1f5fa}
+.record-open:focus-visible,.record-menu:focus-visible{outline-offset:-3px}
+.record-name{display:block;font-size:16px;font-weight:730;letter-spacing:-.025em;overflow-wrap:anywhere}
+.record-meta{display:flex;flex-wrap:wrap;align-items:center;gap:5px 9px;color:#53647a;font-size:13px;margin-top:4px}
+.record-amount{color:#172d48;font-size:17px;font-weight:730;line-height:1.2;letter-spacing:-.025em;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.record-amount small{display:block;margin-top:4px;font-size:11px;letter-spacing:0;color:#596a80;font-weight:500}
+.record-menu{min-width:44px;min-height:44px;margin:5px 4px 0 0;background:none;border:none;border-radius:9px;color:#55677e;font:inherit;font-size:21px;cursor:pointer}
+.status-flag{color:#a43a34;font-weight:650}
+.record-extra{grid-column:1/-1;margin:0 14px 12px;padding-top:9px;border-top:1px solid #e6ebf1}
+.record-line{display:flex;justify-content:space-between;gap:10px;padding:5px 0;color:#465871;font-size:13px}
+.record-line span:first-child{min-width:0;overflow-wrap:anywhere}
+.record-line span:last-child{white-space:nowrap;font-variant-numeric:tabular-nums}
+.record-actions{grid-column:1/-1;display:flex;gap:7px;flex-wrap:wrap;padding:0 13px 10px}
+.record-actions button{padding:6px 9px;min-height:39px;border:1px solid #dce4ef;border-radius:8px;background:#f6f8fb;color:#244364;font:inherit;font-size:13px;font-weight:650;cursor:pointer}
+.record-actions button[aria-expanded="true"]{background:#eaf0f9;border-color:#adc0db}
 .card-tap{cursor:pointer;transition:background .12s}
 .card-tap:active{background:#FBFCFE}
 .ct{padding:16px 16px 0;display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
@@ -98,17 +123,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .pf{height:100%;background:linear-gradient(90deg,#5EEAD4,#0094B8);border-radius:10px;transition:width .4s ease}
 
 /* accordion previews (works inside object) */
-.acc{margin:8px 16px 4px;display:flex;flex-direction:column;gap:6px}
-.accw{background:#F6F8FC;border-radius:12px;padding:10px 12px;cursor:pointer;transition:background .12s}
+.acc{display:flex;flex-direction:column;gap:6px}
+.accw{background:#f6f8fb;border:1px solid #e4ebf3;border-radius:8px;padding:9px 10px;text-align:left;font:inherit;color:inherit;cursor:pointer}
 .accw:active{background:#EEF2F9}
 .accw-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
 .accw-n{font-size:13px;font-weight:600;color:#2C3A4F;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .accw-a{font-size:13px;font-weight:700;flex-shrink:0}
 .accw-note{font-size:11px;color:#9AA3B2;margin-top:3px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.accw-meta{font-size:10px;color:#B6BECD;margin-top:3px}
+.accw-meta{display:block;font-size:12px;color:#55677e;margin-top:3px}
 
-.cacts{display:flex;border-top:1px solid #F0F2F7}
-.cact{flex:1;padding:12px;text-align:center;font-size:13px;font-weight:600;cursor:pointer;background:none;border:none;font-family:inherit;color:#8A93A3}
+.cacts{display:flex;border-top:1px solid #e6ecf3}
+.cact{flex:1;min-height:44px;padding:8px 12px;text-align:center;font-size:13px;font-weight:650;cursor:pointer;background:none;border:none;font-family:inherit;color:#385775}
 .cact:active{background:#F6F8FC}
 .cact.dots{flex:0 0 56px;font-size:18px;letter-spacing:1px}
 .cact.open-acc{color:#0094B8}
@@ -123,36 +148,36 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .spin-box{text-align:center;padding:54px 20px;color:#9AA3B2;font-size:14px}
 .spinner{width:32px;height:32px;border:3px solid #E2E7F0;border-top-color:#0094B8;border-radius:50%;animation:sp .8s linear infinite;margin:0 auto 14px}
 @keyframes sp{to{transform:rotate(360deg)}}
-.arch-btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;margin-bottom:8px;cursor:pointer;color:#9AA3B2;font-size:13px;border:1.5px dashed #D4DAE4;border-radius:14px;background:white;font-family:inherit}
+.arch-btn{justify-self:start;min-height:44px;cursor:pointer;color:#435879;font:inherit;font-size:14px;font-weight:650;border:0;background:none;padding:6px 2px;text-align:left}
 
-/* FAB */
-.fab-group{position:fixed;bottom:calc(env(safe-area-inset-bottom, 0px) + 22px);right:20px;display:flex;flex-direction:column;gap:12px;z-index:60}
-.fab{width:58px;height:58px;border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:inherit;transition:transform .12s;color:white}
-.fab:active{transform:scale(.9)}
-.fab.add{background:#E8720C;box-shadow:0 6px 22px rgba(232,114,12,.5);font-size:30px;font-weight:300}
-.fab.pay{background:#0094B8;box-shadow:0 6px 22px rgba(0,148,184,.5);font-size:34px;font-weight:300}
+/* PAGE ACTIONS */
+.fab-group{flex:none;border-top:1px solid #dce4ee;background:#fff;padding-bottom:env(safe-area-inset-bottom,0px)}
+.footer-actions{display:flex;justify-content:flex-end;gap:8px;max-width:1120px;margin:auto;padding:9px 24px}
+.fab{min-height:44px;padding:8px 15px;border:1px solid #dce4ee;border-radius:10px;cursor:pointer;font:inherit;font-size:14px;font-weight:700;background:#fff;color:#254362}
+.fab.add{background:#17365b;color:white;border-color:transparent}
+.fab.add::before{content:"+ ";font-size:18px;line-height:0}
+.fab:active,.company-actions button:active,.sb:active{filter:brightness(.94)}
 
 /* OVERLAY / SHEET */
-.ov{position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:200;display:flex;align-items:flex-end;opacity:0;pointer-events:none;transition:opacity .22s;backdrop-filter:blur(2px)}
+.ov{position:fixed;inset:0;background:rgba(15,23,42,.46);z-index:200;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .18s;backdrop-filter:blur(2px)}
+.ov:not(.on){visibility:hidden}
 .ov.on{opacity:1;pointer-events:all}
-.sh{background:white;border-radius:26px 26px 0 0;padding:20px 20px calc(env(safe-area-inset-bottom, 0px) + 28px);width:100%;max-height:92vh;overflow-y:auto;transform:translateY(100%);transition:transform .28s cubic-bezier(.32,.72,0,1)}
+.sh{background:white;border-radius:20px 20px 0 0;padding:18px 20px calc(env(safe-area-inset-bottom,0px) + 20px);width:100%;max-width:600px;max-height:92vh;max-height:92dvh;overflow-y:auto;overscroll-behavior:contain;transform:translateY(12px);transition:transform .18s ease}
 .ov.on .sh{transform:translateY(0)}
 .handle{width:40px;height:4px;background:#DDE3EC;border-radius:2px;margin:0 auto 18px}
 .sht{font-size:21px;font-weight:800;letter-spacing:-.3px;margin-bottom:4px}
-.shs{font-size:13px;color:#9AA3B2;margin-bottom:14px}
-.fl{display:block;font-size:11px;font-weight:700;color:#A2AAB8;text-transform:uppercase;letter-spacing:.9px;margin:16px 0 6px}
+.shs{font-size:14px;color:#576880;margin-bottom:14px}
+.fl{display:block;font-size:14px;font-weight:650;color:#435671;margin:14px 0 6px}
 .fl:first-of-type{margin-top:8px}
-.fi{width:100%;padding:14px;border:1.5px solid #E5EAF1;border-radius:14px;font-size:16px;outline:none;background:#F8FAFC;font-family:inherit;-webkit-appearance:none;color:#0F2744;transition:border .15s,background .15s}
-.fi:focus{border-color:#0094B8;background:white}
+.fi{width:100%;padding:11px 12px;border:1px solid #d7e0eb;border-radius:10px;font-size:16px;background:#f8fafc;font-family:inherit;-webkit-appearance:none;color:#16243a}
+.fi:focus{border-color:#567da6;background:#fff}
 select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%230F2744' stroke-width='3'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
 textarea.fi{resize:none;height:84px;font-size:15px;line-height:1.5}
-.sb{width:100%;margin-top:14px;padding:15px;border:none;border-radius:15px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;transition:transform .1s}
-.sb:active{transform:scale(.98)}
-.sb.navy{background:#0F2744;color:white}
-.sb.teal{background:#0094B8;color:white}
+.sb{width:100%;margin-top:13px;padding:12px;min-height:46px;border:none;border-radius:10px;font-size:15px;font-weight:720;cursor:pointer;font-family:inherit}
+.sb.navy,.sb.teal{background:#17365b;color:white}
 .sb.org{background:#E8720C;color:white}
 .sb.red{background:#FEE2E2;color:#DC2626}
-.sb.gray{background:#F1F4F9;color:#5A6478;margin-top:10px}
+.sb.gray{background:#edf1f7;color:#405570;margin-top:8px}
 
 /* payment history rows */
 .pi{display:flex;align-items:flex-start;gap:12px;padding:13px 0;border-bottom:1px solid #F2F4F8}
@@ -184,7 +209,7 @@ textarea.fi{resize:none;height:84px;font-size:15px;line-height:1.5}
 .menu-ic{font-size:20px;width:26px;text-align:center}
 
 .tmpl-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.tmpl{background:#EDF2FB;color:#1A3A6B;border:none;border-radius:20px;padding:7px 12px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+.tmpl{background:#edf2f8;color:#284a70;border:1px solid #dbe4ef;border-radius:9px;padding:7px 10px;font-size:13px;font-weight:650;cursor:pointer;font-family:inherit}
 .tmpl:active{background:#DCE6F7}
 
 .seg{display:flex;background:#F1F4F9;border-radius:12px;padding:3px;margin-bottom:4px}
@@ -192,16 +217,11 @@ textarea.fi{resize:none;height:84px;font-size:15px;line-height:1.5}
 .seg-b.on{background:white;color:#0F2744;box-shadow:0 1px 3px rgba(0,0,0,.08)}
 .hint{font-size:12px;color:#9AA3B2;margin-top:8px;line-height:1.5}
 .l-mark img{display:block;width:112px;height:auto;padding:10px;background:#fff;border-radius:14px}
-.brandmini img{display:block;width:34px;height:auto;padding:3px;background:#fff;border-radius:5px;flex:none}
-.company-heading{font-size:22px;line-height:1.2;margin-bottom:12px;overflow-wrap:anywhere}
-.company-view .brand-nm{font-size:13px}
-.company-view .hi{opacity:.8}
-.company-overdue{color:#FFC1B9;margin-top:5px;font-size:13px;font-weight:650}
-.company-actions{position:relative;z-index:2;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:0 16px 16px}
-.company-actions[hidden],.fab-group [hidden]{display:none}
-.company-actions button{min-height:44px;padding:7px 4px;border:1px solid #FFFFFF38;border-radius:11px;background:#FFFFFF13;color:white;font:inherit;font-size:14px;font-weight:700;cursor:pointer}
-.company-actions .bill-action{grid-column:1 / -1;background:#FFAD50;border-color:transparent;color:#262014}
-.billing-overlay:not(.on){visibility:hidden}
+.company-actions{display:grid;align-content:center;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;min-width:0}
+.company-actions button{min-height:46px;padding:8px 6px;border:1px solid #d7e0eb;border-radius:10px;background:#fff;color:#233e5d;font:inherit;font-size:14px;font-weight:700;cursor:pointer}
+.company-actions .bill-action{grid-column:1/-1;background:#17365b;border-color:#17365b;color:#fff}
+.company-actions .bill-action::before{content:"";display:inline-block;width:7px;height:7px;margin-right:8px;border-radius:2px;background:#ffae51;vertical-align:2px}
+.company-actions .history-action{grid-column:1/-1;min-height:40px;background:transparent;border-color:transparent;color:#2b5078}
 .billing-sheet{display:flex;flex-direction:column;max-width:620px;margin:0 auto;max-height:min(92vh,740px);max-height:min(92dvh,740px);overflow:hidden;padding-bottom:env(safe-area-inset-bottom,0px)}
 .billing-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
 .billing-head .shs{color:#536377;margin:0;overflow-wrap:anywhere}
@@ -217,7 +237,7 @@ textarea.fi{resize:none;height:84px;font-size:15px;line-height:1.5}
 .bill-row small{margin-top:2px;color:#536377;font-size:12px}
 .bill-row small.bill-overdue{color:#A5322E}
 .bill-row input[type=checkbox]{appearance:auto;width:18px;height:18px;flex:none;accent-color:#163F66}
-.bill-row:has(input:checked){border-color:#91ABCB;background:#F3F7FC}
+.bill-row:has(input:checked){border-color:#8ca9cb;background:#eef4fb}
 .bill-money{display:flex;align-items:center;gap:4px;color:#42546B}
 .bill-money input{min-height:44px;text-align:right;font-variant-numeric:tabular-nums;padding:4px 6px;border-radius:8px}
 .bill-money input:disabled{color:#536377;opacity:1;-webkit-text-fill-color:#536377}
@@ -227,17 +247,72 @@ textarea.fi{resize:none;height:84px;font-size:15px;line-height:1.5}
 .bill-footer{margin-top:7px;padding:10px 0 12px;border-top:1px solid #DAE3EF}
 .bill-total-line{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:14px}
 .bill-total-line strong{font-size:22px;font-variant-numeric:tabular-nums;white-space:nowrap}
-.bill-footer .bill-submit{margin-top:8px;background:#FFAD50;color:#262014;font-size:15px}
+.bill-footer .bill-submit{margin-top:8px;background:#17365b;color:#fff;font-size:15px}
 .bill-submit:disabled{opacity:.55;cursor:default}
+.bill-secondary,.bill-group-toggle{min-height:40px;padding:6px 9px;border:1px solid #d7e0eb;border-radius:8px;background:#f6f8fb;color:#244566;font:inherit;font-size:13px;font-weight:650;cursor:pointer}
+.bill-secondary:disabled{opacity:.55;cursor:default}
+.bill-footer .bill-secondary{display:block;width:100%;margin-top:6px}
+.bill-group-toggle{display:block;margin-bottom:6px}
+.bill-group-toggle[aria-pressed=true]{border-color:#8ca9cb;background:#eef4fb}
+.workflow-status{min-height:1.4em;margin-top:7px;font-size:13px;color:#4a5f77}
+.workflow-status[data-error]{color:#a5322e}
+.history-list{display:grid;gap:8px;margin-top:12px}
+.history-record{width:100%;padding:11px;border:1px solid #dce4ee;border-radius:10px;background:#fff;text-align:left;color:#16243a;font:inherit;cursor:pointer}
+.history-record span{display:block;color:#53677e;font-size:13px;margin-top:4px}
+.history-record strong{font-size:16px;font-variant-numeric:tabular-nums}
+.history-detail .fi{height:132px}
+.history-meta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:14px;margin:9px 0}
+.transfer-fields{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
+.transfer-fields .fl{margin-top:7px}
+.transfer-fields .fi{min-height:44px}
+.transfer-works{margin-top:12px}
+.transfer-totals{display:grid;gap:3px;font-size:13px;color:#465a71}
+.transfer-totals strong{color:#16243a}
+.transfer-unavailable{font-size:13px;color:#64748b;margin:5px 0}
 .bill-status{color:#006448;font-size:13px;line-height:1.4}
 .bill-status:not(:empty){margin-top:7px}
 .bill-status[data-error]{color:#A5322E}
 .bill-empty{border-radius:10px;background:#F1F4F9;padding:12px;font-size:14px;color:#42546B}
 .pay-fill{margin-top:7px;padding:8px 10px;min-height:44px;border:0;border-radius:10px;background:#EDF2FB;color:#163F66;font:inherit;font-size:14px;font-weight:650;cursor:pointer}
-.tmpl{min-height:38px;border-radius:10px}
-@media(pointer:coarse){.tmpl{min-height:44px}}
-@media(max-width:375px){.billing-sheet{padding-inline:12px}.company-actions button{font-size:13px}.bill-row{grid-template-columns:minmax(0,1fr) minmax(78px,90px)}}
-@media(prefers-reduced-motion:reduce){.card,.ov,.sh{animation:none;transition:none}}
+.tmpl{min-height:38px}
+:is(button,input,select,textarea,summary):focus-visible{outline:2px solid #376a9d;outline-offset:2px}
+#app[data-screen=works] .overview{grid-template-columns:minmax(0,1fr)}
+@media(min-width:700px){
+  .content{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+  .content .empty,.content .spin-box{grid-column:1/-1}
+  .ov{align-items:center;padding:20px}
+  .sh{border-radius:18px;max-height:90vh}
+  .handle{display:none}
+}
+@media(max-width:699px){
+  .hr1,.footer-actions{padding-inline:14px}
+  .workspace{padding:18px 14px 22px}
+  .app-page{scrollbar-gutter:auto}
+  .overview{grid-template-columns:minmax(0,1fr);gap:8px;margin-bottom:14px}
+  .chips{gap:8px}
+  .chip{min-height:74px}
+  .hsum{padding:15px 16px}
+  .footer-actions .fab{flex:1}
+  #app[data-screen=objects] .footer-actions .fab{flex:0 1 auto}
+}
+@media(max-width:460px){
+  #app:not([data-screen=orgs]) .nav-caption{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+  #app[data-screen=objects] .footer-actions .fab.add{background:#fff;border-color:#dce4ee;color:#254362}
+}
+@media(max-width:375px){
+  .hr1{gap:6px}
+  .brandmini{gap:7px}
+  .brandmini img{width:32px}
+  .brand-nm{font-size:14px}
+  .nav-caption{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+  .billing-sheet{padding-inline:12px}
+  .bill-row{grid-template-columns:minmax(0,1fr) minmax(78px,90px)}
+  .record-open{padding:12px 9px 12px 12px;gap:6px}
+  .record-amount{font-size:15px}
+  .record-menu{margin-right:0}
+}
+@media(pointer:coarse){.tmpl,.chip-plus,.record-actions button{min-height:44px}}
+@media(prefers-reduced-motion:reduce){.ov,.sh{transition:none}}
 </style>
 </head>
 <body>
@@ -250,7 +325,7 @@ textarea.fi{resize:none;height:84px;font-size:15px;line-height:1.5}
   <div class="l-title">СтройКонтроль</div>
   <div class="l-sub">Менеджер проектов и оплат</div>
   <div class="l-box">
-    <span class="l-lbl">Пароль</span>
+    <label class="l-lbl" for="pwd">Пароль</label>
     <input class="l-inp" type="password" id="pwd" placeholder="Введи пароль" onkeydown="if(event.key==='Enter')tryLogin()">
     <button class="l-btn" onclick="tryLogin()">Войти</button>
     <div class="l-err" id="lerr"></div>
@@ -259,42 +334,53 @@ textarea.fi{resize:none;height:84px;font-size:15px;line-height:1.5}
 
 <!-- APP -->
 <div id="app">
-  <div class="hdr">
+  <header class="app-header">
     <div class="hr1">
-      <button class="back" id="backBtn" onclick="goBack()">←</button>
+      <button class="back" id="backBtn" type="button" onclick="goBack()" aria-label="Назад">‹</button>
       <div class="brandmini">
         <img src="logo-sk.png" alt="">
-        <div class="brand-tx">
-          <div class="brand-nm" id="brandNm">СтройКонтроль</div>
-          <div class="crumb" id="crumb" style="display:none"></div>
-        </div>
+        <div class="brand-nm">СтройКонтроль</div>
       </div>
       <div class="hr-btns">
-        <div class="sync" id="sync"></div>
-        <button class="hb" onclick="openOv('exportOv')" title="Экспорт">📊</button>
-        <button class="hb" onclick="logout()" title="Выйти">↪</button>
+        <div class="sync" id="sync" role="status"></div>
+        <button class="hb" type="button" onclick="openOv('exportOv')" title="Экспорт"><span aria-hidden="true">↓</span><span class="nav-caption">Экспорт</span></button>
+        <button class="hb" type="button" onclick="logout()" aria-label="Выйти" title="Выйти">↪</button>
       </div>
     </div>
-    <div class="hsum">
-      <h1 class="company-heading" id="companyHeading" hidden></h1>
-      <div class="hl" id="hl">Итого к получению</div>
-      <div class="ha" id="ha">₽0</div>
-      <div class="hi" id="hi">загрузка...</div>
-      <div class="company-overdue" id="companyOverdue" hidden></div>
+  </header>
+  <main class="app-page" id="appPage">
+    <div class="workspace">
+      <div class="page-heading">
+        <p id="pageParent" hidden></p>
+        <h1 id="companyHeading">Заказчики</h1>
+      </div>
+      <div class="overview">
+        <section class="hsum" aria-label="К получению">
+          <div class="hl" id="hl">К получению</div>
+          <div class="ha" id="ha">0 ₽</div>
+          <div class="hi" id="hi">Загрузка…</div>
+          <div class="company-overdue" id="companyOverdue" hidden></div>
+        </section>
+        <div class="chips" id="chips"></div>
+        <div class="company-actions" id="companyActions" hidden>
+          <button class="bill-action" type="button" onclick="openBilling()">Список для счёта</button>
+          <button type="button" onclick="openGroupPayment()">Внести оплату</button>
+          <button type="button" onclick="openQuick(curOrg.id)">Добавить работу</button>
+          <button class="history-action" type="button" onclick="openBillingHistory()">История счетов</button>
+        </div>
+      </div>
+      <p class="workflow-status" id="companyMessage" role="status" hidden></p>
+      <div class="sw" id="sw"><input class="search" type="search" id="searchInp" aria-label="Найти заказчика или объект" placeholder="Найти заказчика или объект" oninput="doSearch()"></div>
+      <div class="toolbar" id="toolbar" hidden></div>
+      <h2 class="list-title" id="listTitle" hidden></h2>
+      <div class="content" id="content"><div class="spin-box"><div class="spinner"></div>Загрузка…</div></div>
     </div>
-    <div class="company-actions" id="companyActions" hidden>
-      <button class="bill-action" type="button" onclick="openBilling()">Список для счёта</button>
-      <button type="button" onclick="onPay()">Внести оплату</button>
-      <button type="button" onclick="openQuick(curOrg.id)">Добавить работу</button>
-    </div>
-    <div class="chips" id="chips"></div>
-    <div class="sw" id="sw"><input class="search" type="search" id="searchInp" placeholder="Поиск организации или объекта..." oninput="doSearch()"></div>
-    <div class="toolbar" id="toolbar" style="display:none"></div>
-  </div>
-  <div class="content" id="content"><div class="spin-box"><div class="spinner"></div>Загрузка...</div></div>
+  </main>
   <div class="fab-group">
-    <button class="fab pay" id="payFab" onclick="onPay()" aria-label="Внести оплату" title="Внести оплату">−</button>
-    <button class="fab add" id="addFab" onclick="onAdd()" aria-label="Добавить" title="Добавить">+</button>
+    <div class="footer-actions">
+      <button class="fab pay" id="payFab" type="button" onclick="onPay()">Внести оплату</button>
+      <button class="fab add" id="addFab" type="button" onclick="onAdd()">Добавить работу</button>
+    </div>
   </div>
 </div>
 
@@ -303,17 +389,17 @@ textarea.fi{resize:none;height:84px;font-size:15px;line-height:1.5}
   <div class="handle"></div>
   <div class="sht">Быстрое добавление</div>
   <div class="shs">Создай работу за один шаг — не проваливаясь по уровням</div>
-  <span class="fl">Организация</span>
+  <label class="fl" for="qOrg">Заказчик</label>
   <select class="fi" id="qOrg" onchange="qOrgChange()"></select>
   <input class="fi" type="text" id="qOrgNew" placeholder="Название новой организации" style="display:none;margin-top:8px">
-  <span class="fl">Объект</span>
+  <label class="fl" for="qObj">Объект</label>
   <select class="fi" id="qObj"></select>
   <input class="fi" type="text" id="qObjNew" placeholder="Название нового объекта" style="display:none;margin-top:8px">
-  <span class="fl">Название работы *</span>
+  <label class="fl" for="qWName">Название работы *</label>
   <input class="fi" type="text" id="qWName" placeholder="Исполнительная документация">
   <div class="tmpl-row" id="qTmpl"></div>
-  <span class="fl">Сумма ₽ — пусто = «Уточняется»</span>
-  <input class="fi" type="number" id="qWAmt" placeholder="50000 или пусто" inputmode="decimal" step="0.01">
+  <label class="fl" for="qWAmt">Сумма, ₽</label>
+  <input class="fi" type="number" id="qWAmt" placeholder="Можно указать позже" inputmode="decimal" step="0.01">
   <span class="fl">Дедлайн оплаты</span>
   <input class="fi" type="date" id="qWDeadline">
   <span class="fl">Комментарий</span>
@@ -410,7 +496,51 @@ textarea.fi{resize:none;height:84px;font-size:15px;line-height:1.5}
     <footer class="bill-footer">
       <div class="bill-total-line" aria-live="polite"><span id="billingCount">Выбрано 0</span><strong id="billingTotal">0 ₽</strong></div>
       <button class="sb bill-submit" id="billCopy" type="button" disabled>Сформировать и скопировать</button>
+      <button class="bill-secondary" id="billIssue" type="button" disabled>Отметить, что счёт выставлен</button>
       <p class="bill-status" id="billStatus" role="status"></p>
+    </footer>
+  </section>
+</div>
+
+<div class="ov billing-overlay" id="billHistoryOv">
+  <section class="sh billing-sheet" role="dialog" aria-modal="true" aria-labelledby="billHistoryTitle">
+    <div class="billing-head">
+      <div><h2 class="sht" id="billHistoryTitle">История счетов</h2><p class="shs" id="billHistoryOrg"></p></div>
+      <button type="button" class="bill-close" data-close-workflow aria-label="Закрыть историю">×</button>
+    </div>
+    <div class="billing-body">
+      <div class="history-list" id="billHistoryList"></div>
+      <div class="history-detail" id="billHistoryDetail" hidden>
+        <button class="bill-secondary" type="button" id="billHistoryBack">К списку счетов</button>
+        <div class="history-meta" id="billHistoryMeta"></div>
+        <textarea class="fi" id="billHistoryText" readonly aria-label="Сохранённый текст для счёта"></textarea>
+        <button class="sb navy" type="button" id="billHistoryPay">Внести оплату по счёту</button>
+        <button class="sb gray" type="button" id="billHistoryCopy">Скопировать список</button>
+      </div>
+      <p class="workflow-status" id="billHistoryStatus" role="status"></p>
+    </div>
+  </section>
+</div>
+
+<div class="ov billing-overlay" id="transferOv">
+  <section class="sh billing-sheet" role="dialog" aria-modal="true" aria-labelledby="transferTitle">
+    <div class="billing-head">
+      <div><h2 class="sht" id="transferTitle">Внести поступление</h2><p class="shs" id="transferOrg"></p></div>
+      <button type="button" class="bill-close" data-close-workflow aria-label="Закрыть поступление">×</button>
+    </div>
+    <div class="billing-body" id="transferBody">
+      <div class="transfer-fields">
+        <label class="fl" for="transferAmount">Сумма перевода, ₽</label><label class="fl" for="transferDate">Дата поступления</label>
+        <input class="fi" type="text" inputmode="decimal" autocomplete="off" id="transferAmount"><input class="fi" type="date" id="transferDate">
+      </div>
+      <div class="transfer-works" id="transferWorks"></div>
+      <button class="bill-secondary" type="button" id="transferAllocate">Распределить по выбранным</button>
+      <button class="bill-secondary" type="button" id="transferSingle">Внести по одной работе</button>
+    </div>
+    <footer class="bill-footer">
+      <div class="transfer-totals" id="transferTotals" aria-live="polite"></div>
+      <button class="sb bill-submit" type="button" id="transferSave" disabled>Записать поступление</button>
+      <p class="workflow-status" id="transferStatus" role="status"></p>
     </footer>
   </section>
 </div>
@@ -495,7 +625,7 @@ const OST={active:{l:'🟢 Активный',c:'#0E9F6E',b:'#D1FAE5'},inactive:{
 
 function tryLogin(){const v=document.getElementById('pwd').value;if(v===PWD){localStorage.setItem(AUTH,'1');document.getElementById('login').classList.add('hidden');document.getElementById('app').classList.add('on');startApp();}else{const e=document.getElementById('lerr');e.textContent='Неверный пароль';document.getElementById('pwd').value='';setTimeout(()=>e.textContent='',2500);}}
 function logout(){if(!confirm('Выйти?'))return;unsubGlobal.forEach(u=>u&&u());unsubGlobal=[];localStorage.removeItem(AUTH);document.getElementById('app').classList.remove('on');document.getElementById('login').classList.remove('hidden');document.getElementById('pwd').value='';}
-function setSc(s){const d=document.getElementById('sync');d.className='sync'+(s==='ok'?' ok':s==='err'?' err':'');}
+function setSc(s){const d=document.getElementById('sync');d.className='sync'+(s==='ok'?' ok':s==='err'?' err':'');d.title=s==='ok'?'Заказчики загружены':s==='err'?'Ошибка загрузки заказчиков':'Загрузка заказчиков';d.setAttribute('aria-label',d.title);}
 function buzz(){if(navigator.vibrate)navigator.vibrate(8);}
 
 function startApp(){
@@ -504,7 +634,7 @@ function startApp(){
   const u1=db.collection('orgs').orderBy('createdAt').onSnapshot(s=>{orgs=s.docs.map(d=>({id:d.id,...d.data()}));setSc('ok');autoOverdue();refresh();},()=>setSc('err'));
   const u2=db.collection('objects').onSnapshot(s=>{ALL.objs=s.docs.map(d=>({id:d.id,...d.data()}));billingSourceReady.objects=true;refresh();});
   const u3=db.collection('works').onSnapshot(s=>{ALL.works=s.docs.map(d=>({id:d.id,...d.data()}));billingSourceReady.works=true;autoOverdue();refresh();});
-  const u4=db.collection('payments').onSnapshot(s=>{const m={};s.docs.forEach(d=>{const p=d.data();(m[p.workId]=m[p.workId]||[]).push({id:d.id,...p});});ALL.pays=m;billingSourceReady.payments=true;refresh();});
+  const u4=db.collection('payments').onSnapshot(s=>{const m={};s.docs.forEach(d=>{const p=d.data();(m[p.workId]=m[p.workId]||[]).push({id:d.id,...p});});ALL.pays=m;billingSourceReady.payments=true;refresh();document.dispatchEvent(new Event('payments:updated'));});
   const u5=db.collection('income').orderBy('date','desc').onSnapshot(s=>{income=s.docs.map(d=>({id:d.id,...d.data()}));refresh();});
   unsubGlobal=[u1,u2,u3,u4,u5];
 }
@@ -527,51 +657,54 @@ function earnedThisMonth(){return projIncomeThisMonth()+extraIncomeThisMonth();}
 
 function refresh(){if(sc==='orgs')renderOrgs();else if(sc==='objects')renderObjects();else if(sc==='works')renderWorks();if(document.getElementById('wdOv').classList.contains('on')&&curWork){curWork=ALL.works.find(w=>w.id===curWork.id)||curWork;renderWD();}if(document.getElementById('overdueOv').classList.contains('on'))renderOverdue();if(document.getElementById('moneyOv').classList.contains('on'))renderMoney();}
 
-function goBack(){closeAllOv();if(sc==='works'){sc='objects';curObj=null;renderObjects();updHdr();}else if(sc==='objects'){sc='orgs';curOrg=null;showArch=false;renderOrgs();updHdr();}}
-function openOrg(id){curOrg=orgs.find(o=>o.id===id);sc='objects';showArch=false;expandedObj=null;renderObjects();updHdr();document.getElementById('content').scrollTop=0;}
-function openObj(id){curObj=ALL.objs.find(o=>o.id===id);sc='works';renderWorks();updHdr();document.getElementById('content').scrollTop=0;}
+function goBack(){closeAllOv();if(sc==='works'){sc='objects';curObj=null;renderObjects();}else if(sc==='objects'){sc='orgs';curOrg=null;showArch=false;renderOrgs();}document.getElementById('appPage').scrollTop=0;}
+function openOrg(id){curOrg=orgs.find(o=>o.id===id);sc='objects';showArch=false;expandedObj=null;document.getElementById('companyMessage').hidden=true;renderObjects();document.getElementById('appPage').scrollTop=0;}
+function openObj(id){curObj=ALL.objs.find(o=>o.id===id);sc='works';renderWorks();document.getElementById('appPage').scrollTop=0;}
 
 function updHdr(){
-  const back=document.getElementById('backBtn'),sw=document.getElementById('sw'),chips=document.getElementById('chips'),tb=document.getElementById('toolbar'),crumb=document.getElementById('crumb'),brandNm=document.getElementById('brandNm');
-  const isCompany=sc==='objects', overdue=document.getElementById('companyOverdue');
-  document.querySelector('.hdr').classList.toggle('company-view',isCompany);
-  const companyHeading=document.getElementById('companyHeading');
-  companyHeading.hidden=!isCompany;
-  document.getElementById('companyActions').hidden=!isCompany;
-  document.getElementById('payFab').hidden=isCompany;
-  const addButton=document.getElementById('addFab');
-  const addLabel=isCompany?'Добавить объект':sc==='works'?'Добавить работу':'Добавить';
-  addButton.setAttribute('aria-label',addLabel);
-  addButton.title=addLabel;
+  const home=sc==='orgs', company=sc==='objects', workList=sc==='works';
+  const chips=document.getElementById('chips'), toolbar=document.getElementById('toolbar');
+  const overdue=document.getElementById('companyOverdue'), parent=document.getElementById('pageParent');
+  const listTitle=document.getElementById('listTitle');
+  document.getElementById('app').dataset.screen=sc;
+  document.getElementById('backBtn').classList.toggle('show',!home);
+  document.getElementById('companyHeading').textContent=home?'Заказчики':company?curOrg.name:curObj.name;
+  parent.hidden=!workList;
+  parent.textContent=workList?curOrg.name:'';
+  document.getElementById('companyActions').hidden=!company;
+  if(!company)document.getElementById('companyMessage').hidden=true;
+  document.getElementById('payFab').hidden=company;
+  document.getElementById('addFab').textContent=company?'Добавить объект':'Добавить работу';
+  document.getElementById('sw').hidden=!home;
+  chips.hidden=!home;
+  toolbar.hidden=!workList;
+  listTitle.hidden=home;
+  listTitle.textContent=company?(showArch?'Архив объектов':'Объекты'):'Работы';
   overdue.hidden=true;
-  let lbl='Итого к получению',amt=0,info='';
-  chips.style.display='none';tb.style.display='none';crumb.style.display='none';
-  if(sc==='orgs'){
-    back.classList.remove('show');sw.style.display='block';brandNm.textContent='СтройКонтроль';
-    amt=orgs.reduce((s,o)=>s+orgDebt(o.id),0);info=orgs.length+' '+plural(orgs.length,'организация','организации','организаций');
-    chips.style.display='flex';
-    chips.innerHTML=`<div class="chip warn" onclick="openOverdue()"><div class="chip-v">${fmt(totalOverdue())}</div><div class="chip-l">Просрочено</div><span class="chip-arrow">›</span></div><div class="chip earn" onclick="openMoney()"><div class="chip-v">${fmt(earnedThisMonth())}</div><div class="chip-l">Получено в ${monthName()}</div><button class="chip-plus" onclick="event.stopPropagation();openIncome()">+</button></div>`;
-  }else if(sc==='objects'){
-    back.classList.add('show');sw.style.display='none';brandNm.textContent='СтройКонтроль';companyHeading.textContent=curOrg.name;
+  let amt=0,info='';
+  if(home){
+    amt=orgs.reduce((sum,org)=>sum+orgDebt(org.id),0);
+    info=orgs.length+' '+plural(orgs.length,'заказчик','заказчика','заказчиков');
+    chips.innerHTML=`<button type="button" class="chip warn" onclick="openOverdue()"><span class="chip-l">Просрочено</span><strong class="chip-v">${billingMoney.format(totalOverdue())}</strong></button><div class="income-tile"><button type="button" class="chip earn" onclick="openMoney()"><span class="chip-l">Получено за месяц</span><strong class="chip-v">${billingMoney.format(earnedThisMonth())}</strong></button><button type="button" class="chip-plus" onclick="openIncome()" aria-label="Добавить разовый доход">+</button></div>`;
+  }else if(company){
     const objects=orgObjs(curOrg.id);
     const late=objects.flatMap(o=>objWorks(o.id)).filter(w=>w.status==='overdue').reduce((sum,w)=>sum+workRemaining(w),0);
     overdue.hidden=!late;
     overdue.textContent=late?'Просрочено '+billingMoney.format(late):'';
-    lbl='К получению';amt=orgDebt(curOrg.id);info=objects.length+' '+plural(objects.length,'объект','объекта','объектов')+' · Получено '+billingMoney.format(orgReceived(curOrg.id));
-  }else if(sc==='works'){
-    back.classList.add('show');sw.style.display='none';brandNm.textContent=curObj.name;crumb.style.display='block';crumb.textContent=curOrg.name;
-    lbl='Долг по объекту';amt=objDebt(curObj.id);info=objWorks(curObj.id).length+' '+plural(objWorks(curObj.id).length,'работа','работы','работ');
-    tb.style.display='flex';
-    tb.innerHTML=[ftb('all','Все'),ftb('overdue','🔴 Просрочка'),ftb('waiting','⏳ Ждёт'),ftb('clarifying','🔍 Уточн.'),`<div style="width:1px;background:rgba(255,255,255,.2);margin:2px"></div>`,stb('created','↕ Дата'),stb('amount','↕ Сумма'),stb('deadline','↕ Дедлайн'),stb('name','↕ А-Я')].join('');
+    amt=orgDebt(curOrg.id);
+    info='Получено '+billingMoney.format(orgReceived(curOrg.id));
+  }else if(workList){
+    amt=objDebt(curObj.id);
+    const count=objWorks(curObj.id).length;
+    info=count+' '+plural(count,'работа','работы','работ');
+    toolbar.innerHTML=`<div class="filter-group" role="group" aria-label="Статус работы">${[ftb('all','Все'),ftb('overdue','Просрочены'),ftb('waiting','Ожидают'),ftb('clarifying','Уточняются'),ftb('paid','Оплачены')].join('')}</div><label class="sort-field">Порядок <select onchange="setSort(this.value)">${Object.entries({created:'По дате',amount:'По сумме',deadline:'По сроку',name:'По названию'}).map(([key,label])=>`<option value="${key}"${key===sortMode?' selected':''}>${label}</option>`).join('')}</select></label>`;
   }
-  document.getElementById('hl').textContent=lbl;
-  document.getElementById('ha').textContent=fmt(amt);
+  document.getElementById('ha').textContent=billingMoney.format(amt);
   document.getElementById('hi').textContent=info;
 }
-function ftb(m,l){return`<button class="tb${filterMode===m?' active':''}" onclick="setFilter('${m}')">${l}</button>`;}
-function stb(m,l){return`<button class="tb${sortMode===m?' active':''}" onclick="setSort('${m}')">${l}</button>`;}
-function setFilter(m){filterMode=m;renderWorks();updHdr();}
-function setSort(m){sortMode=m;renderWorks();updHdr();}
+function ftb(m,l){return`<button type="button" class="tb${filterMode===m?' active':''}" aria-pressed="${filterMode===m}" onclick="setFilter('${m}')">${l}</button>`;}
+function setFilter(m){filterMode=m;renderWorks();}
+function setSort(m){sortMode=m;renderWorks();}
 
 function renderOrgs(){
   updHdr();
@@ -581,15 +714,15 @@ function renderOrgs(){
   // hot orgs (with overdue) to top
   list=[...list].sort((a,b)=>hasOverdue(b.id)-hasOverdue(a.id));
   const el=document.getElementById('content');
-  if(!list.length){el.innerHTML=emptyHtml(q?'Ничего не найдено':'Пока пусто','Добавь первую организацию кнопкой + или используй быстрое добавление');return;}
+  if(!list.length){el.innerHTML=emptyHtml(q?'Ничего не найдено':'Пока нет заказчиков',q?'Попробуй поискать по другому названию.':'Нажми «Добавить работу», чтобы создать заказчика и объект.');return;}
   el.innerHTML=list.map(org=>{
     const objs=orgObjs(org.id),debt=orgDebt(org.id),hot=hasOverdue(org.id);
     const prev=objs.map(o=>({n:o.name,d:objDebt(o.id),u:objWorks(o.id).some(w=>w.amount==null)}));
-    return`<div class="card${hot?' hot':''}"><div class="card-tap" onclick="openOrg('${org.id}')">
-      <div class="ct"><div class="cti"><div class="cn">${esc(org.name)}</div><div class="cs">${objs.length} ${plural(objs.length,'объект','объекта','объектов')}${hot?' · 🔴 есть просрочка':''}</div></div></div>
-      <div class="cb"><div class="cr" style="align-items:baseline"><span class="cl">Долг</span><span class="big-amt cv org">${debt?fmt(debt):'—'}</span></div></div>
-      ${prev.length?`<div class="acc">${prev.slice(0,3).map(p=>`<div class="accw" style="cursor:default"><div class="accw-top"><span class="accw-n">${esc(p.n)}</span><span class="accw-a" style="color:${p.d?'#E8720C':'#7C3AED'}">${p.d?fmt(p.d):(p.u?'уточн.':'—')}</span></div></div>`).join('')}${prev.length>3?`<div style="font-size:11px;color:#B6BECD;padding:2px 4px">ещё ${prev.length-3}...</div>`:''}</div>`:'<div style="height:6px"></div>'}
-      </div><div class="cacts"><button class="cact open-acc" onclick="openOrg('${org.id}')">Открыть →</button><button class="cact dots" onclick="openMenu('org','${org.id}')">⋯</button></div></div>`;
+    return`<article class="card record-card${hot?' hot':''}">
+      <button class="record-open" type="button" onclick="openOrg('${org.id}')"><span><strong class="record-name">${esc(org.name)}</strong><span class="record-meta">${objs.length} ${plural(objs.length,'объект','объекта','объектов')}${hot?'<span class="status-flag">Есть просрочка</span>':''}</span></span><span class="record-amount">${billingMoney.format(debt)}<small>к получению</small></span></button>
+      <button class="record-menu" type="button" aria-label="Действия с заказчиком" onclick="openMenu('org','${org.id}')">⋯</button>
+      ${prev.length?`<div class="record-extra">${prev.slice(0,3).map(p=>`<div class="record-line"><span>${esc(p.n)}</span><span>${p.d?billingMoney.format(p.d):p.u?'Сумма уточняется':'—'}</span></div>`).join('')}${prev.length>3?`<div class="record-line">Ещё ${prev.length-3}</div>`:''}</div>`:''}
+    </article>`;
   }).join('');
 }
 function hasOverdue(orgId){return ALL.works.some(w=>w.orgId===orgId&&w.status==='overdue'&&workRemaining(w)>0);}
@@ -601,21 +734,19 @@ function renderObjects(){
   list=[...list].sort((a,b)=>objHasOverdue(b.id)-objHasOverdue(a.id));
   const el=document.getElementById('content');
   let html='';
-  if(!list.length&&!showArch)html=emptyHtml('Нет объектов','Добавь первый объект кнопкой + снизу');
+  if(!list.length&&!showArch)html=emptyHtml('Нет объектов','Нажми «Добавить объект» внизу экрана.');
   else html=list.map(obj=>{
     const st=OST[obj.status]||OST.active,debt=objDebt(obj.id),ws=objWorks(obj.id),hot=objHasOverdue(obj.id);
     const open=expandedObj===obj.id;
-    return`<div class="card${hot?' hot':''}">
-      <div class="card-tap" onclick="toggleAcc('${obj.id}')">
-        <div class="ct"><div class="cti"><div class="cn">${esc(obj.name)}</div><div class="cs">${ws.length} ${plural(ws.length,'работа','работы','работ')}</div></div><span class="badge" style="color:${st.c};background:${st.b}">${st.l}</span></div>
-        <div class="cb"><div class="cr" style="align-items:baseline"><span class="cl">Долг по объекту</span><span class="big-amt cv org">${debt?fmt(debt):'—'}</span></div></div>
-      </div>
-      ${open?renderAccWorks(ws):''}
-      <div class="cacts"><button class="cact open-acc" onclick="toggleAcc('${obj.id}')">${open?'Свернуть ▲':'Показать работы ▼'}</button><button class="cact" onclick="openObj('${obj.id}')">Открыть →</button><button class="cact dots" onclick="openMenu('obj','${obj.id}')">⋯</button></div>
-    </div>`;
+    return`<article class="card record-card${hot?' hot':''}">
+      <button class="record-open" type="button" onclick="openObj('${obj.id}')"><span><strong class="record-name">${esc(obj.name)}</strong><span class="record-meta">${ws.length} ${plural(ws.length,'работа','работы','работ')}<span class="badge" style="color:${st.c};background:${st.b}">${st.l.replace(/^\S+\s/,'')}</span></span></span><span class="record-amount">${billingMoney.format(debt)}<small>к получению</small></span></button>
+      <button class="record-menu" type="button" aria-label="Действия с объектом" onclick="openMenu('obj','${obj.id}')">⋯</button>
+      <div class="record-actions"><button type="button" onclick="toggleAcc('${obj.id}')" aria-expanded="${open}">${open?'Свернуть работы':'Показать работы'}</button></div>
+      ${open?`<div class="record-extra">${renderAccWorks(ws)}</div>`:''}
+    </article>`;
   }).join('');
   const archCount=all.filter(o=>o.status==='archive').length;
-  if(archCount)html+=`<div class="arch-btn" onclick="showArch=!showArch;renderObjects()">${showArch?'↑ Скрыть архив':'📦 Показать архив ('+archCount+')'}</div>`;
+  if(archCount)html+=`<button class="arch-btn" type="button" onclick="showArch=!showArch;renderObjects()">${showArch?'К текущим объектам':'Архив объектов ('+archCount+')'}</button>`;
   el.innerHTML=html;
 }
 function objHasOverdue(objId){return ALL.works.some(w=>w.objId===objId&&w.status==='overdue'&&workRemaining(w)>0);}
@@ -624,7 +755,7 @@ function renderAccWorks(ws){
   if(!ws.length)return`<div class="acc"><div style="font-size:12px;color:#B6BECD;padding:6px 4px">Работ пока нет</div></div>`;
   return`<div class="acc">${ws.map(w=>{
     const st=WST[w.status]||WST.waiting,rem=w.amount!=null?workRemaining(w):null;
-    return`<div class="accw" onclick="openWD('${w.id}')"><div class="accw-top"><span class="accw-n">${esc(w.name)}</span><span class="accw-a" style="color:${rem!=null?(rem>0?'#E8720C':'#0E9F6E'):'#7C3AED'}">${rem!=null?(rem>0?fmt(rem):'оплачено'):'уточн.'}</span></div>${w.notes?`<div class="accw-note">${esc(w.notes)}</div>`:''}<div class="accw-meta">${st.l}${w.deadline?' · дедлайн '+fmtD(w.deadline):''}</div></div>`;
+    return`<button class="accw" type="button" onclick="openWD('${w.id}')"><span class="accw-top"><span class="accw-n">${esc(w.name)}</span><span class="accw-a">${rem!=null?(rem>0?billingMoney.format(rem):'Оплачено'):'Уточняется'}</span></span>${w.notes?`<span class="accw-note">${esc(w.notes)}</span>`:''}<span class="accw-meta">${st.l.replace(/^\S+\s/,'')}${w.deadline?' · срок '+fmtD(w.deadline):''}</span></button>`;
   }).join('')}</div>`;
 }
 
@@ -639,7 +770,7 @@ function renderWorks(){
     if(sortMode==='name')return a.name.localeCompare(b.name);return 0;
   });
   const el=document.getElementById('content');
-  if(!ws.length){el.innerHTML=emptyHtml(filterMode!=='all'?'Нет таких работ':'Нет работ',filterMode!=='all'?'Поменяй фильтр выше':'Добавь первую работу кнопкой + снизу');return;}
+  if(!ws.length){el.innerHTML=emptyHtml(filterMode!=='all'?'Нет таких работ':'Нет работ',filterMode!=='all'?'Выбери другой статус.':'Нажми «Добавить работу» внизу.');return;}
   const t=today();
   el.innerHTML=ws.map(w=>{
     const st=WST[w.status]||WST.waiting,pp=workPaid(w.id),rem=w.amount!=null?Math.max(0,w.amount-pp):null;
@@ -648,7 +779,7 @@ function renderWorks(){
     if(w.status!=='paid'&&w.deadline){const d=daysUntil(w.deadline);if(d<0)due=`<div class="due late">❗ Просрочен ${Math.abs(d)} ${plural(Math.abs(d),'день','дня','дней')}</div>`;else if(d<=3)due=`<div class="due soon">⏰ Дедлайн через ${d} ${plural(d,'день','дня','дней')}</div>`;}
     const hot=w.status==='overdue'||(w.status!=='paid'&&w.deadline&&w.deadline<t);
     return`<div class="card${hot?' hot':''}"><div class="card-tap" onclick="openWD('${w.id}')">
-      <div class="ct"><div class="cti"><div class="cn">${esc(w.name)}</div>${w.completionDate?`<div class="cs">✓ Выполнено ${fmtD(w.completionDate)}</div>`:''}${due}</div><span class="badge" style="color:${st.c};background:${st.b}">${st.l}</span></div>
+      <div class="ct"><div class="cti"><div class="cn">${esc(w.name)}</div>${w.completionDate?`<div class="cs">Выполнено ${fmtD(w.completionDate)}</div>`:''}${due}</div><span class="badge" style="color:${st.c};background:${st.b}">${st.l.replace(/^\S+\s/,'')}</span></div>
       ${w.amount?`<div class="prog"><div class="pf" style="width:${pct}%"></div></div>`:''}
       <div class="cb">
         <div class="cr"><span class="cl">Остаток</span><span class="cv ${rem!=null?'org':'purple'}" style="font-size:18px">${rem!=null?(rem>0?fmt(rem):'оплачено'):'уточняется'}</span></div>
@@ -656,7 +787,7 @@ function renderWorks(){
         ${pp?`<div class="cr"><span class="cl">Оплачено</span><span class="cv gray">${fmt(pp)}</span></div>`:''}
         ${w.notes?`<div style="font-size:12px;color:#9AA3B2;margin-top:9px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${esc(w.notes)}</div>`:''}
       </div>
-      </div><div class="cacts"><button class="cact pay" onclick="openAddPayFor('${w.id}')">− Оплата</button><button class="cact dots" onclick="openMenu('work','${w.id}')">⋯</button></div></div>`;
+      </div><div class="cacts"><button class="cact pay" type="button" onclick="openAddPayFor('${w.id}')">Внести оплату</button><button class="cact dots" type="button" aria-label="Действия с работой" onclick="openMenu('work','${w.id}')">⋯</button></div></div>`;
   }).join('');
 }
 
@@ -761,12 +892,19 @@ function openBilling(){
     const legend=document.createElement('legend');
     legend.textContent=object.name;
     fieldset.append(legend);
+    if(works.some(work=>work.amount!=null)){
+      const toggle=document.createElement('button');
+      toggle.type='button';toggle.className='bill-group-toggle';toggle.dataset.billSelectObject='';
+      toggle.textContent='Выбрать все с суммой';toggle.setAttribute('aria-pressed','false');
+      fieldset.append(toggle);
+    }
     for(const work of works){
       const row=document.createElement('div');
       row.className='bill-row';
       row.dataset.workId=work.id;
       row.innerHTML='<label><input type="checkbox"><span><strong></strong><small></small></span></label><div class="bill-money"><input class="fi" type="text" inputmode="decimal" autocomplete="off" disabled><span aria-hidden="true">₽</span></div>';
       const limit=work.amount==null?null:Math.round(workRemaining(work)*100);
+      row.dataset.known=String(limit!==null);
       row.querySelector('strong').textContent=work.name;
       const description=row.querySelector('small');
       description.textContent=limit===null?'Сумма уточняется':`Остаток ${billingMoney.format(limit/100)}`;
@@ -784,6 +922,7 @@ function openBilling(){
   }
   if(!list.childElementCount)list.innerHTML='<p class="bill-empty">Нет открытых работ по текущим объектам.</p>';
   document.getElementById('billingPreview').open=false;
+  restoreBillingDraft();
   updateBilling();
   openOv('billingOv');
   document.getElementById('app').inert=true;
@@ -811,17 +950,16 @@ function updateBilling(){
     if(!checked)continue;
     count++;
     const entry=available.get(row.dataset.workId);
-    const raw=input.value.trim().replace(/[\s\u00a0\u202f]/g,'').replace(',','.');
-    const cents=Math.round(Number(raw)*100);
+    const cents=readMoneyCents(input.value);
     const limit=entry?.work.amount==null?Infinity:Math.round(workRemaining(entry.work)*100);
-    if(!entry||!/^(?:\d+(?:\.\d{0,2})?|\.\d{1,2})$/.test(raw)||!Number.isSafeInteger(cents)||cents<=0||cents>limit||!Number.isSafeInteger(total+cents)){
+    if(!entry||cents===null||cents<=0||cents>limit||!Number.isSafeInteger(total+cents)){
       invalid=true;
       input.setAttribute('aria-invalid','true');
       error=!entry?'Одна из работ больше недоступна. Открой список заново.':cents>limit?`По работе «${entry.work.name}» сейчас доступно ${billingMoney.format(limit/100)}.`:'Укажи положительную сумму с точностью до копеек.';
       continue;
     }
     total+=cents;
-    lines.push(`${entry.object.name} — ${entry.work.name}, ${billingMoney.format(cents/100)}`);
+    lines.push({workId:entry.work.id,objId:entry.object.id,objectName:entry.object.name,workName:entry.work.name,cents});
   }
   const canCopy=count>0&&!invalid;
   document.getElementById('billingCount').textContent=`Выбрано ${count}`;
@@ -829,19 +967,22 @@ function updateBilling(){
   document.getElementById('billCopy').disabled=!canCopy;
   document.getElementById('billingPreview').hidden=!canCopy;
   const text=document.getElementById('billingText');
-  text.value=canCopy?[...lines,`Итого к оплате — ${billingMoney.format(total/100)}`].join('\n'):'';
+  const draft=canCopy?{orgId:billingOrgId,lines,totalCents:total,text:formatStatement(lines,total)}:null;
+  text.value=draft?.text||'';
+  updateBillIssueButton(draft);
   billingStatus(error,invalid);
-  return text.value;
+  return draft;
 }
 
 async function copyBilling(){
-  const text=updateBilling();
-  if(!text)return;
+  const draft=updateBilling();
+  if(!draft)return;
+  rememberBillingDraft(draft);
   const preview=document.getElementById('billingPreview');
   const field=document.getElementById('billingText');
   preview.open=true;
   try{
-    await navigator.clipboard.writeText(text);
+    await navigator.clipboard.writeText(draft.text);
     billingStatus('Скопировано. Можно вставить в «Мой налог».');
   }catch{
     if(!document.getElementById('billingOv').classList.contains('on'))return;
@@ -906,8 +1047,8 @@ document.getElementById('payFill').addEventListener('click',()=>{
     document.getElementById('pAmt').value=remaining>0?remaining:'';
   }
 });
-function savePay(){const a=parseFloat(document.getElementById('pAmt').value)||0;if(!a){alert('Введи сумму');return;}const w=payForWork;db.collection('payments').add({workId:w.id,workName:w.name,objName:w.objName||'',orgName:w.orgName||'',amount:a,date:document.getElementById('pDate').value||today(),note:document.getElementById('pNote').value.trim()||null,createdAt:firebase.firestore.FieldValue.serverTimestamp()});const np=workPaid(w.id)+a;if(w.amount!=null&&np>=w.amount)db.collection('works').doc(w.id).update({status:'paid'});else if(w.status==='clarifying'&&w.amount!=null)db.collection('works').doc(w.id).update({status:'waiting'});buzz();closeOv('payOv');}
-function delPay(id){if(!confirm('Удалить эту оплату?'))return;db.collection('payments').doc(id).delete();}
+function savePay(){const a=parseFloat(document.getElementById('pAmt').value)||0;if(!a){alert('Введи сумму');return;}const w=payForWork;saveSinglePayment(w,a,document.getElementById('pDate').value||today(),document.getElementById('pNote').value.trim()||null);buzz();closeOv('payOv');}
+function delPay(id){if(!confirm('Удалить эту оплату?'))return;deleteSinglePayment(id);}
 
 /* ===== EXTRA INCOME ===== */
 function openIncome(){document.getElementById('iAmt').value='';document.getElementById('iName').value='';document.getElementById('iDate').value=today();openOv('incOv');}
@@ -919,7 +1060,16 @@ function renderMoney(){
   document.getElementById('moneyT').textContent='Деньги за '+monthName();
   document.getElementById('moneySub').textContent='Всего получено: '+fmt(proj+extra)+' · проекты '+fmt(proj)+' + разовые '+fmt(extra);
   const items=[];
-  Object.values(ALL.pays).flat().forEach(p=>{if((p.date||'').startsWith(curMonth()))items.push({type:'proj',amount:p.amount,date:p.date,name:(p.workName||'Работа'),path:(p.orgName||'')+(p.objName?' › '+p.objName:''),note:p.note});});
+  const groups=new Map();
+  for(const payment of Object.values(ALL.pays).flat()){
+    if(!(payment.date||'').startsWith(curMonth()))continue;
+    if(!payment.groupId){items.push({type:'proj',amount:payment.amount,date:payment.date,name:payment.workName||'Работа',path:(payment.orgName||'')+(payment.objName?' › '+payment.objName:''),note:payment.note});continue;}
+    const group=groups.get(payment.groupId)||{type:'proj',amount:0,date:payment.date,name:'Поступление',path:payment.orgName||'',lines:[]};
+    group.amount+=payment.amount;
+    group.lines.push(`${payment.workName||'Работа'} — ${billingMoney.format(payment.amount)}`);
+    groups.set(payment.groupId,group);
+  }
+  for(const group of groups.values())items.push({...group,note:group.lines.join(' · ')});
   income.forEach(i=>{if((i.date||'').startsWith(curMonth()))items.push({type:'extra',amount:i.amount,date:i.date,name:i.name,id:i.id});});
   items.sort((a,b)=>(b.date||'').localeCompare(a.date||''));
   const el=document.getElementById('moneyList');
@@ -941,10 +1091,11 @@ function doSearch(){search=document.getElementById('searchInp').value;renderOrgs
 
 function openOv(id){if(id==='exportOv'){document.getElementById('expSel').innerHTML=orgs.map(o=>`<option value="${o.id}">${esc(o.name)}</option>`).join('');}document.getElementById(id).classList.add('on');}
 function closeOv(id){document.getElementById(id).classList.remove('on');}
-function closeAllOv(){document.querySelectorAll('.ov').forEach(o=>o.classList.remove('on'));document.getElementById('app').inert=false;}
+function closeAllOv(){if(typeof resetBillingWorkflows==='function')resetBillingWorkflows();document.querySelectorAll('.ov').forEach(o=>o.classList.remove('on'));document.getElementById('app').inert=false;}
 document.querySelectorAll('.ov').forEach(o=>o.addEventListener('click',e=>{
   if(e.target!==o)return;
   if(o.id==='billingOv')closeBilling();
+  else if(o.id==='billHistoryOv'||o.id==='transferOv')closeBillingWorkflow(o.id);
   else o.classList.remove('on');
 }));
 
@@ -966,5 +1117,6 @@ if(localStorage.getItem(AUTH)==='1'){document.getElementById('login').classList.
 // Регистрируем service worker для работы без интернета
 if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{});});}
 </script>
+<script src="billing-workflow.js"></script>
 </body>
 </html>
