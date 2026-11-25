@@ -51,13 +51,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .nav-caption{font-size:13px;font-weight:650}
 
 /* DASHBOARD */
-.app-page{flex:1;min-height:0;overflow-y:auto;scrollbar-gutter:stable}
+.app-page{
+  flex:1;min-height:0;overflow-y:auto;scrollbar-gutter:stable;
+  background-color:#f3f5f8;
+  background-image:linear-gradient(#26476d12 1px,transparent 1px),linear-gradient(90deg,#26476d12 1px,transparent 1px),
+    linear-gradient(#26476d0b 1px,transparent 1px),linear-gradient(90deg,#26476d0b 1px,transparent 1px);
+  background-size:110px 110px,110px 110px,22px 22px,22px 22px;
+}
 .workspace{max-width:1120px;margin:auto;padding:24px 24px 32px}
 .page-heading{margin-bottom:16px}
 .page-heading h1{font-size:clamp(26px,4vw,38px);line-height:1.12;letter-spacing:-.045em;overflow-wrap:anywhere}
 .page-heading p{font-size:14px;font-weight:650;color:#52617a;margin-bottom:5px;overflow-wrap:anywhere}
 .overview{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1.8fr);gap:12px;margin-bottom:20px}
 .hsum{display:flex;flex-direction:column;justify-content:center;min-width:0;background:#102747;color:#fff;border-radius:16px;padding:18px 20px}
+.home-total{transition:box-shadow .18s ease}
+.home-total:focus-within{box-shadow:0 0 0 3px #f79c4142}
+#app[data-screen=orgs] .home-total{background:#ffb35e;color:#302010;border:1px solid #eda04d}
+#app[data-screen=orgs] .home-total :is(.hl,.hi){color:#4e341b}
 .hl{font-size:14px;font-weight:550;color:#d1dded;margin-bottom:6px}
 .ha{font-size:clamp(28px,5vw,44px);font-weight:750;letter-spacing:-.055em;line-height:1.12;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 .hi{font-size:13px;color:#c9d7e9;margin-top:7px}
@@ -266,6 +276,23 @@ textarea.fi{resize:none;height:84px;font-size:15px;line-height:1.5}
 .transfer-fields .fl{margin-top:7px}
 .transfer-fields .fi{min-height:44px}
 .transfer-works{margin-top:12px}
+#transferOrg{font-size:16px;font-weight:680}
+#transferChangeCompany{margin-bottom:8px}
+.transfer-works .bill-object + .bill-object{margin-top:14px}
+.transfer-works .bill-object legend{font-size:16px;margin-bottom:7px}
+.transfer-works .bill-row strong{font-size:15px}
+.transfer-works .bill-row small{font-size:13px}
+.payment-company-search{display:block;margin:1px 0 10px}
+.payment-company-list{display:grid;gap:7px}
+.payment-company{width:100%;display:flex;justify-content:space-between;gap:10px;align-items:flex-start;min-height:57px;padding:10px 11px;border:1px solid #dce4ee;border-radius:10px;background:#fff;color:#16243a;text-align:left;font:inherit;cursor:pointer}
+.payment-company strong{display:block;font-size:16px;overflow-wrap:anywhere}
+.payment-company small{display:block;font-size:13px;color:#53677e;margin-top:4px}
+.payment-company-amount{font-size:15px;font-weight:730;white-space:nowrap;font-variant-numeric:tabular-nums}
+.payment-company:active,.bill-row:has(input[type=checkbox]:focus-visible){border-color:#8ca9cb;background:#eef4fb}
+@media(hover:hover){
+  #app[data-screen=orgs] .home-total:hover{box-shadow:0 5px 18px #a6571235}
+  .payment-company:hover,.record-open:hover{background:#f3f7fc}
+}
 .transfer-totals{display:grid;gap:3px;font-size:13px;color:#465a71}
 .transfer-totals strong{color:#16243a}
 .transfer-unavailable{font-size:13px;color:#64748b;margin:5px 0}
@@ -312,7 +339,7 @@ textarea.fi{resize:none;height:84px;font-size:15px;line-height:1.5}
   .record-menu{margin-right:0}
 }
 @media(pointer:coarse){.tmpl,.chip-plus,.record-actions button{min-height:44px}}
-@media(prefers-reduced-motion:reduce){.ov,.sh{transition:none}}
+@media(prefers-reduced-motion:reduce){.ov,.sh,.home-total{transition:none}}
 </style>
 </head>
 <body>
@@ -355,7 +382,7 @@ textarea.fi{resize:none;height:84px;font-size:15px;line-height:1.5}
         <h1 id="companyHeading">Заказчики</h1>
       </div>
       <div class="overview">
-        <section class="hsum" aria-label="К получению">
+        <section class="hsum home-total" aria-label="К получению">
           <div class="hl" id="hl">К получению</div>
           <div class="ha" id="ha">0 ₽</div>
           <div class="hi" id="hi">Загрузка…</div>
@@ -529,6 +556,7 @@ textarea.fi{resize:none;height:84px;font-size:15px;line-height:1.5}
       <button type="button" class="bill-close" data-close-workflow aria-label="Закрыть поступление">×</button>
     </div>
     <div class="billing-body" id="transferBody">
+      <button class="bill-secondary" type="button" id="transferChangeCompany" hidden>Выбрать другую компанию</button>
       <div class="transfer-fields">
         <label class="fl" for="transferAmount">Сумма перевода, ₽</label><label class="fl" for="transferDate">Дата поступления</label>
         <input class="fi" type="text" inputmode="decimal" autocomplete="off" id="transferAmount"><input class="fi" type="date" id="transferDate">
@@ -542,6 +570,19 @@ textarea.fi{resize:none;height:84px;font-size:15px;line-height:1.5}
       <button class="sb bill-submit" type="button" id="transferSave" disabled>Записать поступление</button>
       <p class="workflow-status" id="transferStatus" role="status"></p>
     </footer>
+  </section>
+</div>
+
+<div class="ov billing-overlay" id="paymentCompanyOv">
+  <section class="sh billing-sheet" role="dialog" aria-modal="true" aria-labelledby="paymentCompanyTitle">
+    <div class="billing-head">
+      <div><h2 class="sht" id="paymentCompanyTitle">Выбери компанию</h2><p class="shs">Затем отметь работы, за которые пришла оплата.</p></div>
+      <button type="button" class="bill-close" data-close-workflow aria-label="Закрыть список компаний">×</button>
+    </div>
+    <div class="billing-body">
+      <input class="fi payment-company-search" type="search" id="paymentCompanySearch" aria-label="Поиск компании" placeholder="Название компании">
+      <div class="payment-company-list" id="paymentCompanyList"></div>
+    </div>
   </section>
 </div>
 
@@ -860,10 +901,10 @@ async function saveQuick(){
 
 /* ===== PAY PICKER ===== */
 function onPay(){
+  if(sc==='orgs'){openPaymentCompanies();return;}
   let list=[];
   if(sc==='works')list=objWorks(curObj.id).map(w=>({w,path:''}));
   else if(sc==='objects')list=orgObjs(curOrg.id).flatMap(o=>objWorks(o.id).map(w=>({w,path:o.name})));
-  else list=ALL.works.map(w=>({w,path:(w.orgName||'')+(w.objName?' › '+w.objName:'')}));
   list=list.filter(x=>x.w.amount==null||workRemaining(x.w)>0);
   if(!list.length){alert('Нет работ для внесения оплаты');return;}
   document.getElementById('pickList').innerHTML=list.map(x=>{const rem=x.w.amount!=null?workRemaining(x.w):null;return`<div class="pick" onclick="pickWork('${x.w.id}')">${x.path?`<div class="pick-path">${esc(x.path)}</div>`:''}<div class="pick-n">${esc(x.w.name)}</div><div class="pick-s">${rem!=null?'Остаток: '+fmt(rem):'Сумма уточняется'}</div></div>`;}).join('');
@@ -1095,7 +1136,7 @@ function closeAllOv(){if(typeof resetBillingWorkflows==='function')resetBillingW
 document.querySelectorAll('.ov').forEach(o=>o.addEventListener('click',e=>{
   if(e.target!==o)return;
   if(o.id==='billingOv')closeBilling();
-  else if(o.id==='billHistoryOv'||o.id==='transferOv')closeBillingWorkflow(o.id);
+  else if(['billHistoryOv','transferOv','paymentCompanyOv'].includes(o.id))closeBillingWorkflow(o.id);
   else o.classList.remove('on');
 }));
 
