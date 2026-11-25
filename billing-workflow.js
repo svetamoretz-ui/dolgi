@@ -61,6 +61,7 @@ function closeBillingWorkflow(id, restoreFocus = true) {
   closeOv(id);
   billingElement('app').inert = false;
   if (restoreFocus) {
+    if (id === 'paymentCompanyOv') {billingElement('payFab').focus({preventScroll:true});return;}
     const selector = id === 'billHistoryOv' ? '.history-action' : '[onclick="openGroupPayment()"]';
     billingElement('companyActions').querySelector(selector)?.focus({preventScroll:true});
   }
@@ -248,7 +249,45 @@ function transferCandidates(orgId, statement) {
   });
 }
 
-function openGroupPayment(statement = null) {
+function renderPaymentCompanies() {
+  const query = billingElement('paymentCompanySearch').value.trim().toLocaleLowerCase('ru-RU');
+  const list = billingElement('paymentCompanyList');
+  const companies = orgs.filter(company => String(company.name).toLocaleLowerCase('ru-RU').includes(query))
+    .map(company => ({company,debt:orgDebt(company.id)}));
+  companies.sort((a,b) => Number(b.debt>0)-Number(a.debt>0) || a.company.name.localeCompare(b.company.name,'ru'));
+  const buttons = companies.map(({company,debt}) => {
+    const works = orgObjs(company.id).flatMap(object => objWorks(object.id));
+    const hasUnknown = works.some(work => work.amount==null);
+    const button = document.createElement('button');
+    button.type='button';button.className='payment-company';button.dataset.payCompany=company.id;
+    const details = document.createElement('span');
+    const name = document.createElement('strong');name.textContent=company.name;
+    const status = document.createElement('small');
+    status.textContent=debt>0?'К получению':hasUnknown?'Есть работы с неуточнённой суммой':'По текущим объектам долга нет';
+    details.append(name,status);button.append(details);
+    if(debt>0){
+      const amount=document.createElement('span');amount.className='payment-company-amount';amount.textContent=billingMoney.format(debt);button.append(amount);
+    }
+    return button;
+  });
+  list.replaceChildren(...buttons);
+  if(!buttons.length){
+    const message=document.createElement('p');message.className='bill-empty';message.textContent=query?'Компании с таким названием не найдены.':'Пока нет компаний.';list.append(message);
+  }
+}
+
+function openPaymentCompanies() {
+  if (!Object.values(billingSourceReady).every(Boolean)) {
+    alert('Дождись загрузки объектов, работ и оплат.');
+    return;
+  }
+  billingElement('paymentCompanySearch').value='';
+  renderPaymentCompanies();
+  openBillingWorkflow('paymentCompanyOv');
+  billingElement('paymentCompanyList').parentElement.scrollTop=0;
+}
+
+function openGroupPayment(statement = null, fromCompanyPicker = false) {
   if (!curOrg) return;
   if (!Object.values(billingSourceReady).every(Boolean)) {
     alert('Дождись загрузки объектов, работ и оплат.');
@@ -256,11 +295,12 @@ function openGroupPayment(statement = null) {
   }
   if (statement) closeBillingWorkflow('billHistoryOv', false);
   const rows = transferCandidates(curOrg.id, statement);
-  billingFlow.transfer = { id:paymentCollection().doc().id, orgId:curOrg.id, statement, rows, saving:false };
+  billingFlow.transfer = { id:paymentCollection().doc().id, orgId:curOrg.id, statement, rows:new Map(rows.map(row=>[row.workId,row])), saving:false };
   billingElement('transferOrg').textContent = curOrg.name + (statement ? ` · Счёт от ${fmtD(statement.issuedOn)}` : '');
   billingElement('transferAmount').value = '';
   billingElement('transferDate').value = today();
   billingElement('transferSingle').hidden = Boolean(statement);
+  billingElement('transferChangeCompany').hidden = !fromCompanyPicker;
   const list = billingElement('transferWorks');
   list.replaceChildren();
   if (!rows.length) {
@@ -269,16 +309,22 @@ function openGroupPayment(statement = null) {
     empty.textContent = 'Нет работ с остатком и известной суммой для распределения.';
     list.append(empty);
   }
+  const groups = new Map();
   for (const row of rows) {
+    if (!groups.has(row.objId)) {
+      const group=document.createElement('fieldset');group.className='bill-object';
+      const heading=document.createElement('legend');heading.textContent=row.objectName;group.append(heading);
+      groups.set(row.objId,group);list.append(group);
+    }
     const element = document.createElement('div');
     element.className = 'bill-row';
     element.dataset.transferWork = row.workId;
     element.innerHTML = '<label><input type="checkbox"><span><strong></strong><small></small></span></label><div class="bill-money"><input class="fi" type="text" inputmode="decimal" autocomplete="off"><span aria-hidden="true">₽</span></div>';
     element.querySelector('strong').textContent = row.workName;
-    element.querySelector('small').textContent = `${row.objectName} · доступно ${amountLabel(row.limit)}`;
+    element.querySelector('small').textContent = `Остаток ${amountLabel(row.limit)}`;
     element.querySelector('input[type=checkbox]').checked = Boolean(statement);
     element.querySelector('.bill-money input').setAttribute('aria-label', `В оплату, ${row.objectName} — ${row.workName}, ₽`);
-    list.append(element);
+    groups.get(row.objId).append(element);
   }
   workflowStatus('transferStatus', '');
   updateTransfer();
@@ -292,14 +338,14 @@ function readTransfer() {
   const allocations = [];
   let assigned = 0, invalid = false;
   const transfer = billingFlow.transfer;
-  for (const [index, element] of Array.from(billingElement('transferWorks').querySelectorAll('[data-transfer-work]')).entries()) {
+  for (const element of billingElement('transferWorks').querySelectorAll('[data-transfer-work]')) {
     const checked = element.querySelector('input[type=checkbox]').checked;
     const input = element.querySelector('.bill-money input');
     input.disabled = !checked || transfer.saving;
     input.removeAttribute('aria-invalid');
     if (!checked || !input.value.trim()) continue;
     const cents = readMoneyCents(input.value);
-    const row = transfer.rows[index];
+    const row = transfer.rows.get(element.dataset.transferWork);
     if (cents === null || cents > row.limit || !Number.isSafeInteger(assigned + cents)) {
       invalid = true;
       input.setAttribute('aria-invalid','true');
@@ -336,9 +382,9 @@ function suggestTransferAllocation() {
   let left = readMoneyCents(billingElement('transferAmount').value);
   if (!transfer || transfer.saving || !(left > 0)) return;
   const items = billingElement('transferWorks').querySelectorAll('[data-transfer-work]');
-  items.forEach((element, index) => {
+  items.forEach(element => {
     if (!element.querySelector('input[type=checkbox]').checked) return;
-    const cents = Math.min(transfer.rows[index].limit, left);
+    const cents = Math.min(transfer.rows.get(element.dataset.transferWork).limit, left);
     element.querySelector('.bill-money input').value = cents > 0 ? centsAsInput(cents) : '';
     left -= cents;
   });
@@ -397,7 +443,7 @@ function deleteSinglePayment(id) {
 function setTransferBusy(busy) {
   const transfer = billingFlow.transfer;
   transfer.saving = busy;
-  for (const id of ['transferAmount','transferDate','transferSingle']) billingElement(id).disabled = busy;
+  for (const id of ['transferAmount','transferDate','transferSingle','transferChangeCompany']) billingElement(id).disabled = busy;
   billingElement('transferOv').querySelector('[data-close-workflow]').disabled = busy;
   billingElement('transferWorks').querySelectorAll('input[type=checkbox]').forEach(input => {input.disabled = busy;});
   updateTransfer();
@@ -509,7 +555,20 @@ for (const id of ['transferAmount','transferDate','transferWorks']) billingEleme
 billingElement('transferAllocate').addEventListener('click',suggestTransferAllocation);
 billingElement('transferSave').addEventListener('click',saveGroupedPayment);
 billingElement('transferSingle').addEventListener('click',() => {closeBillingWorkflow('transferOv',false);onPay();});
-for (const id of ['billHistoryOv','transferOv']) {
+billingElement('transferChangeCompany').addEventListener('click',() => {
+  closeBillingWorkflow('transferOv',false);
+  goBack();
+  openPaymentCompanies();
+});
+billingElement('paymentCompanySearch').addEventListener('input',renderPaymentCompanies);
+billingElement('paymentCompanyList').addEventListener('click',event => {
+  const button=event.target.closest('[data-pay-company]');
+  if(!button||!orgs.some(company=>company.id===button.dataset.payCompany))return;
+  closeBillingWorkflow('paymentCompanyOv',false);
+  openOrg(button.dataset.payCompany);
+  openGroupPayment(null,true);
+});
+for (const id of ['billHistoryOv','transferOv','paymentCompanyOv']) {
   const overlay = billingElement(id);
   overlay.querySelector('[data-close-workflow]').addEventListener('click',() => closeBillingWorkflow(id));
   overlay.addEventListener('keydown',event => {if (event.key === 'Escape') closeBillingWorkflow(id);});
