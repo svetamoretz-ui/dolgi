@@ -1,6 +1,6 @@
 // СтройКонтроль — Service Worker для работы без интернета
 // Версия кэша — меняй при обновлении index.html, чтобы телефон подтянул свежее
-const CACHE = 'sk-cache-v7';
+const CACHE = 'sk-cache-v9';
 
 // Что кэшируем: само приложение + внешние библиотеки
 const ASSETS = [
@@ -9,6 +9,7 @@ const ASSETS = [
   './manifest.json',
   './logo-sk.png',
   './icon-sk.png',
+  './billing-workflow.js',
   'https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js',
   'https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js',
   'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'
@@ -25,7 +26,7 @@ self.addEventListener('install', e => {
 self.addEventListener('activate', e => {
   e.waitUntil(
     caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
+      Promise.all(keys.filter(k => k.startsWith('sk-cache-') && k !== CACHE).map(k => caches.delete(k)))
     ).then(() => self.clients.claim())
   );
 });
@@ -52,6 +53,11 @@ self.addEventListener('fetch', e => {
         caches.open(CACHE).then(c => c.put(e.request, copy)).catch(() => {});
         return resp;
       })
-      .catch(() => caches.match(e.request).then(r => r || caches.match('./index.html')))
+      .catch(async () => {
+        const cached = await caches.match(e.request);
+        if (cached) return cached;
+        if (e.request.mode === 'navigate') return (await caches.match('./index.html')) || Response.error();
+        return Response.error();
+      })
   );
 });
